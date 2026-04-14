@@ -1,7 +1,7 @@
 {
   "/_not-found/page": "/_not-found",
-  "/repository/page": "/repository",
   "/download/page": "/download",
+  "/repository/page": "/repository",
   "/page": "/",
   "/repository/[id]/page": "/repository/[id]"
 }

@@ -13,7 +13,7 @@
     "typedRoutes": false,
     "distDir": ".next",
     "cleanDistDir": true,
-    "assetPrefix": "",
+    "assetPrefix": "/NPdia",
     "cacheMaxMemorySize": 52428800,
     "configOrigin": "next.config.ts",
     "useFileSystemPublicRoutes": true,
@@ -47,7 +47,7 @@
         256,
         384
       ],
-      "path": "/_next/image",
+      "path": "/NPdia/_next/image",
       "loader": "default",
       "loaderFile": "",
       "domains": [],
@@ -61,7 +61,7 @@
       "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
       "contentDispositionType": "attachment",
       "remotePatterns": [],
-      "unoptimized": false
+      "unoptimized": true
     },
     "devIndicators": {
       "position": "bottom-left"
@@ -71,9 +71,9 @@
       "pagesBufferLength": 5
     },
     "amp": {
-      "canonicalBase": ""
+      "canonicalBase": "/NPdia"
     },
-    "basePath": "",
+    "basePath": "/NPdia",
     "sassOptions": {},
     "trailingSlash": false,
     "i18n": null,
@@ -91,6 +91,7 @@
     "compiler": {},
     "expireTime": 31536000,
     "staticPageGenerationTimeout": 60,
+    "output": "export",
     "modularizeImports": {
       "@mui/icons-material": {
         "transform": "@mui/icons-material/{{member}}"
@@ -99,7 +100,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "D:\\연구\\6. T1PKS NRPS 생합성경로 DB\\Web_v2",
+    "outputFileTracingRoot": "D:\\Web_v2",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -289,10 +290,10 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.ts",
     "turbopack": {
-      "root": "D:\\연구\\6. T1PKS NRPS 생합성경로 DB\\Web_v2"
+      "root": "D:\\Web_v2"
     }
   },
-  "appDir": "D:\\연구\\6. T1PKS NRPS 생합성경로 DB\\Web_v2",
+  "appDir": "D:\\Web_v2",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",
