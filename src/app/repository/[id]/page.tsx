@@ -333,7 +333,7 @@ export default async function EntryDetailPage({
 
       {/* ── Steps table ─────────────────────────────────────────────────────── */}
       <h3 className="section-heading" style={{ marginBottom: "14px" }}>
-        Biosynthetic Steps
+        Biosynthetic Reactions
         <span
           style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}
         >
