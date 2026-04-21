@@ -10625,7 +10625,7 @@
           "order": "9",
           "enzyme": "ACY01401.1",
           "module": "8",
-          "nonlinearity": "{‘ModuleSkip’: ‘Skip’, 'Missing': ['KR', 'DH', 'ER'], 'transAT': ['ACY01403.1', 'Malonyl-CoA']}",
+          "nonlinearity": "{'ModuleSkip': 'Skip', 'Missing': ['KR', 'DH', 'ER'], 'transAT': ['ACY01403.1', 'Malonyl-CoA']}",
           "substrate": {
             "raw": null,
             "precursor_refs": null,
@@ -10638,7 +10638,7 @@
           "order": "10",
           "enzyme": "ACY01401.1",
           "module": "9",
-          "nonlinearity": "{'transAT': ['ACY01403.1', 'Malonyl-CoA'], 'Iteration': [((‘KR’, ‘DH’, 'ER'), ‘Malonyl-CoA’), ((‘KR’, ‘DH’), ‘Malonyl-CoA’)]}",
+          "nonlinearity": "{'transAT': ['ACY01403.1', 'Malonyl-CoA'], 'Iteration': [(('KR', 'DH', 'ER'), 'Malonyl-CoA'), (('KR', 'DH'), 'Malonyl-CoA')]}",
           "substrate": {
             "raw": null,
             "precursor_refs": null,
@@ -11296,7 +11296,7 @@
           "order": "1",
           "enzyme": "HFD88_005933;HFD88_005931",
           "module": null,
-          "nonlinearity": "{‘Iteration’: [((‘KR’, ‘DH’), ‘Methylmalonyl-CoA’), ((‘KR’, ‘DH’), ‘Methylmalonyl-CoA’), ((‘KR’, ‘DH’, ‘MT’), ‘Methylmalonyl-CoA’), ((‘KR’, ‘DH’), ‘Methylmalonyl-CoA’), ((‘KR’, ‘DH’), ‘Methylmalonyl-CoA’), ((‘DA_Spontaneous’), ‘Spontaneous’), ((‘KR’, ‘DH’), ‘Methylmalonyl-CoA’), ((‘KR’), ‘Methylmalonyl-CoA’), ((‘KR’), ‘Methylmalonyl-CoA’)]}",
+          "nonlinearity": "{'Iteration': [(('KR', 'DH'), 'Methylmalonyl-CoA'), (('KR', 'DH'), 'Methylmalonyl-CoA'), (('KR', 'DH', 'MT'), 'Methylmalonyl-CoA'), (('KR', 'DH'), 'Methylmalonyl-CoA'), (('KR', 'DH'), 'Methylmalonyl-CoA'), (('DA_Spontaneous'), 'Spontaneous'), (('KR', 'DH'), 'Methylmalonyl-CoA'), (('KR'), 'Methylmalonyl-CoA'), (('KR'), 'Methylmalonyl-CoA')]}",
           "substrate": {
             "raw": "Malonyl-CoA",
             "precursor_refs": null,
@@ -17111,7 +17111,7 @@
           "order": "6",
           "enzyme": "smdI",
           "module": "5",
-          "nonlinearity": "{'transAT': ['smdF', 'Methylmalonyl-CoA'], 'Iteration': [((‘KR’, ‘DH’, 'MT'), ‘Malonyl-CoA’), ((‘KR’, ‘DH’, 'MT'), ‘Malonyl-CoA’)]}",
+          "nonlinearity": "{'transAT': ['smdF', 'Methylmalonyl-CoA'], 'Iteration': [(('KR', 'DH', 'MT'), 'Malonyl-CoA'), (('KR', 'DH', 'MT'), 'Malonyl-CoA')]}",
           "substrate": {
             "raw": "171-5",
             "precursor_refs": [
@@ -17239,7 +17239,7 @@
           "order": null,
           "enzyme": "AFO59866.1",
           "module": "6",
-          "nonlinearity": "{'transAT': ['AFO59863.1', 'Methylmalonyl-CoA'], 'Iteration': [((‘KR’, ‘DH’, 'MT'), ‘Malonyl-CoA’), ((‘KR’, ‘DH’, 'MT'), ‘Malonyl-CoA’)]}",
+          "nonlinearity": "{'transAT': ['AFO59863.1', 'Methylmalonyl-CoA'], 'Iteration': [(('KR', 'DH', 'MT'), 'Malonyl-CoA'), (('KR', 'DH', 'MT'), 'Malonyl-CoA')]}",
           "substrate": {
             "raw": "175-5",
             "precursor_refs": [
@@ -18182,7 +18182,7 @@
           "order": "2",
           "enzyme": "azi26",
           "module": null,
-          "nonlinearity": "{'iteration': [((None), ‘Malonyl-CoA’), ((‘KR’), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), ((‘KR’), ‘Malonyl-CoA’), ((‘KR’), ‘Malonyl-CoA’)]}",
+          "nonlinearity": "{'iteration': [((None), 'Malonyl-CoA'), (('KR'), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), (('KR'), 'Malonyl-CoA'), (('KR'), 'Malonyl-CoA')]}",
           "substrate": {
             "raw": "960-1",
             "precursor_refs": [
@@ -19652,7 +19652,7 @@
           "order": "1",
           "enzyme": "SSLG_04251",
           "module": null,
-          "nonlinearity": "{'iteration': [((None), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), (('KR', 'DH'), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’)]}",
+          "nonlinearity": "{'iteration': [((None), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), (('KR', 'DH'), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), ((None), 'Malonyl-CoA')]}",
           "substrate": {
             "raw": null,
             "precursor_refs": null,
@@ -19682,7 +19682,7 @@
           "order": "3",
           "enzyme": "SSLG_04251",
           "module": null,
-          "nonlinearity": "{'iteration': [((None), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’), (('KR', 'DH'), ‘Malonyl-CoA’), ((None), ‘Malonyl-CoA’)]}",
+          "nonlinearity": "{'iteration': [((None), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), ((None), 'Malonyl-CoA'), (('KR', 'DH'), 'Malonyl-CoA'), ((None), 'Malonyl-CoA')]}",
           "substrate": {
             "raw": null,
             "precursor_refs": null,
@@ -33194,7 +33194,7 @@
           "order": "2",
           "enzyme": "tlmH",
           "module": null,
-          "nonlinearity": "{'iteration': [(('KR', 'DH'), ‘Methylmalonyl-CoA’), (('KR', 'DH'), ‘Methylmalonyl-CoA’), ((None), ‘Methylmalonyl-CoA’)]}",
+          "nonlinearity": "{'iteration': [(('KR', 'DH'), 'Methylmalonyl-CoA'), (('KR', 'DH'), 'Methylmalonyl-CoA'), ((None), 'Methylmalonyl-CoA')]}",
           "substrate": {
             "raw": "1237-1",
             "precursor_refs": [
@@ -33357,7 +33357,7 @@
           "order": "7",
           "enzyme": "SLI_RS05050, SLI_RS05055",
           "module": null,
-          "nonlinearity": "{'iteration': [([None], ‘Propionyl-CoA’), (('KR', 'DH', 'ER'), ‘Methylmalonyl-CoA’), (('KR', 'DH', 'ER'), ‘Methylmalonyl-CoA’), (('KR', 'DH'), ‘Methylmalonyl-CoA’)]}",
+          "nonlinearity": "{'iteration': [([None], 'Propionyl-CoA'), (('KR', 'DH', 'ER'), 'Methylmalonyl-CoA'), (('KR', 'DH', 'ER'), 'Methylmalonyl-CoA'), (('KR', 'DH'), 'Methylmalonyl-CoA')]}",
           "substrate": {
             "raw": null,
             "precursor_refs": null,
@@ -61057,7 +61057,7 @@
           "order": "3",
           "enzyme": "htm1",
           "module": "2",
-          "nonlinearity": "{‘ModuleSkip’: ‘Skip’}",
+          "nonlinearity": "{'ModuleSkip': 'Skip'}",
           "substrate": {
             "raw": "2810-2",
             "precursor_refs": [
@@ -71996,7 +71996,7 @@
           "order": "5",
           "enzyme": "?",
           "module": null,
-          "nonlinearity": "{'iteration': [((None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’))]}",
+          "nonlinearity": "{'iteration': [((None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'))]}",
           "substrate": {
             "raw": "202-4",
             "precursor_refs": [
@@ -72241,7 +72241,7 @@
           "order": "15",
           "enzyme": "bexA,bexB,bexC",
           "module": null,
-          "nonlinearity": "{'iteration': [((None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’))]}",
+          "nonlinearity": "{'iteration': [((None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'))]}",
           "substrate": {
             "raw": "203-14",
             "precursor_refs": [
@@ -72492,7 +72492,7 @@
           "order": "3",
           "enzyme": "benA,benB,benC",
           "module": null,
-          "nonlinearity": "{'iteration': [((None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’), (None), ‘Malonyl-CoA’))]}",
+          "nonlinearity": "{'iteration': [((None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'), (None), 'Malonyl-CoA'))]}",
           "substrate": {
             "raw": "204-2;Malonyl-CoA",
             "precursor_refs": [
@@ -74609,7 +74609,7 @@
           "order": "3",
           "enzyme": "sco0492,sco0490",
           "module": "1",
-          "nonlinearity": "{'iteration': [((1), ‘325-1’))]}",
+          "nonlinearity": "{'iteration': [((1), '325-1'))]}",
           "substrate": {
             "raw": "325-2",
             "precursor_refs": [
