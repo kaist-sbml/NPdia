@@ -508,6 +508,13 @@ export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
       </div>
 
       {/* ── Canvas ───────────────────────────────────────────────────────── */}
+      {/*
+        SVG viewport scaling (width/height ≠ viewBox) breaks <foreignObject>
+        on Safari/WebKit: path arrows scale but HTML nodes do not.
+        Fix: keep SVG at native logical size and use CSS transform on a wrapper
+        div. CSS scale applies to the entire rendered element (raster), so
+        foreignObject content scales correctly on all browsers.
+      */}
       <div
         ref={containerRef}
         style={{
@@ -520,9 +527,13 @@ export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
           cursor: "default",
         }}
       >
+        {/* Sized to the scaled dimensions so the scrollbar tracks correctly */}
+        <div style={{ width: Math.round(W * zoom), height: Math.round(H * zoom), position: "relative", flexShrink: 0 }}>
+          {/* CSS scale applied here — affects SVG paths AND foreignObject uniformly */}
+          <div style={{ position: "absolute", top: 0, left: 0, transformOrigin: "top left", transform: `scale(${zoom})` }}>
         <svg
-          width={W * zoom}
-          height={H * zoom}
+          width={W}
+          height={H}
           viewBox={`0 0 ${W} ${H}`}
           style={{ display: "block" }}
         >
@@ -723,6 +734,8 @@ export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
             );
           })}
         </svg>
+          </div>
+        </div>
       </div>
 
       {/* ── Legend ───────────────────────────────────────────────────────── */}
