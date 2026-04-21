@@ -1,0 +1,200 @@
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f5f5fb;
+  min-height: 100vh;
+  color: #1a1a2e;
+}
+
+/* ─── Layout ────────────────────────────────────────────────────────────── */
+.page-main {
+  max-width: 1000px;
+  margin: 0 auto;
+  /*
+    Fluid padding:
+      vertical  → 20px  at ~480px wide  →  48px at ~1200px wide
+      horizontal → 14px at ~480px wide  →  32px at ~1200px wide
+  */
+  padding: clamp(20px, 4vw, 48px) clamp(14px, 2.7vw, 32px);
+}
+
+/* ─── Header ────────────────────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #1a1a2e;
+  border-bottom: 1px solid #2e2e4d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Fluid height: 50px at ~480px → 60px at ~1200px */
+  height: clamp(50px, 5vw, 60px);
+  /* Fluid side padding: 14px → 40px */
+  padding: 0 clamp(14px, 3.3vw, 40px);
+  gap: clamp(8px, 2vw, 16px);
+}
+
+.header-title {
+  color: #e0e0ff;
+  /* Fluid: 13px → 17px */
+  font-size: clamp(13px, 1.4vw, 17px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-nav {
+  display: flex;
+  gap: clamp(4px, 0.8vw, 8px);
+  flex-shrink: 0;
+}
+
+.header-nav-link {
+  text-decoration: none;
+  /* Fluid padding: (4–6px) vertical, (10–18px) horizontal */
+  padding: clamp(4px, 0.5vw, 6px) clamp(10px, 1.5vw, 18px);
+  border-radius: 6px;
+  /* Fluid font: 12px → 14px */
+  font-size: clamp(12px, 1.2vw, 14px);
+  transition: background-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+/* ─── Page typography ────────────────────────────────────────────────────── */
+.page-heading {
+  /* Fluid: 24px → 36px */
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 8px 0;
+}
+
+.section-heading {
+  /* Fluid: 17px → 20px */
+  font-size: clamp(17px, 1.7vw, 20px);
+  font-weight: 600;
+  color: #1a1a2e;
+  border-left: 4px solid #6464dc;
+  padding-left: 12px;
+  margin: 0 0 16px 0;
+}
+
+/* ─── About: stats grid ─────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  /*
+    auto-fit + minmax: columns appear/disappear fluidly as width changes.
+    4 columns on wide screens, 2 on medium, 1 on very narrow.
+  */
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: clamp(10px, 1.5vw, 16px);
+}
+
+.stats-card {
+  /* Fluid padding: 14px → 20px */
+  padding: clamp(14px, 1.5vw, 20px);
+  background-color: #ffffff;
+  border: 1px solid #dde;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.stats-card-value {
+  /* Fluid: 22px → 28px */
+  font-size: clamp(22px, 2.3vw, 28px);
+  font-weight: 700;
+  color: #6464dc;
+}
+
+/* ─── Repository: search + filter bar ───────────────────────────────────── */
+.repo-toolbar {
+  display: flex;
+  gap: clamp(8px, 1.2vw, 12px);
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.repo-search {
+  flex: 1 1 220px;
+  padding: clamp(6px, 0.7vw, 8px) clamp(10px, 1.2vw, 14px);
+  border: 1px solid #ccd;
+  border-radius: 8px;
+  font-size: clamp(12px, 1.2vw, 14px);
+  outline: none;
+  background-color: #fff;
+  color: #222;
+  min-width: 0;
+}
+
+.repo-filters {
+  display: flex;
+  gap: clamp(4px, 0.6vw, 6px);
+  flex-wrap: wrap;
+}
+
+/* ─── Detail page: metadata grid ────────────────────────────────────────── */
+.meta-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  row-gap: 8px;
+  column-gap: clamp(12px, 2vw, 20px);
+  /* Fluid font: 13px → 14px */
+  font-size: clamp(13px, 1.3vw, 14px);
+}
+
+/* ─── Detail page: compound title ───────────────────────────────────────── */
+.compound-title {
+  /* Fluid: 21px → 30px */
+  font-size: clamp(21px, 2.5vw, 30px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 20px 0;
+  word-break: break-word;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STRUCTURAL BREAKPOINTS
+   Only used for layout direction changes that clamp() cannot express.
+   All font sizes and spacing are already fluid above.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Narrow screens: collapse meta-grid from 2-column to single column */
+@media (max-width: 560px) {
+  .meta-grid {
+    grid-template-columns: 1fr;
+    row-gap: 4px;
+  }
+
+  .meta-grid dt {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .meta-grid dt:first-child {
+    margin-top: 0;
+  }
+
+  /* Filter buttons take full row on narrow screens */
+  .repo-filters {
+    width: 100%;
+  }
+}

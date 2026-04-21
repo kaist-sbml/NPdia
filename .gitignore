@@ -1,0 +1,5 @@
+data/raw/mibig_gbk_4.0
+node_modules/
+.next/
+.env
+.env.local
