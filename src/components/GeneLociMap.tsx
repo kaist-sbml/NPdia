@@ -9,6 +9,8 @@ type GeneDomain = {
   start: number;
   end: number;
   strand: number;
+  domain_id: string | null;
+  module_idx: number | null;
 };
 
 type Gene = {

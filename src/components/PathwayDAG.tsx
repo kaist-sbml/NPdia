@@ -322,89 +322,49 @@ function nodeBorder(n: GNode) {
   return "#c4c4e8";
 }
 
+// ── Gene loci types (passed from parent) ─────────────────────────────────────
+
+type GeneDomain = {
+  type: string | null; start: number; end: number; strand: number;
+  domain_id: string | null; module_idx: number | null;
+};
+type GeneLocus  = {
+  gene: string | null; start: number; end: number; strand: number;
+  gene_kind: string | null; product: string | null;
+  gene_functions: string[]; domains: GeneDomain[];
+};
+
+const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> = {
+  "PKS_KS":            { fill: "#1e3a8a", abbr: "KS",  label: "Ketosynthase" },
+  "PKS_AT":            { fill: "#1d4ed8", abbr: "AT",  label: "Acyltransferase" },
+  "PKS_DH":            { fill: "#0369a1", abbr: "DH",  label: "Dehydratase" },
+  "PKS_ER":            { fill: "#0891b2", abbr: "ER",  label: "Enoylreductase" },
+  "PKS_KR":            { fill: "#0e7490", abbr: "KR",  label: "Ketoreductase" },
+  "ACP":               { fill: "#059669", abbr: "ACP", label: "Acyl carrier (ACP)" },
+  "PKS_PP":            { fill: "#059669", abbr: "PP",  label: "Phosphopantetheine" },
+  "Condensation":      { fill: "#9d174d", abbr: "C",   label: "Condensation" },
+  "AMP-binding":       { fill: "#be185d", abbr: "A",   label: "Adenylation" },
+  "PCP":               { fill: "#c026d3", abbr: "PCP", label: "Peptidyl carrier (PCP)" },
+  "PP-binding":        { fill: "#7c3aed", abbr: "PP",  label: "PP-binding" },
+  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },
+  "Epimerization":     { fill: "#dc2626", abbr: "E",   label: "Epimerization" },
+  "Heterocyclization": { fill: "#0f766e", abbr: "Cy",  label: "Heterocyclization" },
+  "PKS_Docking_Nterm": { fill: "#6b7280", abbr: "Dn",  label: "Docking N-term" },
+  "PKS_Docking_Cterm": { fill: "#9ca3af", abbr: "Dc",  label: "Docking C-term" },
+  "FkbH":              { fill: "#16a34a", abbr: "Fk",  label: "FkbH-like" },
+};
+const DV_UNKNOWN = { fill: "#cbd5e1", abbr: "?", label: "Unknown domain" };
+function dv(type: string | null) {
+  return (type && DOMAIN_VIZ[type]) ? DOMAIN_VIZ[type] : DV_UNKNOWN;
+}
+
 // ── Nonlinearity popup ────────────────────────────────────────────────────────
 
 type PopupPos = { x: number; y: number };
 
-function NonlinearityPopup({ raw, pos }: { raw: string; pos: PopupPos }) {
-  const parsed = parseNonlinearity(raw);
-  if (parsed.length === 0) return null;
-
-  // Size popup wide enough for iteration grids
-  const nRounds = parsed.find((p) => p.type === "Iteration")?.rounds?.length ?? 0;
-  const popupWidth = Math.max(240, 48 + nRounds * 25 + 24);
-
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: pos.x,
-        top: pos.y,
-        zIndex: 50,
-        backgroundColor: "#fff",
-        border: "1px solid #dde",
-        borderRadius: 10,
-        boxShadow: "0 4px 16px rgba(0,0,0,0.13)",
-        padding: "12px 14px",
-        width: popupWidth,
-        fontSize: 12,
-        pointerEvents: "auto",
-      }}
-    >
-      {parsed.map((p, pi) => (
-        <div key={pi} style={{ marginBottom: pi < parsed.length - 1 ? 10 : 0 }}>
-          {/* Type header */}
-          <div style={{ fontWeight: 700, fontSize: 11, color: "#6464dc",
-                        textTransform: "uppercase", letterSpacing: "0.5px",
-                        marginBottom: 8 }}>
-            {p.type === "Iteration"   ? `Iteration — ${p.rounds?.length ?? 0} rounds` :
-             p.type === "Inactive"    ? "Inactive domains" :
-             p.type === "Missing"     ? "Missing domains"  :
-             p.type === "transAT"     ? "trans-AT"         :
-             p.type === "ModuleSkip"  ? "Module Skip"      :
-             p.type === "Halogenation"? "Halogenation"     : "Note"}
-          </div>
-
-          {/* Iteration: shared domain activity grid */}
-          {p.type === "Iteration" && p.rounds && p.rounds.length > 0 && (
-            <IterationGrid rounds={p.rounds} />
-          )}
-
-          {/* Inactive / Missing */}
-          {(p.type === "Inactive" || p.type === "Missing") && p.domains && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-              {p.domains.map((d) => (
-                <span key={d} style={{
-                  padding: "1px 6px", borderRadius: 4,
-                  fontSize: 11, fontWeight: 600, fontFamily: "monospace",
-                  backgroundColor: "#f1f5f9", color: "#475569",
-                }}>{d}</span>
-              ))}
-            </div>
-          )}
-
-          {/* trans-AT */}
-          {p.type === "transAT" && (
-            <div style={{ color: "#374151", lineHeight: 1.7 }}>
-              {p.gene && <div><span style={{ color: "#888" }}>Gene: </span>
-                <code style={{ fontFamily: "monospace", fontWeight: 600 }}>{p.gene}</code></div>}
-              {p.substrate && <div><span style={{ color: "#888" }}>Substrate: </span>{p.substrate}</div>}
-            </div>
-          )}
-
-          {/* Halogenation / Unknown */}
-          {(p.type === "Halogenation" || p.type === "Unknown") && (
-            <div style={{ color: "#374151" }}>{p.raw}</div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
+export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?: GeneLocus[] }) {
   const { nodes, edges, W, H } = useMemo(() => buildLayout(steps), [steps]);
   const [zoom, setZoom] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -454,13 +414,181 @@ export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
 
   return (
     <div ref={wrapperRef} style={{ position: "relative" }} onClick={() => setPopup(null)}>
-      {/* ── Nonlinearity popup ───────────────────────────────────────────── */}
+      {/* ── Node detail popup (domain architecture + nonlinearity) ─────────── */}
       {popup && (() => {
         const n = nodeMap.get(popup.nodeId);
-        if (!n?.nonlinearity) return null;
+        if (!n) return null;
+        const matchedGene = (n.module !== null && genes)
+          ? (genes.find((g) => g.gene === n.enzyme) ?? null)
+          : null;
+        if (!matchedGene && !n.nonlinearity) return null;
+
+        const nRounds = n.nonlinearity
+          ? (parseNonlinearity(n.nonlinearity).find((p) => p.type === "Iteration")?.rounds?.length ?? 0)
+          : 0;
+        const popupW = Math.max(288, 48 + nRounds * 25 + 24);
+        const barW   = popupW - 28;
+
         return (
           <div onClick={(e) => e.stopPropagation()}>
-            <NonlinearityPopup raw={n.nonlinearity} pos={popup.pos} />
+            <div style={{
+              position: "absolute", left: popup.pos.x, top: popup.pos.y,
+              zIndex: 50, backgroundColor: "#fff", border: "1px solid #dde",
+              borderRadius: 10, boxShadow: "0 4px 16px rgba(0,0,0,0.13)",
+              padding: "12px 14px", width: popupW, fontSize: 12, pointerEvents: "auto",
+            }}>
+
+              {/* ── Domain architecture ──────────────────────────────────── */}
+              {matchedGene && (() => {
+                const gene = matchedGene;
+                const mlLabel = n.module === "0" ? "Loading module"
+                              : n.module === "TE" ? "Thioesterase"
+                              : `Module ${n.module}`;
+                const mlBg    = n.module === "TE" ? "#fef3c7" : n.module === "0" ? "#dcfce7" : "#e8f0fe";
+                const mlColor = n.module === "TE" ? "#92400e" : n.module === "0" ? "#166534" : "#1a56db";
+
+                // Determine the gene-local module index for this pathway step.
+                // Modules within a gene are ordered N→C terminal, so we rank
+                // all pathway nodes that share this enzyme by module number.
+                function parseModOrder(m: string | null): number {
+                  if (m === "0")  return 0;
+                  if (m === "TE") return 99999;
+                  const v = parseInt(m ?? "", 10);
+                  return isNaN(v) ? 99998 : v;
+                }
+                const localModIdx: number | null = (() => {
+                  if (n.module === null) return null;
+                  const sameEnzyme = nodes
+                    .filter((nd) => nd.enzyme === n.enzyme && nd.module !== null)
+                    .sort((a, b) => parseModOrder(a.module) - parseModOrder(b.module));
+                  const idx = sameEnzyme.findIndex((nd) => nd.module === n.module && nd.id === n.id);
+                  return idx >= 0 ? idx : null;
+                })();
+
+                // Filter domains to only those belonging to this module.
+                // Fall back to all domains if module_idx data is absent.
+                const hasMidxData = gene.domains.some((d) => d.module_idx !== null);
+                const visibleDomains = (hasMidxData && localModIdx !== null)
+                  ? gene.domains.filter((d) => d.module_idx === localModIdx)
+                  : gene.domains;
+
+                return (
+                  <div style={{ marginBottom: n.nonlinearity ? 10 : 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                      <code style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e" }}>{gene.gene}</code>
+                      {n.module !== null && (
+                        <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 4,
+                          fontWeight: 600, backgroundColor: mlBg, color: mlColor }}>
+                          {mlLabel}
+                        </span>
+                      )}
+                    </div>
+                    {gene.product && (
+                      <div style={{ fontSize: 10, color: "#64748b", fontStyle: "italic", marginBottom: 6 }}>
+                        {gene.product}
+                      </div>
+                    )}
+                    {visibleDomains.length > 0 ? (() => {
+                      // Scale the bar to the visible domains' span for clarity
+                      const domStart = Math.min(...visibleDomains.map((d) => d.start));
+                      const domEnd   = Math.max(...visibleDomains.map((d) => d.end));
+                      const span     = Math.max(domEnd - domStart, 1);
+                      const bx = (bp: number) => ((bp - domStart) / span) * barW;
+                      return (
+                        <>
+                          <svg width={barW} height={26} style={{ display: "block", marginBottom: 5 }}>
+                            <rect x={0} y={7} width={barW} height={12} fill="#e2e8f0" rx={3} />
+                            {visibleDomains.map((dom, di) => {
+                              const x1 = bx(dom.start), x2 = bx(dom.end);
+                              const w  = Math.max(x2 - x1, 2);
+                              const { fill, abbr } = dv(dom.type);
+                              return (
+                                <g key={di}>
+                                  <rect x={x1} y={4} width={w} height={18} fill={fill} rx={2} opacity={0.9} />
+                                  {w >= 16 && (
+                                    <text x={x1 + w / 2} y={16} textAnchor="middle"
+                                      fontSize={7.5} fontWeight="bold" fill="white">{abbr}</text>
+                                  )}
+                                </g>
+                              );
+                            })}
+                          </svg>
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px",
+                            fontSize: 10, color: "#475569" }}>
+                            {visibleDomains.map((dom, di) => {
+                              const { fill, label } = dv(dom.type);
+                              return (
+                                <span key={di} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                                  <span style={{ width: 7, height: 7, borderRadius: 1, flexShrink: 0,
+                                    backgroundColor: fill, display: "inline-block" }} />
+                                  {label}
+                                </span>
+                              );
+                            })}
+                          </div>
+                        </>
+                      );
+                    })() : (
+                      <div style={{ color: "#94a3b8", fontSize: 10, fontStyle: "italic" }}>
+                        No domain data available for this gene.
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
+              {/* Divider between sections */}
+              {matchedGene && n.nonlinearity && (
+                <div style={{ borderTop: "1px solid #eee", margin: "8px 0" }} />
+              )}
+
+              {/* ── Nonlinearity section ─────────────────────────────────── */}
+              {n.nonlinearity && (() => {
+                const parsed = parseNonlinearity(n.nonlinearity);
+                if (parsed.length === 0) return null;
+                return (
+                  <>
+                    {parsed.map((p, pi) => (
+                      <div key={pi} style={{ marginBottom: pi < parsed.length - 1 ? 10 : 0 }}>
+                        <div style={{ fontWeight: 700, fontSize: 11, color: "#6464dc",
+                          textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 8 }}>
+                          {p.type === "Iteration"    ? `Iteration — ${p.rounds?.length ?? 0} rounds`
+                           : p.type === "Inactive"   ? "Inactive domains"
+                           : p.type === "Missing"    ? "Missing domains"
+                           : p.type === "transAT"    ? "trans-AT"
+                           : p.type === "ModuleSkip" ? "Module Skip"
+                           : p.type === "Halogenation" ? "Halogenation" : "Note"}
+                        </div>
+                        {p.type === "Iteration" && p.rounds && p.rounds.length > 0 && (
+                          <IterationGrid rounds={p.rounds} />
+                        )}
+                        {(p.type === "Inactive" || p.type === "Missing") && p.domains && (
+                          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                            {p.domains.map((d) => (
+                              <span key={d} style={{
+                                padding: "1px 6px", borderRadius: 4,
+                                fontSize: 11, fontWeight: 600, fontFamily: "monospace",
+                                backgroundColor: "#f1f5f9", color: "#475569",
+                              }}>{d}</span>
+                            ))}
+                          </div>
+                        )}
+                        {p.type === "transAT" && (
+                          <div style={{ color: "#374151", lineHeight: 1.7 }}>
+                            {p.gene && <div><span style={{ color: "#888" }}>Gene: </span>
+                              <code style={{ fontFamily: "monospace", fontWeight: 600 }}>{p.gene}</code></div>}
+                            {p.substrate && <div><span style={{ color: "#888" }}>Substrate: </span>{p.substrate}</div>}
+                          </div>
+                        )}
+                        {(p.type === "Halogenation" || p.type === "Unknown") && (
+                          <div style={{ color: "#374151" }}>{p.raw}</div>
+                        )}
+                      </div>
+                    ))}
+                  </>
+                );
+              })()}
+            </div>
           </div>
         );
       })()}
@@ -517,6 +645,7 @@ export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
       */}
       <div
         ref={containerRef}
+        className="dag-scroll"
         style={{
           width: "100%",
           height: Math.max(140, Math.round(H * zoom) + 30),
@@ -608,11 +737,11 @@ export default function PathwayDAG({ steps }: { steps: DAGStep[] }) {
                     gap: 3,
                     boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
                     position: "relative",
-                    cursor: n.nonlinearity ? "pointer" : "default",
+                    cursor: (n.nonlinearity || (n.module !== null && !!genes)) ? "pointer" : "default",
                     outline: popup?.nodeId === n.id ? "2px solid #6464dc" : "none",
                     outlineOffset: -2,
                   }}
-                  onClick={n.nonlinearity ? (e) => {
+                  onClick={(n.nonlinearity || (n.module !== null && !!genes)) ? (e) => {
                     e.stopPropagation();
                     // Toggle off if already open for this node
                     if (popup?.nodeId === n.id) { setPopup(null); return; }

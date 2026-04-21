@@ -114,7 +114,7 @@ def parse_gbk(gbk_path):
     cur_loc     = None
     cur_lines   = []
 
-    WANTED = {"CDS", "aSDomain"}
+    WANTED = {"CDS", "aSDomain", "aSModule"}
 
     for line in lines:
         if line.startswith("FEATURES"):
@@ -232,11 +232,15 @@ def parse_gbk(gbk_path):
         if not parent or parent not in gene_by_name:
             continue
 
+        domain_id = _extract_qualifier(block, "domain_id")
+
         gene_by_name[parent]["domains"].append({
-            "type":   domain_type,
-            "start":  start,
-            "end":    end,
-            "strand": strand,
+            "type":      domain_type,
+            "start":     start,
+            "end":       end,
+            "strand":    strand,
+            "domain_id": domain_id,
+            "module_idx": None,   # filled in step 5
         })
 
     # ── 5. Sort domains in N→C terminal order within each gene ───────────────
@@ -245,6 +249,45 @@ def parse_gbk(gbk_path):
             g["domains"].sort(key=lambda d: d["start"])
         else:
             g["domains"].sort(key=lambda d: -d["end"])
+
+    # ── 6. Parse aSModule blocks and assign module_idx to each domain ─────────
+    # Build: domain_id → module_idx (per-gene, ordered by genomic position)
+    asmodule_list: list = []   # {"locus_tags": [...], "start": int, "domain_ids": [...]}
+
+    for feat_type, raw_loc, block in feat_blocks:
+        if feat_type != "aSModule":
+            continue
+        start, end, _ = parse_location(raw_loc)
+        if start is None:
+            continue
+        locus_tags = _extract_all_qualifiers(block, "locus_tags")
+        domain_ids = _extract_all_qualifiers(block, "domains")
+        asmodule_list.append({
+            "start":      start,
+            "locus_tags": locus_tags,
+            "domain_ids": set(domain_ids),
+        })
+
+    # For each gene, collect its aSModules, sort N→C, build domain_id → module_idx
+    for g in genes:
+        gname = g["gene"]
+        if not gname:
+            continue
+        gene_modules = sorted(
+            [m for m in asmodule_list if gname in m["locus_tags"]],
+            key=lambda m: m["start"],
+        )
+        if not gene_modules:
+            continue
+        domain_id_to_midx: dict = {}
+        for midx, mod in enumerate(gene_modules):
+            for did in mod["domain_ids"]:
+                domain_id_to_midx[did] = midx
+        for dom in g["domains"]:
+            did = dom.get("domain_id")
+            if did and did in domain_id_to_midx:
+                dom["module_idx"] = domain_id_to_midx[did]
+        g["num_modules"] = len(gene_modules)
 
     return total_length, genes
 

@@ -87,6 +87,8 @@ type GeneDomain = {
   start: number;
   end: number;
   strand: number;
+  domain_id: string | null;
+  module_idx: number | null;
 };
 
 type GeneLocus = {
@@ -328,7 +330,7 @@ export default async function EntryDetailPage({
         Pathway Graph
       </h3>
       <div style={{ marginBottom: "36px" }}>
-        <PathwayDAG steps={entry.steps} />
+        <PathwayDAG steps={entry.steps} genes={loci?.genes} />
       </div>
 
       {/* ── Steps table ─────────────────────────────────────────────────────── */}
@@ -341,7 +343,7 @@ export default async function EntryDetailPage({
         </span>
       </h3>
 
-      <StepsTable steps={entry.steps} />
+      <StepsTable steps={entry.steps} genes={loci?.genes} />
     </div>
   );
 }

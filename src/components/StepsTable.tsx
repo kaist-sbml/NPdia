@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import NonlinearityBadge from "@/components/NonlinearityBadge";
+import NonlinearityBadge, { parseNonlinearity, IterationGrid } from "@/components/NonlinearityBadge";
 
 const MoleculeViewer = dynamic(() => import("@/components/MoleculeViewer"), {
   ssr: false,
@@ -43,13 +43,292 @@ export type StepRow = {
   product_id: string;
 };
 
-// ── Module badge helpers ──────────────────────────────────────────────────────
+type GeneDomain = {
+  type: string | null;
+  start: number;
+  end: number;
+  strand: number;
+  domain_id: string | null;
+  module_idx: number | null;
+};
+
+type GeneLocus = {
+  gene: string | null;
+  start: number;
+  end: number;
+  strand: number;
+  gene_kind: string | null;
+  product: string | null;
+  gene_functions: string[];
+  domains: GeneDomain[];
+};
+
+// ── Domain visualisation palette (shared with PathwayDAG) ─────────────────────
+
+const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> = {
+  "PKS_KS":            { fill: "#1e3a8a", abbr: "KS",  label: "Ketosynthase" },
+  "PKS_AT":            { fill: "#1d4ed8", abbr: "AT",  label: "Acyltransferase" },
+  "PKS_DH":            { fill: "#0369a1", abbr: "DH",  label: "Dehydratase" },
+  "PKS_ER":            { fill: "#0891b2", abbr: "ER",  label: "Enoylreductase" },
+  "PKS_KR":            { fill: "#0e7490", abbr: "KR",  label: "Ketoreductase" },
+  "ACP":               { fill: "#059669", abbr: "ACP", label: "Acyl carrier (ACP)" },
+  "PKS_PP":            { fill: "#059669", abbr: "PP",  label: "Phosphopantetheine" },
+  "Condensation":      { fill: "#9d174d", abbr: "C",   label: "Condensation" },
+  "AMP-binding":       { fill: "#be185d", abbr: "A",   label: "Adenylation" },
+  "PCP":               { fill: "#c026d3", abbr: "PCP", label: "Peptidyl carrier (PCP)" },
+  "PP-binding":        { fill: "#7c3aed", abbr: "PP",  label: "PP-binding" },
+  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },
+  "Epimerization":     { fill: "#dc2626", abbr: "E",   label: "Epimerization" },
+  "Heterocyclization": { fill: "#0f766e", abbr: "Cy",  label: "Heterocyclization" },
+  "PKS_Docking_Nterm": { fill: "#6b7280", abbr: "Dn",  label: "Docking N-term" },
+  "PKS_Docking_Cterm": { fill: "#9ca3af", abbr: "Dc",  label: "Docking C-term" },
+  "FkbH":              { fill: "#16a34a", abbr: "Fk",  label: "FkbH-like" },
+};
+const DV_UNKNOWN = { fill: "#cbd5e1", abbr: "?", label: "Unknown domain" };
+function dv(type: string | null) {
+  return (type && DOMAIN_VIZ[type]) ? DOMAIN_VIZ[type] : DV_UNKNOWN;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function parseModOrder(m: string | null): number {
+  if (m === "0")  return 0;
+  if (m === "TE") return 99999;
+  const v = parseInt(m ?? "", 10);
+  return isNaN(v) ? 99998 : v;
+}
 
 function moduleLabel(mod: string | null): string | null {
   if (mod === null) return null;
   if (mod === "0") return "Loading";
   if (mod === "TE") return "TE";
   return `M${mod}`;
+}
+
+// ── Domain architecture popup ─────────────────────────────────────────────────
+
+function DomainPopup({
+  step,
+  steps,
+  genes,
+  pos,
+  onClose,
+}: {
+  step: StepRow;
+  steps: StepRow[];
+  genes: GeneLocus[];
+  pos: { x: number; y: number };
+  onClose: () => void;
+}) {
+  const gene = genes.find((g) => g.gene === step.enzyme) ?? null;
+
+  // Compute gene-local module index (same logic as PathwayDAG)
+  const localModIdx: number | null = (() => {
+    if (step.module === null || !gene) return null;
+    const sameEnzyme = steps
+      .filter((s) => s.enzyme === step.enzyme && s.module !== null)
+      .sort((a, b) => parseModOrder(a.module) - parseModOrder(b.module));
+    const idx = sameEnzyme.findIndex(
+      (s) => s.module === step.module && s.product_id === step.product_id
+    );
+    return idx >= 0 ? idx : null;
+  })();
+
+  const hasMidxData = gene ? gene.domains.some((d) => d.module_idx !== null) : false;
+  const visibleDomains = gene
+    ? (hasMidxData && localModIdx !== null)
+      ? gene.domains.filter((d) => d.module_idx === localModIdx)
+      : gene.domains
+    : [];
+
+  const ml = step.module;
+  const mlLabel = ml === "0" ? "Loading module"
+                : ml === "TE" ? "Thioesterase"
+                : `Module ${ml}`;
+  const mlBg    = ml === "TE" ? "#fef3c7" : ml === "0" ? "#dcfce7" : "#e8f0fe";
+  const mlColor = ml === "TE" ? "#92400e" : ml === "0" ? "#166534" : "#1a56db";
+
+  const hasNonlinearity = !!step.nonlinearity;
+
+  const barW = 260;
+
+  // Close on Escape
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  if (!gene && !hasNonlinearity) return null;
+
+  return (
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 200, pointerEvents: "none" }}
+      onClick={onClose}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "absolute",
+          left: pos.x,
+          top: pos.y,
+          pointerEvents: "auto",
+          backgroundColor: "#fff",
+          border: "1px solid #dde",
+          borderRadius: 10,
+          boxShadow: "0 6px 24px rgba(0,0,0,0.14)",
+          padding: "12px 14px",
+          width: barW + 28,
+          fontSize: 12,
+          zIndex: 201,
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 6,
+            right: 8,
+            background: "none",
+            border: "none",
+            fontSize: 16,
+            color: "#aaa",
+            cursor: "pointer",
+            lineHeight: 1,
+            padding: "0 2px",
+          }}
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        {/* ── Domain architecture ─────────────────────────────────────── */}
+        {gene && (
+          <div style={{ marginBottom: hasNonlinearity ? 10 : 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4, paddingRight: 20 }}>
+              <code style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e" }}>{gene.gene}</code>
+              {ml !== null && (
+                <span style={{
+                  fontSize: 10, padding: "1px 6px", borderRadius: 4,
+                  fontWeight: 600, backgroundColor: mlBg, color: mlColor,
+                }}>
+                  {mlLabel}
+                </span>
+              )}
+            </div>
+            {gene.product && (
+              <div style={{ fontSize: 10, color: "#64748b", fontStyle: "italic", marginBottom: 6 }}>
+                {gene.product}
+              </div>
+            )}
+            {visibleDomains.length > 0 ? (() => {
+              const domStart = Math.min(...visibleDomains.map((d) => d.start));
+              const domEnd   = Math.max(...visibleDomains.map((d) => d.end));
+              const span     = Math.max(domEnd - domStart, 1);
+              const bx = (bp: number) => ((bp - domStart) / span) * barW;
+              return (
+                <>
+                  <svg width={barW} height={26} style={{ display: "block", marginBottom: 5 }}>
+                    <rect x={0} y={7} width={barW} height={12} fill="#e2e8f0" rx={3} />
+                    {visibleDomains.map((dom, di) => {
+                      const x1 = bx(dom.start), x2 = bx(dom.end);
+                      const w  = Math.max(x2 - x1, 2);
+                      const { fill, abbr } = dv(dom.type);
+                      return (
+                        <g key={di}>
+                          <rect x={x1} y={4} width={w} height={18} fill={fill} rx={2} opacity={0.9} />
+                          {w >= 16 && (
+                            <text x={x1 + w / 2} y={16} textAnchor="middle"
+                              fontSize={7.5} fontWeight="bold" fill="white">{abbr}</text>
+                          )}
+                        </g>
+                      );
+                    })}
+                  </svg>
+                  <div style={{
+                    display: "flex", flexWrap: "wrap", gap: "2px 10px",
+                    fontSize: 10, color: "#475569",
+                  }}>
+                    {visibleDomains.map((dom, di) => {
+                      const { fill, label } = dv(dom.type);
+                      return (
+                        <span key={di} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                          <span style={{
+                            width: 7, height: 7, borderRadius: 1, flexShrink: 0,
+                            backgroundColor: fill, display: "inline-block",
+                          }} />
+                          {label}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </>
+              );
+            })() : (
+              <div style={{ color: "#94a3b8", fontSize: 10, fontStyle: "italic" }}>
+                No domain data available for this gene.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Divider */}
+        {gene && hasNonlinearity && (
+          <div style={{ borderTop: "1px solid #eee", margin: "8px 0" }} />
+        )}
+
+        {/* ── Nonlinearity section ────────────────────────────────────── */}
+        {hasNonlinearity && (() => {
+          const parsed = parseNonlinearity(step.nonlinearity);
+          if (parsed.length === 0) return null;
+          return (
+            <>
+              {parsed.map((p, pi) => (
+                <div key={pi} style={{ marginBottom: pi < parsed.length - 1 ? 10 : 0 }}>
+                  <div style={{
+                    fontWeight: 700, fontSize: 11, color: "#6464dc",
+                    textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: 8,
+                  }}>
+                    {p.type === "Iteration"    ? `Iteration — ${p.rounds?.length ?? 0} rounds`
+                     : p.type === "Inactive"   ? "Inactive domains"
+                     : p.type === "Missing"    ? "Missing domains"
+                     : p.type === "transAT"    ? "trans-AT"
+                     : p.type === "ModuleSkip" ? "Module Skip"
+                     : p.type === "Halogenation" ? "Halogenation" : "Note"}
+                  </div>
+                  {p.type === "Iteration" && p.rounds && p.rounds.length > 0 && (
+                    <IterationGrid rounds={p.rounds} />
+                  )}
+                  {(p.type === "Inactive" || p.type === "Missing") && p.domains && (
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                      {p.domains.map((d) => (
+                        <span key={d} style={{
+                          padding: "1px 6px", borderRadius: 4,
+                          fontSize: 11, fontWeight: 600, fontFamily: "monospace",
+                          backgroundColor: "#f1f5f9", color: "#475569",
+                        }}>{d}</span>
+                      ))}
+                    </div>
+                  )}
+                  {p.type === "transAT" && (
+                    <div style={{ color: "#374151", lineHeight: 1.7 }}>
+                      {p.gene && <div><span style={{ color: "#888" }}>Gene: </span>
+                        <code style={{ fontFamily: "monospace", fontWeight: 600 }}>{p.gene}</code></div>}
+                      {p.substrate && <div><span style={{ color: "#888" }}>Substrate: </span>{p.substrate}</div>}
+                    </div>
+                  )}
+                  {(p.type === "Halogenation" || p.type === "Unknown") && (
+                    <div style={{ color: "#374151" }}>{p.raw}</div>
+                  )}
+                </div>
+              ))}
+            </>
+          );
+        })()}
+      </div>
+    </div>
+  );
 }
 
 // ── Molecule modal ────────────────────────────────────────────────────────────
@@ -458,8 +737,48 @@ function MoleculeModal({
 
 // ── Steps table ───────────────────────────────────────────────────────────────
 
-export default function StepsTable({ steps }: { steps: StepRow[] }) {
+export default function StepsTable({
+  steps,
+  genes,
+}: {
+  steps: StepRow[];
+  genes?: GeneLocus[];
+}) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [popup, setPopup] = useState<{
+    step: StepRow;
+    pos: { x: number; y: number };
+  } | null>(null);
+
+  // Close popup on click-outside (handled by the fixed overlay in DomainPopup)
+  // Also close when molecule modal opens
+  function openModal(i: number) {
+    setPopup(null);
+    setSelectedIndex(i);
+  }
+
+  // Compute popup position relative to the clicked row, clamped to viewport
+  function computePopupPos(rect: DOMRect): { x: number; y: number } {
+    const popW = 288;  // matches barW(260) + padding(28)
+    const estH = 280;  // estimated max popup height
+
+    let left = rect.left;
+    let top  = rect.bottom + 6;
+
+    // Clamp horizontally
+    if (left + popW > window.innerWidth - 8) {
+      left = window.innerWidth - popW - 8;
+    }
+    if (left < 8) left = 8;
+
+    // Flip above row if popup would go off the bottom
+    if (top + estH > window.innerHeight - 8) {
+      top = rect.top - estH - 6;
+      if (top < 8) top = 8;
+    }
+
+    return { x: left, y: top };
+  }
 
   return (
     <>
@@ -469,6 +788,16 @@ export default function StepsTable({ steps }: { steps: StepRow[] }) {
           index={selectedIndex}
           onNavigate={setSelectedIndex}
           onClose={() => setSelectedIndex(null)}
+        />
+      )}
+
+      {popup !== null && (
+        <DomainPopup
+          step={popup.step}
+          steps={steps}
+          genes={genes!}
+          pos={popup.pos}
+          onClose={() => setPopup(null)}
         />
       )}
 
@@ -522,12 +851,29 @@ export default function StepsTable({ steps }: { steps: StepRow[] }) {
               {steps.map((step, i) => {
                 const ml = moduleLabel(step.module);
                 const isSelected = selectedIndex === i;
+                const isPopupOpen = popup?.step.product_id === step.product_id;
+
+                // Module badge is domain-clickable if it has a module and matching gene/nonlinearity
+                const matchedGene =
+                  step.module !== null && genes
+                    ? genes.find((g) => g.gene === step.enzyme) ?? null
+                    : null;
+                const isBadgeClickable =
+                  matchedGene !== null || (step.module !== null && !!step.nonlinearity);
+
                 return (
                   <tr
                     key={step.product_id}
-                    onClick={() => setSelectedIndex(isSelected ? null : i)}
+                    onClick={() => {
+                      // Row click always opens the molecule modal
+                      if (isSelected) {
+                        setSelectedIndex(null);
+                      } else {
+                        openModal(i);
+                      }
+                    }}
                     style={{
-                      backgroundColor: isSelected
+                      backgroundColor: isSelected || isPopupOpen
                         ? "#f0f0ff"
                         : i % 2 === 0
                         ? "#fff"
@@ -537,12 +883,12 @@ export default function StepsTable({ steps }: { steps: StepRow[] }) {
                       transition: "background-color 0.1s",
                     }}
                     onMouseEnter={(e) => {
-                      if (!isSelected)
+                      if (!isSelected && !isPopupOpen)
                         (e.currentTarget as HTMLElement).style.backgroundColor =
                           "#f5f5fb";
                     }}
                     onMouseLeave={(e) => {
-                      if (!isSelected)
+                      if (!isSelected && !isPopupOpen)
                         (e.currentTarget as HTMLElement).style.backgroundColor =
                           i % 2 === 0 ? "#fff" : "#fafafe";
                     }}
@@ -601,6 +947,16 @@ export default function StepsTable({ steps }: { steps: StepRow[] }) {
                     >
                       {ml !== null ? (
                         <span
+                          onClick={isBadgeClickable ? (e) => {
+                            e.stopPropagation();
+                            const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                            if (isPopupOpen) {
+                              setPopup(null);
+                            } else {
+                              setPopup({ step, pos: computePopupPos(rect) });
+                            }
+                          } : undefined}
+                          title={isBadgeClickable ? "Click to view domain architecture" : undefined}
                           style={{
                             display: "inline-block",
                             padding: "1px 8px",
@@ -619,6 +975,9 @@ export default function StepsTable({ steps }: { steps: StepRow[] }) {
                                 : "#3730a3",
                             fontSize: "12px",
                             fontWeight: 500,
+                            cursor: isBadgeClickable ? "pointer" : "default",
+                            outline: isPopupOpen ? "2px solid #6464dc" : "none",
+                            outlineOffset: 1,
                           }}
                         >
                           {ml}
@@ -715,7 +1074,7 @@ export default function StepsTable({ steps }: { steps: StepRow[] }) {
             borderTop: "1px solid #eef",
           }}
         >
-          Click any row to view the chemical structure
+          Click any row to view the chemical structure · Click a module badge (M1, TE…) to view domain architecture
         </div>
       </div>
     </>
