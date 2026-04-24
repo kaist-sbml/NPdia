@@ -6,6 +6,8 @@ import PathwayDAG from "@/components/PathwayDAG";
 import StepsTable from "@/components/StepsTable";
 import GeneLociMap from "@/components/GeneLociMap";
 import { GeneHighlightProvider } from "@/components/GeneHighlightContext";
+import CompoundPanel from "@/components/CompoundPanel";
+import type { MibigCompound } from "@/components/CompoundPanel";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -115,6 +117,28 @@ function readGeneLoci(id: string): { total_length: number; genes: GeneLocus[] } 
   return all[id] ?? null;
 }
 
+function readCompounds(id: string): MibigCompound[] {
+  const filePath = path.join(
+    process.cwd(),
+    "data",
+    "raw",
+    "mibig_json_4.0",
+    `${id}.json`
+  );
+  if (!fs.existsSync(filePath)) return [];
+  const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const raw: Array<{ name?: string; structure?: string; mass?: number; formula?: string }> =
+    data.compounds ?? [];
+  return raw
+    .filter((c) => c.structure && c.name)
+    .map((c) => ({
+      name: c.name!,
+      smiles: c.structure!,
+      mass: c.mass ?? null,
+      formula: c.formula ?? null,
+    }));
+}
+
 // ── Static params (pre-render all 163 entries) ────────────────────────────────
 
 export function generateStaticParams() {
@@ -142,6 +166,7 @@ export default async function EntryDetailPage({
   const species = speciesData[id] ?? { organism: null, taxonomy: [] };
 
   const loci = readGeneLoci(id);
+  const compounds = readCompounds(id);
 
   const category = deriveCategory(entry.biosynthetic_class);
   const catStyle = categoryStyle[category];
@@ -212,95 +237,107 @@ export default async function EntryDetailPage({
           </span>
         </div>
 
-        {/* Compound name */}
-        <h2 className="compound-title">{entry.compound_name}</h2>
+        {/* Body: left (name + metadata) | right (structure viewer) */}
+        <div style={{ display: "flex", gap: "32px", alignItems: "flex-start" }}>
 
-        {/* Metadata grid */}
-        <dl className="meta-grid">
-          <dt style={{ color: "#888", fontWeight: 500 }}>Producing organism</dt>
-          <dd style={{ margin: 0 }}>
-            {species.organism ? (
-              <span style={{ color: "#333", fontStyle: "italic" }}>{species.organism}</span>
-            ) : (
-              <span style={{ color: "#ccc" }}>—</span>
-            )}
-          </dd>
+          {/* Left column */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h2 className="compound-title">{entry.compound_name}</h2>
 
-          <dt style={{ color: "#888", fontWeight: 500 }}>Taxonomy</dt>
-          <dd style={{ margin: 0 }}>
-            {species.taxonomy.length > 0 ? (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", alignItems: "center" }}>
-                {species.taxonomy.map((t, i) => (
-                  <span key={i} style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                    <span style={{
-                      fontSize: "11.5px",
-                      padding: "2px 7px",
-                      borderRadius: "4px",
-                      backgroundColor: i === species.taxonomy.length - 1 ? "#f0fdf4" : "#f5f5fb",
-                      color: i === species.taxonomy.length - 1 ? "#166534" : "#555",
-                      border: `1px solid ${i === species.taxonomy.length - 1 ? "#bbf7d0" : "#e5e5f0"}`,
-                    }}>{t}</span>
-                    {i < species.taxonomy.length - 1 && (
-                      <span style={{ color: "#ccc", fontSize: "11px" }}>›</span>
-                    )}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <span style={{ color: "#ccc" }}>—</span>
-            )}
-          </dd>
+            {/* Metadata grid */}
+            <dl className="meta-grid">
+              <dt style={{ color: "#888", fontWeight: 500 }}>Producing organism</dt>
+              <dd style={{ margin: 0 }}>
+                {species.organism ? (
+                  <span style={{ color: "#333", fontStyle: "italic" }}>{species.organism}</span>
+                ) : (
+                  <span style={{ color: "#ccc" }}>—</span>
+                )}
+              </dd>
 
-          <dt style={{ color: "#888", fontWeight: 500 }}>Biosynthetic class</dt>
-          <dd style={{ margin: 0, color: "#333" }}>
-            {entry.biosynthetic_class ?? "—"}
-          </dd>
+              <dt style={{ color: "#888", fontWeight: 500 }}>Taxonomy</dt>
+              <dd style={{ margin: 0 }}>
+                {species.taxonomy.length > 0 ? (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", alignItems: "center" }}>
+                    {species.taxonomy.map((t, i) => (
+                      <span key={i} style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+                        <span style={{
+                          fontSize: "11.5px",
+                          padding: "2px 7px",
+                          borderRadius: "4px",
+                          backgroundColor: i === species.taxonomy.length - 1 ? "#f0fdf4" : "#f5f5fb",
+                          color: i === species.taxonomy.length - 1 ? "#166534" : "#555",
+                          border: `1px solid ${i === species.taxonomy.length - 1 ? "#bbf7d0" : "#e5e5f0"}`,
+                        }}>{t}</span>
+                        {i < species.taxonomy.length - 1 && (
+                          <span style={{ color: "#ccc", fontSize: "11px" }}>›</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <span style={{ color: "#ccc" }}>—</span>
+                )}
+              </dd>
 
-          <dt style={{ color: "#888", fontWeight: 500 }}>Total steps</dt>
-          <dd style={{ margin: 0, color: "#333" }}>{entry.steps.length}</dd>
+              <dt style={{ color: "#888", fontWeight: 500 }}>Biosynthetic class</dt>
+              <dd style={{ margin: 0, color: "#333" }}>
+                {entry.biosynthetic_class ?? "—"}
+              </dd>
 
-          <dt style={{ color: "#888", fontWeight: 500 }}>DOI</dt>
-          <dd style={{ margin: 0 }}>
-            {entry.doi ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                {entry.doi.split(";").map((d) => d.trim()).filter(Boolean).map((d) => (
+              <dt style={{ color: "#888", fontWeight: 500 }}>Total steps</dt>
+              <dd style={{ margin: 0, color: "#333" }}>{entry.steps.length}</dd>
+
+              <dt style={{ color: "#888", fontWeight: 500 }}>DOI</dt>
+              <dd style={{ margin: 0 }}>
+                {entry.doi ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    {entry.doi.split(";").map((d) => d.trim()).filter(Boolean).map((d) => (
+                      <a
+                        key={d}
+                        href={`https://doi.org/${d}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          color: "#6464dc",
+                          textDecoration: "none",
+                          fontFamily: "monospace",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {d}
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <span style={{ color: "#ccc" }}>—</span>
+                )}
+              </dd>
+
+              <dt style={{ color: "#888", fontWeight: 500 }}>MIBiG entry</dt>
+              <dd style={{ margin: 0 }}>
+                {mibigUrl ? (
                   <a
-                    key={d}
-                    href={`https://doi.org/${d}`}
+                    href={mibigUrl}
                     target="_blank"
                     rel="noreferrer"
-                    style={{
-                      color: "#6464dc",
-                      textDecoration: "none",
-                      fontFamily: "monospace",
-                      fontSize: "13px",
-                    }}
+                    style={{ color: "#6464dc", textDecoration: "none", fontSize: "13px" }}
                   >
-                    {d}
+                    View on MIBiG ↗
                   </a>
-                ))}
-              </div>
-            ) : (
-              <span style={{ color: "#ccc" }}>—</span>
-            )}
-          </dd>
+                ) : (
+                  <span style={{ color: "#ccc" }}>—</span>
+                )}
+              </dd>
+            </dl>
+          </div>
 
-          <dt style={{ color: "#888", fontWeight: 500 }}>MIBiG entry</dt>
-          <dd style={{ margin: 0 }}>
-            {mibigUrl ? (
-              <a
-                href={mibigUrl}
-                target="_blank"
-                rel="noreferrer"
-                style={{ color: "#6464dc", textDecoration: "none", fontSize: "13px" }}
-              >
-                View on MIBiG ↗
-              </a>
-            ) : (
-              <span style={{ color: "#ccc" }}>—</span>
-            )}
-          </dd>
-        </dl>
+          {/* Right column: compound structure viewer */}
+          {compounds.length > 0 && (
+            <CompoundPanel compounds={compounds} />
+          )}
+
+        </div>
       </div>
 
       {/* ── Gene Locus Map + Pathway Graph + Steps Table ────────────────────── */}

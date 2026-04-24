@@ -17,6 +17,12 @@
       "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__error_js.js"
     ]
   },
+  "components\\CompoundPanel.tsx -> @/components/MoleculeViewer": {
+    "id": "components\\CompoundPanel.tsx -> @/components/MoleculeViewer",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_MoleculeViewer_tsx.js"
+    ]
+  },
   "components\\MoleculeViewer.tsx -> smiles-drawer": {
     "id": "components\\MoleculeViewer.tsx -> smiles-drawer",
     "files": [
