@@ -13,10 +13,14 @@ body {
   background-color: #f5f5fb;
   min-height: 100vh;
   color: #1a1a2e;
+  /* Flex column so the footer is always pushed to the bottom */
+  display: flex;
+  flex-direction: column;
 }
 
 /* ─── Layout ────────────────────────────────────────────────────────────── */
 .page-main {
+  flex: 1; /* grow to fill space between header and footer */
   /*
     Fluid max-width: scales with the viewport so the content area
     grows on wide monitors instead of capping at a fixed pixel value.
@@ -32,6 +36,53 @@ body {
       horizontal → 16px at ~480px wide → 40px at ~1440px wide
   */
   padding: clamp(20px, 4vw, 48px) clamp(16px, 2.8vw, 40px);
+}
+
+/* ─── Footer ────────────────────────────────────────────────────────────── */
+.site-footer {
+  background-color: #ffffff;
+  border-top: 1px solid #dde;
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 40px);
+  padding: clamp(14px, 2vw, 22px) clamp(16px, 2.8vw, 40px);
+  max-width: clamp(900px, 90vw, 1440px);
+  margin: 0 auto;
+}
+
+.footer-divider {
+  width: 1px;
+  height: 36px;
+  background-color: #dde;
+  flex-shrink: 0;
+}
+
+.footer-copyright {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  padding-bottom: 7px;
+}
+
+.footer-collaborators {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  padding-bottom: clamp(12px, 1.5vw, 18px);
+}
+
+.footer-copyright a {
+  color: #6464dc;
+  text-decoration: none;
+}
+
+.footer-copyright a:hover {
+  text-decoration: underline;
 }
 
 /* ─── Header ────────────────────────────────────────────────────────────── */
