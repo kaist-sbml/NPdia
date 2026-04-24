@@ -449,18 +449,19 @@ export default function GeneLociMap({ totalLength, genes }: Props) {
             activeIds.includes(g.gene ?? "\x00") ||
             activeIds.includes(g.locus_tag ?? "\x00")
           );
-          const baseOpacity = has ? 0.7 : 0.85;
-          const geneOpacity = activeIds.length === 0
-            ? baseOpacity
-            : isHighlighted ? 0.97 : 0.18;
+          // groupOpacity fades the entire gene — arrow AND domain rects together.
+          // The path keeps its own intrinsic opacity (0.7 / 0.85) for visual weight;
+          // the outer <g> multiplies the whole gene down to near-invisible when dimmed.
+          const groupOpacity = activeIds.length === 0 ? 1 : isHighlighted ? 1 : 0.18;
+          const pathOpacity  = has ? 0.7 : 0.85;
 
           return (
-            <g key={i}>
+            <g key={i} opacity={groupOpacity} style={{ transition: "opacity 0.12s" }}>
               <path
                 d={d}
                 fill={has ? "#e2e8f0" : ks.fill}
                 stroke={isHighlighted ? "#f59e0b" : has ? "#94a3b8" : ks.stroke}
-                opacity={geneOpacity}
+                opacity={pathOpacity}
                 strokeWidth={isHighlighted ? 2 : 0.5}
                 filter={isHighlighted ? "url(#gene-hl-glow)" : undefined}
                 cursor="pointer"
