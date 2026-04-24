@@ -63,30 +63,30 @@ function kindStyle(k: string | null): KindStyle {
 type DomainStyle = { fill: string; stroke: string; abbr: string; label: string };
 
 const DOMAIN_STYLES: Record<string, DomainStyle> = {
-  // PKS catalytic core — five hue families so each is instantly distinct
-  "PKS_KS":            { fill: "#1e40af", stroke: "#3b5fd4", abbr: "KS",  label: "Ketosynthase (KS)" },         // indigo blue
-  "PKS_AT":            { fill: "#c2410c", stroke: "#e05c1a", abbr: "AT",  label: "Acyltransferase (AT)" },       // burnt orange
-  "PKS_DH":            { fill: "#0e7490", stroke: "#1899b5", abbr: "DH",  label: "Dehydratase (DH)" },           // dark cyan
-  "PKS_ER":            { fill: "#166534", stroke: "#1d8043", abbr: "ER",  label: "Enoylreductase (ER)" },        // forest green
-  "PKS_KR":            { fill: "#7e22ce", stroke: "#9c35f2", abbr: "KR",  label: "Ketoreductase (KR)" },         // deep violet
-  // Carrier proteins — neutral grays
-  "ACP":               { fill: "#475569", stroke: "#5e7186", abbr: "ACP", label: "Acyl carrier protein (ACP)" }, // slate
-  "PKS_PP":            { fill: "#64748b", stroke: "#7d91a8", abbr: "PP",  label: "Phosphopantetheine (PP)" },    // lighter slate
-  // NRPS core — warm reds/amber clearly separated from each other
-  "Condensation":      { fill: "#991b1b", stroke: "#c02222", abbr: "C",   label: "Condensation (C)" },          // dark crimson
-  "AMP-binding":       { fill: "#b45309", stroke: "#d9660b", abbr: "A",   label: "Adenylation (A)" },           // dark amber
-  "PCP":               { fill: "#9d174d", stroke: "#c01e61", abbr: "PCP", label: "Peptidyl carrier (PCP)" },    // dark rose
-  "PP-binding":        { fill: "#4c1d95", stroke: "#6528bc", abbr: "PP",  label: "PP-binding" },                // very dark purple
-  "NRPS-COM_Nterm":    { fill: "#374151", stroke: "#4b5563", abbr: "Cn",  label: "COM N-term" },                // dark charcoal
-  "NRPS-COM_Cterm":    { fill: "#6b7280", stroke: "#9ca3af", abbr: "Cc",  label: "COM C-term" },                // gray
+  // PKS catalytic core — hues chosen to NOT overlap any gene-kind colour
+  "PKS_KS":            { fill: "#0f766e", stroke: "#14968c", abbr: "KS",  label: "Ketosynthase (KS)" },          // teal-600 (≠ biosynthetic blue)
+  "PKS_AT":            { fill: "#a21caf", stroke: "#c026d3", abbr: "AT",  label: "Acyltransferase (AT)" },        // fuchsia-700
+  "PKS_DH":            { fill: "#4d7c0f", stroke: "#65a30d", abbr: "DH",  label: "Dehydratase (DH)" },            // lime-700 (≠ transport cyan)
+  "PKS_ER":            { fill: "#166534", stroke: "#1d8043", abbr: "ER",  label: "Enoylreductase (ER)" },         // green-800
+  "PKS_KR":            { fill: "#be185d", stroke: "#db2777", abbr: "KR",  label: "Ketoreductase (KR)" },          // pink-700 (≠ biosynthetic-additional purple)
+  // Carrier proteins — warm stone gray (≠ cool slate of gene-kind "other")
+  "ACP":               { fill: "#44403c", stroke: "#57534e", abbr: "ACP", label: "Acyl carrier protein (ACP)" },  // stone-700
+  "PKS_PP":            { fill: "#78716c", stroke: "#92867a", abbr: "PP",  label: "Phosphopantetheine (PP)" },     // stone-500
+  // NRPS core
+  "Condensation":      { fill: "#14532d", stroke: "#166534", abbr: "C",   label: "Condensation (C)" },           // green-900 (≠ resistance red)
+  "AMP-binding":       { fill: "#713f12", stroke: "#92400e", abbr: "A",   label: "Adenylation (A)" },            // yellow-800 dark brown (≠ regulatory amber)
+  "PCP":               { fill: "#581c87", stroke: "#7c3aed", abbr: "PCP", label: "Peptidyl carrier (PCP)" },     // violet-900 (darker than biosynthetic-additional)
+  "PP-binding":        { fill: "#1e1b4b", stroke: "#312e81", abbr: "PP",  label: "PP-binding" },                 // indigo-950
+  "NRPS-COM_Nterm":    { fill: "#292524", stroke: "#3d3835", abbr: "Cn",  label: "COM N-term" },                 // stone-900 (≠ cool "other" slate)
+  "NRPS-COM_Cterm":    { fill: "#57534e", stroke: "#78716c", abbr: "Cc",  label: "COM C-term" },                 // stone-600
   // Release / tailoring
-  "Thioesterase":      { fill: "#d97706", stroke: "#f59e0b", abbr: "TE",  label: "Thioesterase (TE)" },         // amber
-  "Epimerization":     { fill: "#be123c", stroke: "#e0184a", abbr: "E",   label: "Epimerization (E)" },         // rose-red
-  "Heterocyclization": { fill: "#134e4a", stroke: "#1a6b65", abbr: "Cy",  label: "Heterocyclization (Cy)" },    // very dark teal
-  // Docking / misc
-  "PKS_Docking_Nterm": { fill: "#374151", stroke: "#4b5563", abbr: "Dn",  label: "Docking N-term" },            // dark charcoal
-  "PKS_Docking_Cterm": { fill: "#6b7280", stroke: "#9ca3af", abbr: "Dc",  label: "Docking C-term" },            // gray
-  "FkbH":              { fill: "#14532d", stroke: "#1a6e3c", abbr: "Fk",  label: "FkbH-like" },                 // very dark green
+  "Thioesterase":      { fill: "#3730a3", stroke: "#4338ca", abbr: "TE",  label: "Thioesterase (TE)" },          // indigo-700 (≠ regulatory amber — was identical!)
+  "Epimerization":     { fill: "#831843", stroke: "#9f1239", abbr: "E",   label: "Epimerization (E)" },          // pink-900 dark maroon (≠ resistance red)
+  "Heterocyclization": { fill: "#451a03", stroke: "#7c2d12", abbr: "Cy",  label: "Heterocyclization (Cy)" },     // dark warm brown-red
+  // Docking / misc — warm charcoal (≠ cool "other" slate)
+  "PKS_Docking_Nterm": { fill: "#231f1e", stroke: "#3a3330", abbr: "Dn",  label: "Docking N-term" },             // stone-950
+  "PKS_Docking_Cterm": { fill: "#574b47", stroke: "#6f5f5a", abbr: "Dc",  label: "Docking C-term" },             // stone-600 warm
+  "FkbH":              { fill: "#1a2e05", stroke: "#2d4a09", abbr: "Fk",  label: "FkbH-like" },                  // very dark olive
 };
 const UNKNOWN_DOMAIN: DomainStyle = { fill: "#94a3b8", stroke: "#64748b", abbr: "?", label: "Unknown domain" };
 function domainStyle(t: string | null): DomainStyle {

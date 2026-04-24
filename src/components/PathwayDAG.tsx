@@ -106,6 +106,7 @@ type GNode = {
   id: string;
   order: string | null;
   enzyme: string | null;
+  enzymes: string[];        // parsed individual names from the enzyme annotation
   module: string | null;
   molecules: string[];
   nonlinearity: string | null;
@@ -256,6 +257,7 @@ function buildLayout(steps: DAGStep[]): {
         id: step.product_id,
         order: step.order,
         enzyme: step.enzyme,
+        enzymes: parseEnzymes(step.enzyme),
         module: step.module,
         molecules: step.substrate.molecules ?? [],
         nonlinearity: step.nonlinearity,
@@ -293,6 +295,33 @@ function buildLayout(steps: DAGStep[]): {
 
   const W = PAD + (maxLevel + 1) * (NW + HGAP) - HGAP + PAD;
   return { nodes, edges, W, H };
+}
+
+// ── Enzyme annotation parser ──────────────────────────────────────────────────
+// Handles annotations like:
+//   "apoP"
+//   "(apoM1;apoM3;apoM4), (apoGT1;apoGT3), apoP, apoGT2, ?"
+// Returns a deduplicated list of individual enzyme/gene names, skipping "?".
+
+function parseEnzymes(raw: string | null): string[] {
+  if (!raw) return [];
+  const result = new Set<string>();
+  // Match either a parenthesised group  OR  a plain token (no parens/commas/spaces)
+  const re = /\(([^)]+)\)|([^\s,;()?]+)/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(raw)) !== null) {
+    if (m[1]) {
+      // Group content: split on ";" and trim each part
+      for (const part of m[1].split(";")) {
+        const t = part.trim();
+        if (t && t !== "?") result.add(t);
+      }
+    } else if (m[2]) {
+      const t = m[2].trim();
+      if (t && t !== "?") result.add(t);
+    }
+  }
+  return [...result];
 }
 
 // ── Bezier path between two nodes ─────────────────────────────────────────────
@@ -337,28 +366,30 @@ type GeneLocus  = {
 };
 
 const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> = {
-  // PKS catalytic core — five hue families so each is instantly distinct
-  "PKS_KS":            { fill: "#1e40af", abbr: "KS",  label: "Ketosynthase" },         // indigo blue
-  "PKS_AT":            { fill: "#c2410c", abbr: "AT",  label: "Acyltransferase" },       // burnt orange
-  "PKS_DH":            { fill: "#0e7490", abbr: "DH",  label: "Dehydratase" },           // dark cyan
-  "PKS_ER":            { fill: "#166534", abbr: "ER",  label: "Enoylreductase" },        // forest green
-  "PKS_KR":            { fill: "#7e22ce", abbr: "KR",  label: "Ketoreductase" },         // deep violet
-  // Carrier proteins — neutral grays so they don't compete with catalytic domains
-  "ACP":               { fill: "#475569", abbr: "ACP", label: "Acyl carrier (ACP)" },   // slate
-  "PKS_PP":            { fill: "#64748b", abbr: "PP",  label: "Phosphopantetheine" },   // lighter slate
-  // NRPS core — warm reds/amber clearly separated from each other
-  "Condensation":      { fill: "#991b1b", abbr: "C",   label: "Condensation" },         // dark crimson
-  "AMP-binding":       { fill: "#b45309", abbr: "A",   label: "Adenylation" },          // dark amber
-  "PCP":               { fill: "#9d174d", abbr: "PCP", label: "Peptidyl carrier (PCP)" }, // dark rose
-  "PP-binding":        { fill: "#4c1d95", abbr: "PP",  label: "PP-binding" },           // very dark purple
+  // PKS catalytic core — hues chosen to NOT overlap any gene-kind colour
+  "PKS_KS":            { fill: "#0f766e", abbr: "KS",  label: "Ketosynthase" },          // teal (≠ biosynthetic blue)
+  "PKS_AT":            { fill: "#a21caf", abbr: "AT",  label: "Acyltransferase" },        // fuchsia
+  "PKS_DH":            { fill: "#4d7c0f", abbr: "DH",  label: "Dehydratase" },            // lime (≠ transport cyan)
+  "PKS_ER":            { fill: "#166534", abbr: "ER",  label: "Enoylreductase" },         // forest green
+  "PKS_KR":            { fill: "#be185d", abbr: "KR",  label: "Ketoreductase" },          // pink (≠ biosynthetic-additional purple)
+  // Carrier proteins — warm stone gray (≠ cool slate of gene-kind "other")
+  "ACP":               { fill: "#44403c", abbr: "ACP", label: "Acyl carrier (ACP)" },    // stone-700
+  "PKS_PP":            { fill: "#78716c", abbr: "PP",  label: "Phosphopantetheine" },    // stone-500
+  // NRPS core
+  "Condensation":      { fill: "#14532d", abbr: "C",   label: "Condensation" },          // dark forest green (≠ resistance red)
+  "AMP-binding":       { fill: "#713f12", abbr: "A",   label: "Adenylation" },           // dark warm brown (≠ regulatory amber)
+  "PCP":               { fill: "#581c87", abbr: "PCP", label: "Peptidyl carrier (PCP)" }, // violet-900 (darker than biosynthetic-additional)
+  "PP-binding":        { fill: "#1e1b4b", abbr: "PP",  label: "PP-binding" },            // indigo-950
+  "NRPS-COM_Nterm":    { fill: "#292524", abbr: "Cn",  label: "COM N-term" },            // stone-900
+  "NRPS-COM_Cterm":    { fill: "#57534e", abbr: "Cc",  label: "COM C-term" },            // stone-600
   // Release / tailoring
-  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },         // amber
-  "Epimerization":     { fill: "#be123c", abbr: "E",   label: "Epimerization" },        // rose-red
-  "Heterocyclization": { fill: "#134e4a", abbr: "Cy",  label: "Heterocyclization" },    // very dark teal
-  // Docking / misc
-  "PKS_Docking_Nterm": { fill: "#374151", abbr: "Dn",  label: "Docking N-term" },       // dark charcoal
-  "PKS_Docking_Cterm": { fill: "#6b7280", abbr: "Dc",  label: "Docking C-term" },       // gray
-  "FkbH":              { fill: "#14532d", abbr: "Fk",  label: "FkbH-like" },            // very dark green
+  "Thioesterase":      { fill: "#3730a3", abbr: "TE",  label: "Thioesterase" },          // indigo-700 (≠ regulatory amber)
+  "Epimerization":     { fill: "#831843", abbr: "E",   label: "Epimerization" },         // dark maroon (≠ resistance red)
+  "Heterocyclization": { fill: "#451a03", abbr: "Cy",  label: "Heterocyclization" },     // dark warm brown-red
+  // Docking / misc — warm charcoal (≠ cool slate of gene-kind "other")
+  "PKS_Docking_Nterm": { fill: "#231f1e", abbr: "Dn",  label: "Docking N-term" },        // stone-950
+  "PKS_Docking_Cterm": { fill: "#574b47", abbr: "Dc",  label: "Docking C-term" },        // stone-600
+  "FkbH":              { fill: "#1a2e05", abbr: "Fk",  label: "FkbH-like" },            // very dark olive
 };
 const DV_UNKNOWN = { fill: "#94a3b8", abbr: "?", label: "Unknown domain" };
 function dv(type: string | null) {
@@ -426,15 +457,45 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
       {popup && (() => {
         const n = nodeMap.get(popup.nodeId);
         if (!n) return null;
-        const matchedGene = (n.module !== null && genes)
-          ? (genes.find((g) => g.gene === n.enzyme || g.locus_tag === n.enzyme) ?? null)
-          : null;
-        if (!matchedGene && !n.nonlinearity) return null;
+        // ── Collect all genes for this step (supports split modules spanning multiple genes)
+        function stepModOrder(m: string | null): number {
+          if (m === "0")  return 0;
+          if (m === "TE") return 99999;
+          const v = parseInt(m ?? "", 10);
+          return isNaN(v) ? 99998 : v;
+        }
+        type GeneSection = { gene: GeneLocus; visibleDomains: GeneDomain[] };
+        const geneSections: GeneSection[] = (n.module !== null && genes)
+          ? n.enzymes.flatMap((enzName) => {
+              const gene = genes.find((g) => g.gene === enzName || g.locus_tag === enzName);
+              if (!gene) return [];
+              // Rank this step among all steps that reference this specific gene
+              const peerNodes = nodes
+                .filter((nd) => nd.module !== null && nd.enzymes.includes(enzName))
+                .sort((a, b) => stepModOrder(a.module) - stepModOrder(b.module));
+              const localRank = peerNodes.findIndex((nd) => nd.id === n.id);
+              const hasMidx   = gene.domains.some((d) => d.module_idx !== null);
+              const visible   = (hasMidx && localRank >= 0)
+                ? gene.domains.filter((d) => d.module_idx === localRank)
+                : gene.domains;
+              return [{ gene, visibleDomains: visible }] as GeneSection[];
+            })
+          : [];
+        // Sort gene sections N→C terminal:
+        // reverse-strand genes have their N-terminus at the highest genomic coordinate
+        const orderedSections = [...geneSections].sort((a, b) =>
+          a.gene.strand === -1 ? b.gene.start - a.gene.start : a.gene.start - b.gene.start
+        );
+        if (orderedSections.length === 0 && !n.nonlinearity) return null;
 
         const nRounds = n.nonlinearity
           ? (parseNonlinearity(n.nonlinearity).find((p) => p.type === "Iteration")?.rounds?.length ?? 0)
           : 0;
-        const popupW = Math.max(288, 48 + nRounds * 25 + 24);
+        // Wider popup when a split module spans multiple genes
+        const popupW = Math.max(
+          orderedSections.length > 1 ? 320 : 288,
+          48 + nRounds * 25 + 24
+        );
         const barW   = popupW - 28;
 
         return (
@@ -447,98 +508,122 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
             }}>
 
               {/* ── Domain architecture ──────────────────────────────────── */}
-              {matchedGene && (() => {
-                const gene = matchedGene;
+              {orderedSections.length > 0 && (() => {
                 const mlLabel = n.module === "0" ? "Loading module"
                               : n.module === "TE" ? "Thioesterase"
                               : `Module ${n.module}`;
                 const mlBg    = n.module === "TE" ? "#fef3c7" : n.module === "0" ? "#dcfce7" : "#e8f0fe";
                 const mlColor = n.module === "TE" ? "#92400e" : n.module === "0" ? "#166534" : "#1a56db";
-
-                // Determine the gene-local module index for this pathway step.
-                // Modules within a gene are ordered N→C terminal, so we rank
-                // all pathway nodes that share this enzyme by module number.
-                function parseModOrder(m: string | null): number {
-                  if (m === "0")  return 0;
-                  if (m === "TE") return 99999;
-                  const v = parseInt(m ?? "", 10);
-                  return isNaN(v) ? 99998 : v;
-                }
-                const localModIdx: number | null = (() => {
-                  if (n.module === null) return null;
-                  const sameEnzyme = nodes
-                    .filter((nd) => nd.enzyme === n.enzyme && nd.module !== null)
-                    .sort((a, b) => parseModOrder(a.module) - parseModOrder(b.module));
-                  const idx = sameEnzyme.findIndex((nd) => nd.module === n.module && nd.id === n.id);
-                  return idx >= 0 ? idx : null;
-                })();
-
-                // Filter domains to only those belonging to this module.
-                // Fall back to all domains if module_idx data is absent.
-                const hasMidxData = gene.domains.some((d) => d.module_idx !== null);
-                const visibleDomains = (hasMidxData && localModIdx !== null)
-                  ? gene.domains.filter((d) => d.module_idx === localModIdx)
-                  : gene.domains;
-
+                const isSplit = orderedSections.length > 1;
+                // Per-gene bar width; leave a 10 px gap between sections for split modules
+                const sectionW = isSplit
+                  ? Math.floor((barW - 10 * (orderedSections.length - 1)) / orderedSections.length)
+                  : barW;
+                // All visible domains ordered N→C (across genes) — used for the legend
+                const allDomains = orderedSections.flatMap(({ gene, visibleDomains }) => {
+                  const rev = gene.strand === -1;
+                  return [...visibleDomains].sort((a, b) =>
+                    rev ? b.start - a.start : a.start - b.start
+                  );
+                });
                 return (
                   <div style={{ marginBottom: n.nonlinearity ? 10 : 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                      <code style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e" }}>{gene.gene}</code>
+                    {/* Header: gene name(s) + module badge */}
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+                      <code style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e" }}>
+                        {orderedSections.map((s) => s.gene.gene).join(" · ")}
+                      </code>
                       {n.module !== null && (
                         <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 4,
                           fontWeight: 600, backgroundColor: mlBg, color: mlColor }}>
                           {mlLabel}
                         </span>
                       )}
+                      {isSplit && (
+                        <span style={{ fontSize: 9, color: "#9ca3af", fontStyle: "italic" }}>
+                          split module
+                        </span>
+                      )}
                     </div>
-                    {gene.product && (
+                    {/* Product annotation — single-gene only */}
+                    {!isSplit && orderedSections[0].gene.product && (
                       <div style={{ fontSize: 10, color: "#64748b", fontStyle: "italic", marginBottom: 6 }}>
-                        {gene.product}
+                        {orderedSections[0].gene.product}
                       </div>
                     )}
-                    {visibleDomains.length > 0 ? (() => {
-                      // Scale the bar to the visible domains' span for clarity
-                      const domStart = Math.min(...visibleDomains.map((d) => d.start));
-                      const domEnd   = Math.max(...visibleDomains.map((d) => d.end));
-                      const span     = Math.max(domEnd - domStart, 1);
-                      const bx = (bp: number) => ((bp - domStart) / span) * barW;
-                      return (
-                        <>
-                          <svg width={barW} height={26} style={{ display: "block", marginBottom: 5 }}>
-                            <rect x={0} y={7} width={barW} height={12} fill="#e2e8f0" rx={3} />
-                            {visibleDomains.map((dom, di) => {
-                              const x1 = bx(dom.start), x2 = bx(dom.end);
-                              const w  = Math.max(x2 - x1, 2);
-                              const { fill, abbr } = dv(dom.type);
-                              return (
-                                <g key={di}>
-                                  <rect x={x1} y={4} width={w} height={18} fill={fill} rx={2} opacity={0.9} />
-                                  {w >= 16 && (
-                                    <text x={x1 + w / 2} y={16} textAnchor="middle"
-                                      fontSize={7.5} fontWeight="bold" fill="white">{abbr}</text>
-                                  )}
-                                </g>
-                              );
-                            })}
-                          </svg>
-                          <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px",
-                            fontSize: 10, color: "#475569" }}>
-                            {visibleDomains.map((dom, di) => {
-                              const { fill, label } = dv(dom.type);
-                              return (
-                                <span key={di} style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                                  <span style={{ width: 7, height: 7, borderRadius: 1, flexShrink: 0,
-                                    backgroundColor: fill, display: "inline-block" }} />
-                                  {label}
-                                </span>
-                              );
-                            })}
-                          </div>
-                        </>
-                      );
-                    })() : (
+                    {/* Domain bars (one per gene section) + combined legend */}
+                    {allDomains.length > 0 ? (
+                      <>
+                        <div style={{ display: "flex", gap: 10, alignItems: "flex-end", marginBottom: 5 }}>
+                          {orderedSections.map(({ gene, visibleDomains }, si) => {
+                            const rev = gene.strand === -1;
+                            const domStart = visibleDomains.length > 0
+                              ? Math.min(...visibleDomains.map((d: GeneDomain) => d.start)) : 0;
+                            const domEnd   = visibleDomains.length > 0
+                              ? Math.max(...visibleDomains.map((d: GeneDomain) => d.end))   : 1;
+                            const span     = Math.max(domEnd - domStart, 1);
+                            const bx = rev
+                              ? (bp: number) => ((domEnd - bp) / span) * sectionW
+                              : (bp: number) => ((bp - domStart) / span) * sectionW;
+                            return (
+                              <div key={si}>
+                                {/* Gene label above each bar (split modules only) */}
+                                {isSplit && (
+                                  <div style={{ fontSize: 9, color: "#64748b",
+                                    fontFamily: "monospace", marginBottom: 2 }}>
+                                    {gene.gene}
+                                  </div>
+                                )}
+                                <svg width={sectionW} height={30} style={{ display: "block" }}>
+                                  <rect x={0} y={7} width={sectionW} height={12}
+                                    fill={visibleDomains.length > 0 ? "#e2e8f0" : "#f1f5f9"}
+                                    rx={3}
+                                    stroke={visibleDomains.length === 0 ? "#cbd5e1" : "none"}
+                                    strokeWidth={0.5} strokeDasharray={visibleDomains.length === 0 ? "3,2" : undefined} />
+                                  {visibleDomains.map((dom: GeneDomain, di: number) => {
+                                    const x1 = rev ? bx(dom.end) : bx(dom.start);
+                                    const w  = Math.max(
+                                      rev ? bx(dom.start) - bx(dom.end) : bx(dom.end) - bx(dom.start),
+                                      2
+                                    );
+                                    const { fill, abbr } = dv(dom.type);
+                                    return (
+                                      <g key={di}>
+                                        <rect x={x1} y={4} width={w} height={18}
+                                          fill={fill} rx={2} opacity={0.9} />
+                                        {w >= 14 && (
+                                          <text x={x1 + w / 2} y={16} textAnchor="middle"
+                                            fontSize={7} fontWeight="bold" fill="white">{abbr}</text>
+                                        )}
+                                      </g>
+                                    );
+                                  })}
+                                  <text x={2} y={28} fontSize={7} fill="#94a3b8" fontStyle="italic">N</text>
+                                  <text x={sectionW - 2} y={28} textAnchor="end" fontSize={7}
+                                    fill="#94a3b8" fontStyle="italic">C</text>
+                                </svg>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        {/* Domain legend in N→C order */}
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "2px 10px",
+                          fontSize: 10, color: "#475569" }}>
+                          {allDomains.map((dom: GeneDomain, di: number) => {
+                            const { fill, label } = dv(dom.type);
+                            return (
+                              <span key={di} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                                <span style={{ width: 7, height: 7, borderRadius: 1, flexShrink: 0,
+                                  backgroundColor: fill, display: "inline-block" }} />
+                                {label}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </>
+                    ) : (
                       <div style={{ color: "#94a3b8", fontSize: 10, fontStyle: "italic" }}>
-                        No domain data available for this gene.
+                        No domain data available for this module.
                       </div>
                     )}
                   </div>
@@ -546,7 +631,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
               })()}
 
               {/* Divider between sections */}
-              {matchedGene && n.nonlinearity && (
+              {orderedSections.length > 0 && n.nonlinearity && (
                 <div style={{ borderTop: "1px solid #eee", margin: "8px 0" }} />
               )}
 
@@ -695,10 +780,10 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
             const src = nodeMap.get(e.source);
             const tgt = nodeMap.get(e.target);
             if (!src || !tgt) return null;
-            // Keep an edge visible when either endpoint enzyme is highlighted
+            // Keep an edge visible when any enzyme of either endpoint is highlighted
             const edgeActive = activeIds.length === 0 ||
-              (src.enzyme !== null && activeIds.includes(src.enzyme)) ||
-              (tgt.enzyme !== null && activeIds.includes(tgt.enzyme));
+              src.enzymes.some((e) => activeIds.includes(e)) ||
+              tgt.enzymes.some((e) => activeIds.includes(e));
             return (
               <path
                 key={e.id}
@@ -725,7 +810,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
             const { strip: stripColor } = stepClassStyle[n.stepClass];
 
             const isNodeHighlighted =
-              activeIds.length > 0 && n.enzyme !== null && activeIds.includes(n.enzyme);
+              activeIds.length > 0 && n.enzymes.some((e) => activeIds.includes(e));
 
             return (
               <foreignObject
@@ -765,7 +850,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
                     outline: popup?.nodeId === n.id ? "2px solid #6464dc" : "none",
                     outlineOffset: -2,
                   }}
-                  onMouseEnter={() => { if (n.enzyme) setActiveIds([n.enzyme]); }}
+                  onMouseEnter={() => { if (n.enzymes.length > 0) setActiveIds(n.enzymes); }}
                   onMouseLeave={() => setActiveIds([])}
                   onClick={(n.nonlinearity || (n.module !== null && !!genes)) ? (e) => {
                     e.stopPropagation();
