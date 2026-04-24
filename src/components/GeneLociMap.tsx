@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useGeneHighlight } from "@/components/GeneHighlightContext";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -62,27 +63,32 @@ function kindStyle(k: string | null): KindStyle {
 type DomainStyle = { fill: string; stroke: string; abbr: string; label: string };
 
 const DOMAIN_STYLES: Record<string, DomainStyle> = {
-  "PKS_KS":            { fill: "#1e3a8a", stroke: "#1e40af", abbr: "KS",  label: "Ketosynthase (KS)" },
-  "PKS_AT":            { fill: "#1d4ed8", stroke: "#2563eb", abbr: "AT",  label: "Acyltransferase (AT)" },
-  "PKS_DH":            { fill: "#0369a1", stroke: "#0284c7", abbr: "DH",  label: "Dehydratase (DH)" },
-  "PKS_ER":            { fill: "#0891b2", stroke: "#06b6d4", abbr: "ER",  label: "Enoylreductase (ER)" },
-  "PKS_KR":            { fill: "#0e7490", stroke: "#0891b2", abbr: "KR",  label: "Ketoreductase (KR)" },
-  "ACP":               { fill: "#059669", stroke: "#047857", abbr: "ACP", label: "Acyl carrier protein (ACP)" },
-  "PKS_PP":            { fill: "#059669", stroke: "#047857", abbr: "PP",  label: "Phosphopantetheine (PP)" },
-  "Condensation":      { fill: "#9d174d", stroke: "#be185d", abbr: "C",   label: "Condensation (C)" },
-  "AMP-binding":       { fill: "#be185d", stroke: "#db2777", abbr: "A",   label: "Adenylation (A)" },
-  "PCP":               { fill: "#c026d3", stroke: "#a21caf", abbr: "PCP", label: "Peptidyl carrier (PCP)" },
-  "PP-binding":        { fill: "#7c3aed", stroke: "#6d28d9", abbr: "PP",  label: "PP-binding" },
-  "Thioesterase":      { fill: "#d97706", stroke: "#b45309", abbr: "TE",  label: "Thioesterase (TE)" },
-  "Epimerization":     { fill: "#dc2626", stroke: "#b91c1c", abbr: "E",   label: "Epimerization (E)" },
-  "PKS_Docking_Nterm": { fill: "#6b7280", stroke: "#4b5563", abbr: "Dn",  label: "Docking N-term" },
-  "PKS_Docking_Cterm": { fill: "#9ca3af", stroke: "#6b7280", abbr: "Dc",  label: "Docking C-term" },
-  "FkbH":              { fill: "#16a34a", stroke: "#15803d", abbr: "Fk",  label: "FkbH-like" },
-  "NRPS-COM_Nterm":    { fill: "#64748b", stroke: "#475569", abbr: "Cn",  label: "COM N-term" },
-  "NRPS-COM_Cterm":    { fill: "#94a3b8", stroke: "#64748b", abbr: "Cc",  label: "COM C-term" },
-  "Heterocyclization": { fill: "#0f766e", stroke: "#0d9488", abbr: "Cy",  label: "Heterocyclization (Cy)" },
+  // PKS catalytic core — five hue families so each is instantly distinct
+  "PKS_KS":            { fill: "#1e40af", stroke: "#3b5fd4", abbr: "KS",  label: "Ketosynthase (KS)" },         // indigo blue
+  "PKS_AT":            { fill: "#c2410c", stroke: "#e05c1a", abbr: "AT",  label: "Acyltransferase (AT)" },       // burnt orange
+  "PKS_DH":            { fill: "#0e7490", stroke: "#1899b5", abbr: "DH",  label: "Dehydratase (DH)" },           // dark cyan
+  "PKS_ER":            { fill: "#166534", stroke: "#1d8043", abbr: "ER",  label: "Enoylreductase (ER)" },        // forest green
+  "PKS_KR":            { fill: "#7e22ce", stroke: "#9c35f2", abbr: "KR",  label: "Ketoreductase (KR)" },         // deep violet
+  // Carrier proteins — neutral grays
+  "ACP":               { fill: "#475569", stroke: "#5e7186", abbr: "ACP", label: "Acyl carrier protein (ACP)" }, // slate
+  "PKS_PP":            { fill: "#64748b", stroke: "#7d91a8", abbr: "PP",  label: "Phosphopantetheine (PP)" },    // lighter slate
+  // NRPS core — warm reds/amber clearly separated from each other
+  "Condensation":      { fill: "#991b1b", stroke: "#c02222", abbr: "C",   label: "Condensation (C)" },          // dark crimson
+  "AMP-binding":       { fill: "#b45309", stroke: "#d9660b", abbr: "A",   label: "Adenylation (A)" },           // dark amber
+  "PCP":               { fill: "#9d174d", stroke: "#c01e61", abbr: "PCP", label: "Peptidyl carrier (PCP)" },    // dark rose
+  "PP-binding":        { fill: "#4c1d95", stroke: "#6528bc", abbr: "PP",  label: "PP-binding" },                // very dark purple
+  "NRPS-COM_Nterm":    { fill: "#374151", stroke: "#4b5563", abbr: "Cn",  label: "COM N-term" },                // dark charcoal
+  "NRPS-COM_Cterm":    { fill: "#6b7280", stroke: "#9ca3af", abbr: "Cc",  label: "COM C-term" },                // gray
+  // Release / tailoring
+  "Thioesterase":      { fill: "#d97706", stroke: "#f59e0b", abbr: "TE",  label: "Thioesterase (TE)" },         // amber
+  "Epimerization":     { fill: "#be123c", stroke: "#e0184a", abbr: "E",   label: "Epimerization (E)" },         // rose-red
+  "Heterocyclization": { fill: "#134e4a", stroke: "#1a6b65", abbr: "Cy",  label: "Heterocyclization (Cy)" },    // very dark teal
+  // Docking / misc
+  "PKS_Docking_Nterm": { fill: "#374151", stroke: "#4b5563", abbr: "Dn",  label: "Docking N-term" },            // dark charcoal
+  "PKS_Docking_Cterm": { fill: "#6b7280", stroke: "#9ca3af", abbr: "Dc",  label: "Docking C-term" },            // gray
+  "FkbH":              { fill: "#14532d", stroke: "#1a6e3c", abbr: "Fk",  label: "FkbH-like" },                 // very dark green
 };
-const UNKNOWN_DOMAIN: DomainStyle = { fill: "#cbd5e1", stroke: "#94a3b8", abbr: "?", label: "Unknown domain" };
+const UNKNOWN_DOMAIN: DomainStyle = { fill: "#94a3b8", stroke: "#64748b", abbr: "?", label: "Unknown domain" };
 function domainStyle(t: string | null): DomainStyle {
   return (t && DOMAIN_STYLES[t]) ? DOMAIN_STYLES[t] : UNKNOWN_DOMAIN;
 }
@@ -157,6 +163,7 @@ export default function GeneLociMap({ totalLength, genes }: Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const svgRef     = useRef<SVGSVGElement>(null);
   const [tooltip, setTooltip] = useState<TooltipState>({ visible: false });
+  const { activeIds, setActiveIds } = useGeneHighlight();
 
   // ── Visible bp range (zoom/pan state) ─────────────────────────────────────
   // Instead of changing the SVG viewBox, we change which bp range maps to the
@@ -279,9 +286,11 @@ export default function GeneLociMap({ totalLength, genes }: Props) {
   }
   function resetZoom() { updateVisBp(1, totalLength); }
 
-  // ── Tooltip handlers ───────────────────────────────────────────────────────
+  // ── Tooltip + highlight handlers ───────────────────────────────────────────
   function onEnter(e: React.MouseEvent, g: Gene, domain?: GeneDomain) {
     if (isDragging.current || !wrapperRef.current) return;
+    // Broadcast all identifiers for this gene so StepsTable can match either
+    setActiveIds([g.gene, g.locus_tag].filter((x): x is string => x !== null));
     const r = wrapperRef.current.getBoundingClientRect();
     setTooltip({ visible: true, x: e.clientX - r.left + 12, y: e.clientY - r.top - 12, gene: g, domain });
   }
@@ -290,7 +299,10 @@ export default function GeneLociMap({ totalLength, genes }: Props) {
     const r = wrapperRef.current.getBoundingClientRect();
     setTooltip({ visible: true, x: e.clientX - r.left + 12, y: e.clientY - r.top - 12, gene: g, domain });
   }
-  function onLeave() { setTooltip({ visible: false }); }
+  function onLeave() {
+    setActiveIds([]);
+    setTooltip({ visible: false });
+  }
 
   // ── Legends ────────────────────────────────────────────────────────────────
   const legendKinds = useMemo(() => {
@@ -399,6 +411,14 @@ export default function GeneLociMap({ totalLength, genes }: Props) {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
+          {/* Glow filter applied to the highlighted gene arrow */}
+          <filter id="gene-hl-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
           {laneGenes.map((g, i) => {
             const x1 = bpToX(g.start), x2 = bpToX(g.end);
             const y0 = trackTop + g.lane * (LANE_H + LANE_GAP), y1 = y0 + LANE_H;
@@ -423,14 +443,26 @@ export default function GeneLociMap({ totalLength, genes }: Props) {
           const ks  = kindStyle(g.gene_kind);
           const d   = arrowPath(x1, x2, y0, y1, g.strand);
           const has = g.domains.length > 0;
+
+          // Highlight state driven by shared context
+          const isHighlighted = activeIds.length > 0 && (
+            activeIds.includes(g.gene ?? "\x00") ||
+            activeIds.includes(g.locus_tag ?? "\x00")
+          );
+          const baseOpacity = has ? 0.7 : 0.85;
+          const geneOpacity = activeIds.length === 0
+            ? baseOpacity
+            : isHighlighted ? 0.97 : 0.18;
+
           return (
             <g key={i}>
               <path
                 d={d}
                 fill={has ? "#e2e8f0" : ks.fill}
-                stroke={has ? "#94a3b8" : ks.stroke}
-                opacity={has ? 0.7 : 0.85}
-                strokeWidth={0.5}
+                stroke={isHighlighted ? "#f59e0b" : has ? "#94a3b8" : ks.stroke}
+                opacity={geneOpacity}
+                strokeWidth={isHighlighted ? 2 : 0.5}
+                filter={isHighlighted ? "url(#gene-hl-glow)" : undefined}
                 cursor="pointer"
                 onMouseEnter={(e) => onEnter(e, g)}
                 onMouseMove={(e)  => onMove(e, g)}

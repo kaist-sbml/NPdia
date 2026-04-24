@@ -67,25 +67,30 @@ type GeneLocus = {
 // ── Domain visualisation palette (shared with PathwayDAG) ─────────────────────
 
 const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> = {
-  "PKS_KS":            { fill: "#1e3a8a", abbr: "KS",  label: "Ketosynthase" },
-  "PKS_AT":            { fill: "#1d4ed8", abbr: "AT",  label: "Acyltransferase" },
-  "PKS_DH":            { fill: "#0369a1", abbr: "DH",  label: "Dehydratase" },
-  "PKS_ER":            { fill: "#0891b2", abbr: "ER",  label: "Enoylreductase" },
-  "PKS_KR":            { fill: "#0e7490", abbr: "KR",  label: "Ketoreductase" },
-  "ACP":               { fill: "#059669", abbr: "ACP", label: "Acyl carrier (ACP)" },
-  "PKS_PP":            { fill: "#059669", abbr: "PP",  label: "Phosphopantetheine" },
-  "Condensation":      { fill: "#9d174d", abbr: "C",   label: "Condensation" },
-  "AMP-binding":       { fill: "#be185d", abbr: "A",   label: "Adenylation" },
-  "PCP":               { fill: "#c026d3", abbr: "PCP", label: "Peptidyl carrier (PCP)" },
-  "PP-binding":        { fill: "#7c3aed", abbr: "PP",  label: "PP-binding" },
-  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },
-  "Epimerization":     { fill: "#dc2626", abbr: "E",   label: "Epimerization" },
-  "Heterocyclization": { fill: "#0f766e", abbr: "Cy",  label: "Heterocyclization" },
-  "PKS_Docking_Nterm": { fill: "#6b7280", abbr: "Dn",  label: "Docking N-term" },
-  "PKS_Docking_Cterm": { fill: "#9ca3af", abbr: "Dc",  label: "Docking C-term" },
-  "FkbH":              { fill: "#16a34a", abbr: "Fk",  label: "FkbH-like" },
+  // PKS catalytic core — five hue families so each is instantly distinct
+  "PKS_KS":            { fill: "#1e40af", abbr: "KS",  label: "Ketosynthase" },         // indigo blue
+  "PKS_AT":            { fill: "#c2410c", abbr: "AT",  label: "Acyltransferase" },       // burnt orange
+  "PKS_DH":            { fill: "#0e7490", abbr: "DH",  label: "Dehydratase" },           // dark cyan
+  "PKS_ER":            { fill: "#166534", abbr: "ER",  label: "Enoylreductase" },        // forest green
+  "PKS_KR":            { fill: "#7e22ce", abbr: "KR",  label: "Ketoreductase" },         // deep violet
+  // Carrier proteins — neutral grays so they don't compete with catalytic domains
+  "ACP":               { fill: "#475569", abbr: "ACP", label: "Acyl carrier (ACP)" },   // slate
+  "PKS_PP":            { fill: "#64748b", abbr: "PP",  label: "Phosphopantetheine" },   // lighter slate
+  // NRPS core — warm reds/amber clearly separated from each other
+  "Condensation":      { fill: "#991b1b", abbr: "C",   label: "Condensation" },         // dark crimson
+  "AMP-binding":       { fill: "#b45309", abbr: "A",   label: "Adenylation" },          // dark amber
+  "PCP":               { fill: "#9d174d", abbr: "PCP", label: "Peptidyl carrier (PCP)" }, // dark rose
+  "PP-binding":        { fill: "#4c1d95", abbr: "PP",  label: "PP-binding" },           // very dark purple
+  // Release / tailoring
+  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },         // amber
+  "Epimerization":     { fill: "#be123c", abbr: "E",   label: "Epimerization" },        // rose-red
+  "Heterocyclization": { fill: "#134e4a", abbr: "Cy",  label: "Heterocyclization" },    // very dark teal
+  // Docking / misc
+  "PKS_Docking_Nterm": { fill: "#374151", abbr: "Dn",  label: "Docking N-term" },       // dark charcoal
+  "PKS_Docking_Cterm": { fill: "#6b7280", abbr: "Dc",  label: "Docking C-term" },       // gray
+  "FkbH":              { fill: "#14532d", abbr: "Fk",  label: "FkbH-like" },            // very dark green
 };
-const DV_UNKNOWN = { fill: "#cbd5e1", abbr: "?", label: "Unknown domain" };
+const DV_UNKNOWN = { fill: "#94a3b8", abbr: "?", label: "Unknown domain" };
 function dv(type: string | null) {
   return (type && DOMAIN_VIZ[type]) ? DOMAIN_VIZ[type] : DV_UNKNOWN;
 }
@@ -746,6 +751,7 @@ export default function StepsTable({
   genes?: GeneLocus[];
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const [popup, setPopup] = useState<{
     step: StepRow;
     pos: { x: number; y: number };
@@ -866,7 +872,6 @@ export default function StepsTable({
                   <tr
                     key={step.order}
                     onClick={() => {
-                      // Row click always opens the molecule modal
                       if (isSelected) {
                         setSelectedIndex(null);
                       } else {
@@ -874,25 +879,16 @@ export default function StepsTable({
                       }
                     }}
                     style={{
-                      backgroundColor: isSelected || isPopupOpen
-                        ? "#f0f0ff"
-                        : i % 2 === 0
-                        ? "#fff"
-                        : "#fafafe",
+                      backgroundColor:
+                        isSelected || isPopupOpen ? "#f0f0ff" :
+                        hoveredIdx === i           ? "#f5f5fb" :
+                        i % 2 === 0               ? "#fff"    : "#fafafe",
                       borderBottom: "1px solid #eef",
                       cursor: "pointer",
                       transition: "background-color 0.1s",
                     }}
-                    onMouseEnter={(e) => {
-                      if (!isSelected && !isPopupOpen)
-                        (e.currentTarget as HTMLElement).style.backgroundColor =
-                          "#f5f5fb";
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSelected && !isPopupOpen)
-                        (e.currentTarget as HTMLElement).style.backgroundColor =
-                          i % 2 === 0 ? "#fff" : "#fafafe";
-                    }}
+                    onMouseEnter={() => setHoveredIdx(i)}
+                    onMouseLeave={() => setHoveredIdx(null)}
                   >
                     {/* Step order */}
                     <td

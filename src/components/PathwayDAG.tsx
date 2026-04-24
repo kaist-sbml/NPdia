@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useRef, useCallback, useEffect } from "react";
 import { parseNonlinearity, IterationGrid } from "@/components/NonlinearityBadge";
+import { useGeneHighlight } from "@/components/GeneHighlightContext";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -336,25 +337,30 @@ type GeneLocus  = {
 };
 
 const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> = {
-  "PKS_KS":            { fill: "#1e3a8a", abbr: "KS",  label: "Ketosynthase" },
-  "PKS_AT":            { fill: "#1d4ed8", abbr: "AT",  label: "Acyltransferase" },
-  "PKS_DH":            { fill: "#0369a1", abbr: "DH",  label: "Dehydratase" },
-  "PKS_ER":            { fill: "#0891b2", abbr: "ER",  label: "Enoylreductase" },
-  "PKS_KR":            { fill: "#0e7490", abbr: "KR",  label: "Ketoreductase" },
-  "ACP":               { fill: "#059669", abbr: "ACP", label: "Acyl carrier (ACP)" },
-  "PKS_PP":            { fill: "#059669", abbr: "PP",  label: "Phosphopantetheine" },
-  "Condensation":      { fill: "#9d174d", abbr: "C",   label: "Condensation" },
-  "AMP-binding":       { fill: "#be185d", abbr: "A",   label: "Adenylation" },
-  "PCP":               { fill: "#c026d3", abbr: "PCP", label: "Peptidyl carrier (PCP)" },
-  "PP-binding":        { fill: "#7c3aed", abbr: "PP",  label: "PP-binding" },
-  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },
-  "Epimerization":     { fill: "#dc2626", abbr: "E",   label: "Epimerization" },
-  "Heterocyclization": { fill: "#0f766e", abbr: "Cy",  label: "Heterocyclization" },
-  "PKS_Docking_Nterm": { fill: "#6b7280", abbr: "Dn",  label: "Docking N-term" },
-  "PKS_Docking_Cterm": { fill: "#9ca3af", abbr: "Dc",  label: "Docking C-term" },
-  "FkbH":              { fill: "#16a34a", abbr: "Fk",  label: "FkbH-like" },
+  // PKS catalytic core — five hue families so each is instantly distinct
+  "PKS_KS":            { fill: "#1e40af", abbr: "KS",  label: "Ketosynthase" },         // indigo blue
+  "PKS_AT":            { fill: "#c2410c", abbr: "AT",  label: "Acyltransferase" },       // burnt orange
+  "PKS_DH":            { fill: "#0e7490", abbr: "DH",  label: "Dehydratase" },           // dark cyan
+  "PKS_ER":            { fill: "#166534", abbr: "ER",  label: "Enoylreductase" },        // forest green
+  "PKS_KR":            { fill: "#7e22ce", abbr: "KR",  label: "Ketoreductase" },         // deep violet
+  // Carrier proteins — neutral grays so they don't compete with catalytic domains
+  "ACP":               { fill: "#475569", abbr: "ACP", label: "Acyl carrier (ACP)" },   // slate
+  "PKS_PP":            { fill: "#64748b", abbr: "PP",  label: "Phosphopantetheine" },   // lighter slate
+  // NRPS core — warm reds/amber clearly separated from each other
+  "Condensation":      { fill: "#991b1b", abbr: "C",   label: "Condensation" },         // dark crimson
+  "AMP-binding":       { fill: "#b45309", abbr: "A",   label: "Adenylation" },          // dark amber
+  "PCP":               { fill: "#9d174d", abbr: "PCP", label: "Peptidyl carrier (PCP)" }, // dark rose
+  "PP-binding":        { fill: "#4c1d95", abbr: "PP",  label: "PP-binding" },           // very dark purple
+  // Release / tailoring
+  "Thioesterase":      { fill: "#d97706", abbr: "TE",  label: "Thioesterase" },         // amber
+  "Epimerization":     { fill: "#be123c", abbr: "E",   label: "Epimerization" },        // rose-red
+  "Heterocyclization": { fill: "#134e4a", abbr: "Cy",  label: "Heterocyclization" },    // very dark teal
+  // Docking / misc
+  "PKS_Docking_Nterm": { fill: "#374151", abbr: "Dn",  label: "Docking N-term" },       // dark charcoal
+  "PKS_Docking_Cterm": { fill: "#6b7280", abbr: "Dc",  label: "Docking C-term" },       // gray
+  "FkbH":              { fill: "#14532d", abbr: "Fk",  label: "FkbH-like" },            // very dark green
 };
-const DV_UNKNOWN = { fill: "#cbd5e1", abbr: "?", label: "Unknown domain" };
+const DV_UNKNOWN = { fill: "#94a3b8", abbr: "?", label: "Unknown domain" };
 function dv(type: string | null) {
   return (type && DOMAIN_VIZ[type]) ? DOMAIN_VIZ[type] : DV_UNKNOWN;
 }
@@ -371,6 +377,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [popup, setPopup] = useState<{ nodeId: string; pos: PopupPos } | null>(null);
+  const { activeIds, setActiveIds } = useGeneHighlight();
 
   const nodeMap = useMemo(
     () => new Map(nodes.map((n) => [n.id, n])),
@@ -657,6 +664,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
           borderRadius: 10,
           cursor: "default",
         }}
+        onMouseLeave={() => setActiveIds([])}
       >
         {/* Sized to the scaled dimensions so the scrollbar tracks correctly */}
         <div style={{ width: Math.round(W * zoom), height: Math.round(H * zoom), position: "relative", flexShrink: 0 }}>
@@ -687,6 +695,10 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
             const src = nodeMap.get(e.source);
             const tgt = nodeMap.get(e.target);
             if (!src || !tgt) return null;
+            // Keep an edge visible when either endpoint enzyme is highlighted
+            const edgeActive = activeIds.length === 0 ||
+              (src.enzyme !== null && activeIds.includes(src.enzyme)) ||
+              (tgt.enzyme !== null && activeIds.includes(tgt.enzyme));
             return (
               <path
                 key={e.id}
@@ -697,6 +709,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
                 fill="none"
                 stroke="#9090bb"
                 strokeWidth={1.5}
+                opacity={edgeActive ? 1 : 0.1}
                 markerEnd="url(#dag-arrow)"
               />
             );
@@ -711,6 +724,9 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
             const molsToShow = (n.molecules ?? []).slice(0, 2);
             const { strip: stripColor } = stepClassStyle[n.stepClass];
 
+            const isNodeHighlighted =
+              activeIds.length > 0 && n.enzyme !== null && activeIds.includes(n.enzyme);
+
             return (
               <foreignObject
                 key={n.order ?? n.id}
@@ -718,7 +734,11 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
                 y={n.y}
                 width={NW}
                 height={NH}
-                style={{ overflow: "visible" }}
+                style={{
+                  overflow: "visible",
+                  opacity: activeIds.length === 0 ? 1 : isNodeHighlighted ? 1 : 0.15,
+                  transition: "opacity 0.12s",
+                }}
               >
                 {/* React correctly handles the HTML namespace inside foreignObject */}
                 <div
@@ -737,12 +757,16 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
                     display: "flex",
                     flexDirection: "column",
                     gap: 3,
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+                    boxShadow: isNodeHighlighted
+                      ? "0 0 0 2px #f59e0b, 0 2px 8px rgba(245,158,11,0.35)"
+                      : "0 1px 3px rgba(0,0,0,0.08)",
                     position: "relative",
                     cursor: (n.nonlinearity || (n.module !== null && !!genes)) ? "pointer" : "default",
                     outline: popup?.nodeId === n.id ? "2px solid #6464dc" : "none",
                     outlineOffset: -2,
                   }}
+                  onMouseEnter={() => { if (n.enzyme) setActiveIds([n.enzyme]); }}
+                  onMouseLeave={() => setActiveIds([])}
                   onClick={(n.nonlinearity || (n.module !== null && !!genes)) ? (e) => {
                     e.stopPropagation();
                     // Toggle off if already open for this node

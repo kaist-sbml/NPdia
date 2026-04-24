@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import PathwayDAG from "@/components/PathwayDAG";
 import StepsTable from "@/components/StepsTable";
 import GeneLociMap from "@/components/GeneLociMap";
+import { GeneHighlightProvider } from "@/components/GeneHighlightContext";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -302,49 +303,55 @@ export default async function EntryDetailPage({
         </dl>
       </div>
 
-      {/* ── Gene Locus Map ──────────────────────────────────────────────────── */}
-      {loci && (
-        <>
-          <h3 className="section-heading" style={{ marginBottom: "14px" }}>
-            Gene Cluster Map
-            <span style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}>
-              {loci.genes.length} genes · {loci.total_length.toLocaleString()} bp
-            </span>
-          </h3>
-          <div
-            style={{
-              backgroundColor: "#fff",
-              border: "1px solid #dde",
-              borderRadius: "10px",
-              padding: "16px 20px",
-              marginBottom: "28px",
-              boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
-            }}
+      {/* ── Gene Locus Map + Pathway Graph + Steps Table ────────────────────── */}
+      {/* GeneHighlightProvider shares hover state between GeneLociMap and       */}
+      {/* StepsTable so hovering either highlights the matching element in both. */}
+      <GeneHighlightProvider>
+
+        {/* Gene Locus Map */}
+        {loci && (
+          <>
+            <h3 className="section-heading" style={{ marginBottom: "14px" }}>
+              Gene Cluster Map
+              <span style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}>
+                {loci.genes.length} genes · {loci.total_length.toLocaleString()} bp
+              </span>
+            </h3>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                border: "1px solid #dde",
+                borderRadius: "10px",
+                padding: "16px 20px",
+                marginBottom: "28px",
+                boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
+              }}
+            >
+              <GeneLociMap totalLength={loci.total_length} genes={loci.genes} />
+            </div>
+          </>
+        )}
+
+        {/* Pathway Graph */}
+        <h3 className="section-heading" style={{ marginBottom: "14px" }}>
+          Pathway Graph
+        </h3>
+        <div style={{ marginBottom: "36px" }}>
+          <PathwayDAG steps={entry.steps} genes={loci?.genes} />
+        </div>
+
+        {/* Biosynthetic Reactions */}
+        <h3 className="section-heading" style={{ marginBottom: "14px" }}>
+          Biosynthetic Reactions
+          <span
+            style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}
           >
-            <GeneLociMap totalLength={loci.total_length} genes={loci.genes} />
-          </div>
-        </>
-      )}
+            {entry.steps.length} steps
+          </span>
+        </h3>
+        <StepsTable steps={entry.steps} genes={loci?.genes} />
 
-      {/* ── Pathway DAG ─────────────────────────────────────────────────────── */}
-      <h3 className="section-heading" style={{ marginBottom: "14px" }}>
-        Pathway Graph
-      </h3>
-      <div style={{ marginBottom: "36px" }}>
-        <PathwayDAG steps={entry.steps} genes={loci?.genes} />
-      </div>
-
-      {/* ── Steps table ─────────────────────────────────────────────────────── */}
-      <h3 className="section-heading" style={{ marginBottom: "14px" }}>
-        Biosynthetic Reactions
-        <span
-          style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}
-        >
-          {entry.steps.length} steps
-        </span>
-      </h3>
-
-      <StepsTable steps={entry.steps} genes={loci?.genes} />
+      </GeneHighlightProvider>
     </div>
   );
 }
