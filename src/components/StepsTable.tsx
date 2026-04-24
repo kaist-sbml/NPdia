@@ -54,6 +54,7 @@ type GeneDomain = {
 
 type GeneLocus = {
   gene: string | null;
+  locus_tag: string | null;
   start: number;
   end: number;
   strand: number;
@@ -120,7 +121,7 @@ function DomainPopup({
   pos: { x: number; y: number };
   onClose: () => void;
 }) {
-  const gene = genes.find((g) => g.gene === step.enzyme) ?? null;
+  const gene = genes.find((g) => g.gene === step.enzyme || g.locus_tag === step.enzyme) ?? null;
 
   // Compute gene-local module index (same logic as PathwayDAG)
   const localModIdx: number | null = (() => {
@@ -856,14 +857,14 @@ export default function StepsTable({
                 // Module badge is domain-clickable if it has a module and matching gene/nonlinearity
                 const matchedGene =
                   step.module !== null && genes
-                    ? genes.find((g) => g.gene === step.enzyme) ?? null
+                    ? genes.find((g) => g.gene === step.enzyme || g.locus_tag === step.enzyme) ?? null
                     : null;
                 const isBadgeClickable =
                   matchedGene !== null || (step.module !== null && !!step.nonlinearity);
 
                 return (
                   <tr
-                    key={step.product_id}
+                    key={step.order}
                     onClick={() => {
                       // Row click always opens the molecule modal
                       if (isSelected) {

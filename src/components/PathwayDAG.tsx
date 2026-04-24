@@ -329,7 +329,8 @@ type GeneDomain = {
   domain_id: string | null; module_idx: number | null;
 };
 type GeneLocus  = {
-  gene: string | null; start: number; end: number; strand: number;
+  gene: string | null; locus_tag: string | null;
+  start: number; end: number; strand: number;
   gene_kind: string | null; product: string | null;
   gene_functions: string[]; domains: GeneDomain[];
 };
@@ -419,7 +420,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
         const n = nodeMap.get(popup.nodeId);
         if (!n) return null;
         const matchedGene = (n.module !== null && genes)
-          ? (genes.find((g) => g.gene === n.enzyme) ?? null)
+          ? (genes.find((g) => g.gene === n.enzyme || g.locus_tag === n.enzyme) ?? null)
           : null;
         if (!matchedGene && !n.nonlinearity) return null;
 
@@ -649,7 +650,8 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
         style={{
           width: "100%",
           height: Math.max(140, Math.round(H * zoom) + 30),
-          overflow: "auto",
+          overflowX: "scroll",
+          overflowY: "hidden",
           backgroundColor: "#f8f8fc",
           border: "1px solid #dde",
           borderRadius: 10,
@@ -711,7 +713,7 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
 
             return (
               <foreignObject
-                key={n.id}
+                key={n.order ?? n.id}
                 x={n.x}
                 y={n.y}
                 width={NW}

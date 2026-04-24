@@ -176,10 +176,11 @@ def parse_gbk(gbk_path):
         if trunc_idx != -1:
             block = block[:trunc_idx]
 
-        # gene name
+        # gene name — prefer /gene=, fall back to /locus_tag=, then /protein_id=
+        locus_tag = _extract_qualifier(block, "locus_tag")
         gene_name = _extract_qualifier(block, "gene")
         if gene_name is None:
-            gene_name = _extract_qualifier(block, "locus_tag")
+            gene_name = locus_tag
         if gene_name is None:
             gene_name = _extract_qualifier(block, "protein_id")
 
@@ -198,6 +199,7 @@ def parse_gbk(gbk_path):
 
         genes.append({
             "gene":           gene_name,
+            "locus_tag":      locus_tag,   # always stored for aSDomain linking
             "start":          start,
             "end":            end,
             "strand":         strand,
@@ -208,11 +210,16 @@ def parse_gbk(gbk_path):
         })
 
     # ── 4. Parse aSDomain blocks and attach to parent CDS genes ──────────────
-    # Index by gene name (which may be gene, locus_tag, or protein_id)
-    gene_by_name: dict = {}
+    # Index by both gene name AND locus_tag so that aSDomain /locus_tag=
+    # references always resolve even when the CDS /gene= differs from the
+    # locus_tag used in antiSMASH aSDomain features.
+    gene_by_name = {}
     for g in genes:
         if g["gene"]:
             gene_by_name[g["gene"]] = g
+        lt = g.get("locus_tag")
+        if lt and lt not in gene_by_name:
+            gene_by_name[lt] = g
 
     for feat_type, raw_loc, block in feat_blocks:
         if feat_type != "aSDomain":
@@ -252,7 +259,7 @@ def parse_gbk(gbk_path):
 
     # ── 6. Parse aSModule blocks and assign module_idx to each domain ─────────
     # Build: domain_id → module_idx (per-gene, ordered by genomic position)
-    asmodule_list: list = []   # {"locus_tags": [...], "start": int, "domain_ids": [...]}
+    asmodule_list = []   # {"locus_tags": [...], "start": int, "domain_ids": [...]}
 
     for feat_type, raw_loc, block in feat_blocks:
         if feat_type != "aSModule":
@@ -269,17 +276,23 @@ def parse_gbk(gbk_path):
         })
 
     # For each gene, collect its aSModules, sort N→C, build domain_id → module_idx
+    # Match aSModule /locus_tags= against BOTH gene name and locus_tag because
+    # antiSMASH consistently uses the locus_tag in /locus_tags= even when the
+    # CDS has a separate /gene= qualifier (e.g. SACE_0721 vs eryAI).
     for g in genes:
         gname = g["gene"]
-        if not gname:
+        lt    = g.get("locus_tag")
+        if not gname and not lt:
             continue
         gene_modules = sorted(
-            [m for m in asmodule_list if gname in m["locus_tags"]],
+            [m for m in asmodule_list
+             if (gname and gname in m["locus_tags"])
+             or (lt    and lt    in m["locus_tags"])],
             key=lambda m: m["start"],
         )
         if not gene_modules:
             continue
-        domain_id_to_midx: dict = {}
+        domain_id_to_midx = {}
         for midx, mod in enumerate(gene_modules):
             for did in mod["domain_ids"]:
                 domain_id_to_midx[did] = midx

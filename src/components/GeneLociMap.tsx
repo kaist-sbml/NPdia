@@ -15,6 +15,7 @@ type GeneDomain = {
 
 type Gene = {
   gene: string | null;
+  locus_tag: string | null;
   start: number;
   end: number;
   strand: number;

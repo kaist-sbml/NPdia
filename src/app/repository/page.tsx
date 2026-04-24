@@ -60,7 +60,7 @@ export default function RepositoryPage() {
   const meta = raw.metadata;
 
   return (
-    <div style={{ maxWidth: "960px" }}>
+    <div style={{ maxWidth: "100%" }}>
       {/* Page header */}
       <div style={{ marginBottom: "32px" }}>
         <h2 className="page-heading">Repository</h2>

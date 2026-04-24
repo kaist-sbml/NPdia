@@ -93,6 +93,7 @@ type GeneDomain = {
 
 type GeneLocus = {
   gene: string | null;
+  locus_tag: string | null;
   start: number;
   end: number;
   strand: number;
@@ -145,7 +146,7 @@ export default async function EntryDetailPage({
   const catStyle = categoryStyle[category];
 
   return (
-    <div style={{ maxWidth: "960px" }}>
+    <div style={{ maxWidth: "100%" }}>
       {/* Back link */}
       <Link
         href="/repository"

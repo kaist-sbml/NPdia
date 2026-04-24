@@ -11,7 +11,7 @@ const files = [
 
 export default function DownloadPage() {
   return (
-    <div style={{ maxWidth: "760px" }}>
+    <div style={{ maxWidth: "100%" }}>
       <h2
         style={{
           fontSize: "36px",

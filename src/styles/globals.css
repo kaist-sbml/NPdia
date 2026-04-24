@@ -9,6 +9,7 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 17px;
   background-color: #f5f5fb;
   min-height: 100vh;
   color: #1a1a2e;
@@ -16,14 +17,21 @@ body {
 
 /* ─── Layout ────────────────────────────────────────────────────────────── */
 .page-main {
-  max-width: 1000px;
+  /*
+    Fluid max-width: scales with the viewport so the content area
+    grows on wide monitors instead of capping at a fixed pixel value.
+      ≤ ~960px viewport  → 900px  (minimum, keeps content readable)
+      ~1280px viewport   → ~1152px (90 vw)
+      ≥ ~1600px viewport → 1440px (maximum, prevents over-stretching)
+  */
+  max-width: clamp(900px, 90vw, 1440px);
   margin: 0 auto;
   /*
     Fluid padding:
-      vertical  → 20px  at ~480px wide  →  48px at ~1200px wide
-      horizontal → 14px at ~480px wide  →  32px at ~1200px wide
+      vertical   → 20px at ~480px wide → 48px at ~1440px wide
+      horizontal → 16px at ~480px wide → 40px at ~1440px wide
   */
-  padding: clamp(20px, 4vw, 48px) clamp(14px, 2.7vw, 32px);
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 2.8vw, 40px);
 }
 
 /* ─── Header ────────────────────────────────────────────────────────────── */
@@ -49,8 +57,8 @@ body {
 
 .header-title {
   color: #e0e0ff;
-  /* Fluid: 13px → 17px */
-  font-size: clamp(13px, 1.4vw, 17px);
+  /* Fluid: 15px → 19px */
+  font-size: clamp(15px, 1.5vw, 19px);
   font-weight: 700;
   letter-spacing: 0.5px;
   text-decoration: none;
@@ -70,24 +78,24 @@ body {
   /* Fluid padding: (4–6px) vertical, (10–18px) horizontal */
   padding: clamp(4px, 0.5vw, 6px) clamp(10px, 1.5vw, 18px);
   border-radius: 6px;
-  /* Fluid font: 12px → 14px */
-  font-size: clamp(12px, 1.2vw, 14px);
+  /* Fluid font: 14px → 16px */
+  font-size: clamp(14px, 1.3vw, 16px);
   transition: background-color 0.15s, color 0.15s;
   white-space: nowrap;
 }
 
 /* ─── Page typography ────────────────────────────────────────────────────── */
 .page-heading {
-  /* Fluid: 24px → 36px */
-  font-size: clamp(24px, 3vw, 36px);
+  /* Fluid: 28px → 42px */
+  font-size: clamp(28px, 3.2vw, 42px);
   font-weight: 700;
   color: #1a1a2e;
   margin: 0 0 8px 0;
 }
 
 .section-heading {
-  /* Fluid: 17px → 20px */
-  font-size: clamp(17px, 1.7vw, 20px);
+  /* Fluid: 20px → 24px */
+  font-size: clamp(20px, 1.9vw, 24px);
   font-weight: 600;
   color: #1a1a2e;
   border-left: 4px solid #6464dc;
@@ -117,8 +125,8 @@ body {
 }
 
 .stats-card-value {
-  /* Fluid: 22px → 28px */
-  font-size: clamp(22px, 2.3vw, 28px);
+  /* Fluid: 26px → 32px */
+  font-size: clamp(26px, 2.5vw, 32px);
   font-weight: 700;
   color: #6464dc;
 }
@@ -137,7 +145,7 @@ body {
   padding: clamp(6px, 0.7vw, 8px) clamp(10px, 1.2vw, 14px);
   border: 1px solid #ccd;
   border-radius: 8px;
-  font-size: clamp(12px, 1.2vw, 14px);
+  font-size: clamp(14px, 1.3vw, 16px);
   outline: none;
   background-color: #fff;
   color: #222;
@@ -156,27 +164,26 @@ body {
   grid-template-columns: max-content 1fr;
   row-gap: 8px;
   column-gap: clamp(12px, 2vw, 20px);
-  /* Fluid font: 13px → 14px */
-  font-size: clamp(13px, 1.3vw, 14px);
+  /* Fluid font: 15px → 17px */
+  font-size: clamp(15px, 1.4vw, 17px);
 }
 
 /* ─── Detail page: compound title ───────────────────────────────────────── */
 .compound-title {
-  /* Fluid: 21px → 30px */
-  font-size: clamp(21px, 2.5vw, 30px);
+  /* Fluid: 25px → 36px */
+  font-size: clamp(25px, 2.7vw, 36px);
   font-weight: 700;
   color: #1a1a2e;
   margin: 0 0 20px 0;
   word-break: break-word;
 }
 
-/* ─── PathwayDAG: force persistent scrollbar on macOS ───────────────────── */
+/* ─── PathwayDAG: persistent, consistently styled scrollbar ─────────────── */
 /*
-  macOS uses overlay scrollbars (hidden until scrolling) by default.
-  Defining ::-webkit-scrollbar with a non-zero size opts the element out of
-  the overlay system and into classic "always-visible" scrollbar rendering
-  in WebKit and Chromium-based browsers on Mac.
-  scrollbar-width / scrollbar-color handle Firefox on Mac.
+  overflow-x:scroll in the component makes the scrollbar always present.
+  These rules style the track/thumb uniformly across all browsers/platforms
+  so it doesn't look like a bare OS scrollbar on Windows or an invisible
+  hairline on macOS.
 */
 .dag-scroll {
   scrollbar-width: thin;

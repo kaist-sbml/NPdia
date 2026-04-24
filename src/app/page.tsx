@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div style={{ maxWidth: "760px" }}>
+    <div style={{ maxWidth: "100%" }}>
       {/* Hero */}
       <div style={{ marginBottom: "48px" }}>
         <h2 className="page-heading">About</h2>
