@@ -4,35 +4,5 @@
     "files": [
       "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
-  },
-  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
-    "id": "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__app_js.js"
-    ]
-  },
-  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
-    "id": "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__error_js.js"
-    ]
-  },
-  "components\\CompoundPanel.tsx -> @/components/MoleculeViewer": {
-    "id": "components\\CompoundPanel.tsx -> @/components/MoleculeViewer",
-    "files": [
-      "static/chunks/_app-pages-browser_src_components_MoleculeViewer_tsx.js"
-    ]
-  },
-  "components\\MoleculeViewer.tsx -> smiles-drawer": {
-    "id": "components\\MoleculeViewer.tsx -> smiles-drawer",
-    "files": [
-      "static/chunks/_app-pages-browser_node_modules_smiles-drawer_app_js.js"
-    ]
-  },
-  "components\\StepsTable.tsx -> @/components/MoleculeViewer": {
-    "id": "components\\StepsTable.tsx -> @/components/MoleculeViewer",
-    "files": [
-      "static/chunks/_app-pages-browser_src_components_MoleculeViewer_tsx.js"
-    ]
   }
 }
