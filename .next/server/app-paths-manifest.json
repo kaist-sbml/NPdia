@@ -1,5 +1,6 @@
 {
-  "/download/page": "app/download/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/repository/page": "app/repository/page.js"
+  "/repository/page": "app/repository/page.js",
+  "/repository/[id]/page": "app/repository/[id]/page.js"
 }

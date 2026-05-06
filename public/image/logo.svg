@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133 133">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #016970;
+      }
+
+      .cls-2 {
+        stroke: #016970;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-4 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5 {
+        fill: #001c46;
+      }
+
+      .cls-4 {
+        stroke: #001e4a;
+      }
+
+      .cls-6 {
+        fill: #001e4a;
+      }
+    </style>
+  </defs>
+  <path class="cls-6" d="M65.21,85.29l4.84-7.51h11.11L34.78,10.67c-6.5-8.67-18.35-6.17-18.35,4.12l.02,60.88c0,9.17,17.17,9.25,17.17,0v-35.5c10.67,14.83,20.93,30.29,31.6,45.12Z"/>
+  <path class="cls-1" d="M102.22,32.34h-17.78v-9.44c0-4.78,1.67-6.89,6.89-6.89h18.44v3.78l8.89-6.67-8.67-6.21v3.99h-30.89c-6.89,0-9.28,3.56-9.28,9.28v56.83l-4.83,8.89v32.56c0,9.78,19.11,9.78,19.11,0v-20.67h18.11c33.56,0,34.33-65.44,0-65.44ZM100.78,80.78h-16.33v-32.11h16.33c14.37,0,14.37,32.11,0,32.11Z"/>
+  <ellipse class="cls-1" cx="25.35" cy="95.33" rx="19.56" ry="6.61"/>
+  <path class="cls-5" d="M5.96,100.11v7.22c0,8.44,38.78,8.44,38.78,0v-7.22c0,7.19-38.78,7.19-38.78,0Z"/>
+  <path class="cls-5" d="M5.73,111.39v7.22c0,8.44,38.78,8.44,38.78,0v-7.22c0,7.19-38.78,7.19-38.78,0Z"/>
+  <circle class="cls-3" cx="25.35" cy="13.78" r="4.5"/>
+  <circle class="cls-3" cx="77.78" cy="89.83" r="4.5"/>
+  <circle class="cls-3" cx="77.78" cy="40.84" r="4.5"/>
+  <circle class="cls-3" cx="77.78" cy="116.33" r="4.5"/>
+  <circle class="cls-3" cx="25.35" cy="64.72" r="4.5"/>
+  <rect class="cls-3" x="50.09" y="6.9" width="2.89" height="89.73" transform="translate(-20.27 38.39) rotate(-34.58)"/>
+  <rect class="cls-3" x="23.83" y="13.96" width="2.89" height="51.82"/>
+  <rect class="cls-3" x="76.33" y="40.84" width="2.89" height="76.49"/>
+  <circle class="cls-6" cx="25.35" cy="13.78" r="2.33"/>
+  <circle class="cls-1" cx="77.78" cy="40.84" r="2.33"/>
+  <rect class="cls-3" x="89.61" y="30.96" width="2.89" height="19.78" transform="translate(50.21 131.9) rotate(-90)"/>
+  <rect class="cls-3" x="89.62" y="79.94" width="2.89" height="19.79" transform="translate(1.23 180.9) rotate(-90)"/>
+  <path class="cls-3" d="M121.22,66.62h-2.91c0-15.88-4.97-24.34-17.42-24.34v-2.89c12.24,0,20.33,7.52,20.33,27.22Z"/>
+  <path class="cls-3" d="M121.22,64.05h-2.91c0,15.88-4.97,24.34-17.42,24.34v2.89c12.24,0,20.33-7.52,20.33-27.22Z"/>
+  <circle class="cls-4" cx="40.82" cy="36.22" r="4.5"/>
+  <circle class="cls-4" cx="58.48" cy="61.84" r="4.5"/>
+  <circle class="cls-2" cx="119.78" cy="66.34" r="4.5"/>
+</svg>

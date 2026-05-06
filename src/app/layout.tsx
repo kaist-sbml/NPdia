@@ -5,6 +5,9 @@ import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: "NPdia",
   description: "Curated T1PKS and NRPS biosynthesis pathway database",
+  icons: {
+    icon: "/image/favicon.svg",
+  },
 };
 
 export default function RootLayout({
