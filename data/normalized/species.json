@@ -3916,7 +3916,7 @@
     ]
   },
   "BGC0000363": {
-    "organism": "Mycobacteroides chelonae (Mycobacterium chelonae)",
+    "organism": "Mycobacteroides chelonae",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -3927,7 +3927,7 @@
     ]
   },
   "BGC0000364": {
-    "organism": "Mycobacteroides abscessus (Mycobacterium abscessus)",
+    "organism": "Mycobacteroides abscessus",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -14668,7 +14668,7 @@
     ]
   },
   "BGC0001381": {
-    "organism": "Nocardia terpenica (Nocardia brasiliensis IFM 0406)",
+    "organism": "Nocardia terpenica",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -15025,7 +15025,7 @@
     ]
   },
   "BGC0001414": {
-    "organism": "Streptomyces muensis (Streptomyces canchipurensis = 'Streptomyces",
+    "organism": "Streptomyces muensis",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -15336,7 +15336,7 @@
     ]
   },
   "BGC0001442": {
-    "organism": "Streptomyces sp",
+    "organism": "Streptomyces sp. strain ATCC 14903",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -16050,7 +16050,7 @@
     ]
   },
   "BGC0001512": {
-    "organism": "Streptomyces sp",
+    "organism": "Streptomyces sp.",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -16177,7 +16177,7 @@
     ]
   },
   "BGC0001522": {
-    "organism": "Streptomyces filamentosus (Streptomyces roseosporus)",
+    "organism": "Streptomyces filamentosus",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -16307,7 +16307,7 @@
     ]
   },
   "BGC0001534": {
-    "organism": "Streptomyces filamentosus (Streptomyces roseosporus)",
+    "organism": "Streptomyces filamentosus",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -16318,7 +16318,7 @@
     ]
   },
   "BGC0001535": {
-    "organism": "Streptomyces filamentosus (Streptomyces roseosporus)",
+    "organism": "Streptomyces filamentosus",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",
@@ -16429,7 +16429,7 @@
     ]
   },
   "BGC0001545": {
-    "organism": "Fusarium graminearum PH-1 (Gibberella zeae PH-1)",
+    "organism": "Fusarium graminearum PH-1",
     "taxonomy": [
       "Eukaryota",
       "Fungi",
@@ -16444,7 +16444,7 @@
     ]
   },
   "BGC0001547": {
-    "organism": "Aspergillus stellatus (Emericella variecolor)",
+    "organism": "Aspergillus stellatus",
     "taxonomy": [
       "Eukaryota",
       "Fungi",
@@ -16646,7 +16646,7 @@
     ]
   },
   "BGC0001566": {
-    "organism": "Cylindrospermum licheniforme UTEX B 2014 (Cylindrospermum",
+    "organism": "Cylindrospermum licheniforme UTEX B 2014",
     "taxonomy": [
       "Bacteria",
       "Cyanobacteriota",
@@ -21996,7 +21996,7 @@
     ]
   },
   "BGC0002109": {
-    "organism": "Kitasatospora sp",
+    "organism": "Kitasatospora sp.",
     "taxonomy": [
       "Bacteria",
       "Actinomycetota",

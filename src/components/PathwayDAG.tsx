@@ -410,6 +410,31 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
   const [popup, setPopup] = useState<{ nodeId: string; pos: PopupPos } | null>(null);
   const { activeIds, setActiveIds } = useGeneHighlight();
 
+  // ── Drag-to-pan ───────────────────────────────────────────────────────────
+  const [isPanning, setIsPanning] = useState(false);
+  const panStartRef = useRef<{ x: number; scrollLeft: number } | null>(null);
+  const didPanRef   = useRef(false); // true when a drag moved > threshold px
+
+  useEffect(() => {
+    if (!isPanning) return;
+    const onMove = (e: MouseEvent) => {
+      if (!panStartRef.current || !containerRef.current) return;
+      const dx = e.clientX - panStartRef.current.x;
+      if (Math.abs(dx) > 4) didPanRef.current = true;
+      containerRef.current.scrollLeft = panStartRef.current.scrollLeft - dx;
+    };
+    const onUp = () => {
+      setIsPanning(false);
+      panStartRef.current = null;
+    };
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+  }, [isPanning]);
+
   const nodeMap = useMemo(
     () => new Map(nodes.map((n) => [n.id, n])),
     [nodes]
@@ -452,7 +477,14 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
   }
 
   return (
-    <div ref={wrapperRef} style={{ position: "relative" }} onClick={() => setPopup(null)}>
+    <div
+      ref={wrapperRef}
+      style={{ position: "relative" }}
+      onClick={() => {
+        if (didPanRef.current) { didPanRef.current = false; return; }
+        setPopup(null);
+      }}
+    >
       {/* ── Node detail popup (domain architecture + nonlinearity) ─────────── */}
       {popup && (() => {
         const n = nodeMap.get(popup.nodeId);
@@ -747,7 +779,14 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
           backgroundColor: "#f8f8fc",
           border: "1px solid #dde",
           borderRadius: 10,
-          cursor: "default",
+          cursor: isPanning ? "grabbing" : "grab",
+          userSelect: isPanning ? "none" : "auto",
+        }}
+        onMouseDown={(e) => {
+          if (e.button !== 0) return;
+          panStartRef.current = { x: e.clientX, scrollLeft: containerRef.current?.scrollLeft ?? 0 };
+          didPanRef.current = false;
+          setIsPanning(true);
         }}
         onMouseLeave={() => setActiveIds([])}
       >
@@ -853,6 +892,8 @@ export default function PathwayDAG({ steps, genes }: { steps: DAGStep[]; genes?:
                   onMouseEnter={() => { if (n.enzymes.length > 0) setActiveIds(n.enzymes); }}
                   onMouseLeave={() => setActiveIds([])}
                   onClick={(n.nonlinearity || (n.module !== null && !!genes)) ? (e) => {
+                    // Suppress click if it was the end of a drag gesture
+                    if (didPanRef.current) return;
                     e.stopPropagation();
                     // Toggle off if already open for this node
                     if (popup?.nodeId === n.id) { setPopup(null); return; }

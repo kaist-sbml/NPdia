@@ -22,12 +22,12 @@ body {
 .page-main {
   flex: 1; /* grow to fill space between header and footer */
   /*
-    Fluid max-width: scales with the viewport so the content area
-    grows on wide monitors instead of capping at a fixed pixel value.
-      ≤ ~960px viewport  → 900px  (minimum, keeps content readable)
-      ~1280px viewport   → ~1152px (90 vw)
-      ≥ ~1600px viewport → 1440px (maximum, prevents over-stretching)
+    width: 100% gives the element a definite size independent of its
+    content, so margin: 0 auto can do its centering job without the
+    element shrinking to content width (which happened inside a flex
+    column when auto-margins override align-items: stretch).
   */
+  width: 100%;
   max-width: clamp(900px, 90vw, 1440px);
   margin: 0 auto;
   /*

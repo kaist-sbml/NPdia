@@ -155,25 +155,25 @@ export default function RepositoryTable({
           boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
         }}
       >
-        <div style={{ overflowX: "auto" }}>
+        <div style={{ overflowX: "auto", fontSize: "13.5px", width: "100%" }}>
           <table
             style={{
               width: "100%",
+              minWidth: "750px",
               borderCollapse: "collapse",
-              fontSize: "13.5px",
             }}
           >
             <thead>
               <tr style={{ backgroundColor: "#f5f5fb" }}>
                 {(
                   [
-                    { label: "MIBiG ID", key: "mibig_id" },
-                    { label: "Compound", key: "compound_name" },
-                    { label: "Biosynthetic Class", key: null },
-                    { label: "Steps", key: null },
-                    { label: "DOI", key: null },
-                  ] as { label: string; key: SortKey | null }[]
-                ).map(({ label, key }) => (
+                    { label: "MIBiG ID",          key: "mibig_id",      minWidth: 120 },
+                    { label: "Compound",           key: "compound_name", minWidth: 220 },
+                    { label: "Biosynthetic Class", key: null,            minWidth: 160 },
+                    { label: "Steps",              key: null,            minWidth: 70  },
+                    { label: "DOI",                key: null,            minWidth: 180 },
+                  ] as { label: string; key: SortKey | null; minWidth: number }[]
+                ).map(({ label, key, minWidth }) => (
                   <th
                     key={label}
                     onClick={key ? () => handleSort(key) : undefined}
@@ -188,6 +188,7 @@ export default function RepositoryTable({
                       letterSpacing: "0.3px",
                       cursor: key ? "pointer" : "default",
                       userSelect: "none",
+                      minWidth,
                     }}
                   >
                     {label}
@@ -269,7 +270,7 @@ export default function RepositoryTable({
                       {row.organism && (
                         <span style={{
                           display: "block",
-                          fontSize: "11.5px",
+                          fontSize: "12px",
                           color: "#888",
                           fontStyle: "italic",
                           marginTop: "2px",
