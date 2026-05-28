@@ -71,12 +71,12 @@ const DOMAIN_STYLES: Record<string, DomainStyle> = {
   "PKS_KR":            { fill: "#be185d", stroke: "#db2777", abbr: "KR",  label: "Ketoreductase (KR)" },          // pink-700 (≠ biosynthetic-additional purple)
   // Carrier proteins — warm stone gray (≠ cool slate of gene-kind "other")
   "ACP":               { fill: "#44403c", stroke: "#57534e", abbr: "ACP", label: "Acyl carrier protein (ACP)" },  // stone-700
-  "PKS_PP":            { fill: "#78716c", stroke: "#92867a", abbr: "PP",  label: "Phosphopantetheine (PP)" },     // stone-500
+  "PKS_PP":            { fill: "#78716c", stroke: "#92867a", abbr: "ACP", label: "Acyl carrier (ACP)" },        // stone-500
   // NRPS core
   "Condensation":      { fill: "#14532d", stroke: "#166534", abbr: "C",   label: "Condensation (C)" },           // green-900 (≠ resistance red)
   "AMP-binding":       { fill: "#713f12", stroke: "#92400e", abbr: "A",   label: "Adenylation (A)" },            // yellow-800 dark brown (≠ regulatory amber)
   "PCP":               { fill: "#581c87", stroke: "#7c3aed", abbr: "PCP", label: "Peptidyl carrier (PCP)" },     // violet-900 (darker than biosynthetic-additional)
-  "PP-binding":        { fill: "#1e1b4b", stroke: "#312e81", abbr: "PP",  label: "PP-binding" },                 // indigo-950
+  "PP-binding":        { fill: "#1e1b4b", stroke: "#312e81", abbr: "ACP", label: "Acyl carrier (ACP)" },        // indigo-950
   "NRPS-COM_Nterm":    { fill: "#292524", stroke: "#3d3835", abbr: "Cn",  label: "COM N-term" },                 // stone-900 (≠ cool "other" slate)
   "NRPS-COM_Cterm":    { fill: "#57534e", stroke: "#78716c", abbr: "Cc",  label: "COM C-term" },                 // stone-600
   // Release / tailoring
@@ -87,6 +87,37 @@ const DOMAIN_STYLES: Record<string, DomainStyle> = {
   "PKS_Docking_Nterm": { fill: "#231f1e", stroke: "#3a3330", abbr: "Dn",  label: "Docking N-term" },             // stone-950
   "PKS_Docking_Cterm": { fill: "#574b47", stroke: "#6f5f5a", abbr: "Dc",  label: "Docking C-term" },             // stone-600 warm
   "FkbH":              { fill: "#1a2e05", stroke: "#2d4a09", abbr: "Fk",  label: "FkbH-like" },                  // very dark olive
+  "Trans-AT_docking":  { fill: "#374151", stroke: "#4b5563", abbr: "Td",  label: "Trans-AT docking" },           // gray-700
+  // PKS DH variants (amber family)
+  "PKS_DH2":           { fill: "#a16207", stroke: "#ca8a04", abbr: "DH2", label: "Dehydratase (DH2)" },          // amber-700
+  "PKS_DHt":           { fill: "#78350f", stroke: "#92400e", abbr: "DHt", label: "Dehydratase (DHt)" },          // amber-800
+  // PKS/NRPS tailoring
+  "ECH":               { fill: "#c2410c", stroke: "#ea580c", abbr: "ECH", label: "Enoyl-CoA hydratase" },        // orange-700
+  "MT":                { fill: "#0e7490", stroke: "#0891b2", abbr: "MT",  label: "Methyltransferase" },           // cyan-700
+  "Polyketide_cyc":    { fill: "#7e22ce", stroke: "#9333ea", abbr: "Cyc", label: "Polyketide cyclase" },         // purple-700
+  "Beta_elim_lyase":   { fill: "#6d28d9", stroke: "#7c3aed", abbr: "BEL", label: "Beta-elim. lyase" },           // violet-700
+  "LPG_synthase_C":    { fill: "#5b21b6", stroke: "#6d28d9", abbr: "LPG", label: "LPG synthase C" },             // violet-800
+  "GNAT":              { fill: "#9f1239", stroke: "#be123c", abbr: "GNAT",label: "N-acetyltransferase" },        // rose-800
+  // NRPS terminal
+  "TD":                { fill: "#1e293b", stroke: "#334155", abbr: "TD",  label: "Terminal reductase" },          // slate-800
+  // Carrier variants
+  "ACP_beta":          { fill: "#737373", stroke: "#8a8a8a", abbr: "ACPβ",label: "ACP (β-branching)" },          // neutral-500
+  "ACPS":              { fill: "#262626", stroke: "#404040", abbr: "ACPS",label: "ACP synthase" },                // neutral-800
+  // Adenylation-like
+  "CAL_domain":        { fill: "#9a3412", stroke: "#b45309", abbr: "CAL", label: "CoA-ligase (CAL)" },           // orange-800
+  "A-OX":              { fill: "#7c2d12", stroke: "#9a3412", abbr: "A-OX",label: "Adenylation-oxidase" },        // orange-900
+  // Aminotransferases (blue family)
+  "Aminotran_1_2":     { fill: "#1d4ed8", stroke: "#2563eb", abbr: "AmT", label: "Aminotransferase I/II" },      // blue-700
+  "Aminotran_3":       { fill: "#1e40af", stroke: "#1d4ed8", abbr: "AmT", label: "Aminotransferase III" },       // blue-800
+  "Aminotran_4":       { fill: "#1e3a8a", stroke: "#1e40af", abbr: "AmT", label: "Aminotransferase IV" },        // blue-900
+  "Aminotran_5":       { fill: "#172554", stroke: "#1e3a8a", abbr: "AmT", label: "Aminotransferase V" },         // blue-950
+  // Oxidoreductases
+  "TauD":              { fill: "#b45309", stroke: "#d97706", abbr: "TauD",label: "TauD oxygenase" },             // amber-600
+  "NAD_binding_4":     { fill: "#0c4a6e", stroke: "#075985", abbr: "NAD", label: "NAD-binding" },                // sky-900
+  // Unknown / structural
+  "X":                 { fill: "#6b7280", stroke: "#9ca3af", abbr: "X",   label: "Putative domain (X)" },        // gray-500
+  "TIGR01720":         { fill: "#52525b", stroke: "#71717a", abbr: "Tgr", label: "TIGR01720" },                  // zinc-600
+  "TIGR02353":         { fill: "#3f3f46", stroke: "#52525b", abbr: "Tgr", label: "TIGR02353" },                  // zinc-700
 };
 const UNKNOWN_DOMAIN: DomainStyle = { fill: "#94a3b8", stroke: "#64748b", abbr: "?", label: "Unknown domain" };
 function domainStyle(t: string | null): DomainStyle {

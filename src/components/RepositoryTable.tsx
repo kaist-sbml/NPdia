@@ -227,31 +227,14 @@ export default function RepositoryTable({
                   >
                     {/* MIBiG ID */}
                     <td style={{ padding: "10px 14px", whiteSpace: "nowrap" }}>
-                      {row.mibig_url ? (
-                        <a
-                          href={row.mibig_url}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{
-                            fontFamily: "monospace",
-                            fontWeight: 600,
-                            color: "#6464dc",
-                            textDecoration: "none",
-                            fontSize: "13px",
-                          }}
-                        >
-                          {row.mibig_id}
-                        </a>
-                      ) : (
-                        <span style={{
-                          fontFamily: "monospace",
-                          fontWeight: 600,
-                          color: "#6464dc",
-                          fontSize: "13px",
-                        }}>
-                          {row.mibig_id}
-                        </span>
-                      )}
+                      <span style={{
+                        fontFamily: "monospace",
+                        fontWeight: 600,
+                        color: "#6464dc",
+                        fontSize: "13px",
+                      }}>
+                        {row.mibig_id}
+                      </span>
                     </td>
 
                     {/* Compound + Organism */}

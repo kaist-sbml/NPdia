@@ -75,12 +75,12 @@ const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> 
   "PKS_KR":            { fill: "#be185d", abbr: "KR",  label: "Ketoreductase" },          // pink
   // Carrier proteins — warm stone gray
   "ACP":               { fill: "#44403c", abbr: "ACP", label: "Acyl carrier (ACP)" },    // stone-700
-  "PKS_PP":            { fill: "#78716c", abbr: "PP",  label: "Phosphopantetheine" },    // stone-500
+  "PKS_PP":            { fill: "#78716c", abbr: "ACP", label: "Acyl carrier (ACP)" },     // stone-500
   // NRPS core
   "Condensation":      { fill: "#14532d", abbr: "C",   label: "Condensation" },          // dark forest green
   "AMP-binding":       { fill: "#713f12", abbr: "A",   label: "Adenylation" },           // dark warm brown
   "PCP":               { fill: "#581c87", abbr: "PCP", label: "Peptidyl carrier (PCP)" }, // violet-900
-  "PP-binding":        { fill: "#1e1b4b", abbr: "PP",  label: "PP-binding" },            // indigo-950
+  "PP-binding":        { fill: "#1e1b4b", abbr: "ACP", label: "Acyl carrier (ACP)" },     // indigo-950
   "NRPS-COM_Nterm":    { fill: "#292524", abbr: "Cn",  label: "COM N-term" },            // stone-900
   "NRPS-COM_Cterm":    { fill: "#57534e", abbr: "Cc",  label: "COM C-term" },            // stone-600
   // Release / tailoring
@@ -90,7 +90,38 @@ const DOMAIN_VIZ: Record<string, { fill: string; abbr: string; label: string }> 
   // Docking / misc — warm charcoal
   "PKS_Docking_Nterm": { fill: "#231f1e", abbr: "Dn",  label: "Docking N-term" },        // stone-950
   "PKS_Docking_Cterm": { fill: "#574b47", abbr: "Dc",  label: "Docking C-term" },        // stone-600
-  "FkbH":              { fill: "#1a2e05", abbr: "Fk",  label: "FkbH-like" },            // very dark olive
+  "FkbH":              { fill: "#1a2e05", abbr: "Fk",  label: "FkbH-like" },             // very dark olive
+  "Trans-AT_docking":  { fill: "#374151", abbr: "Td",  label: "Trans-AT docking" },      // gray-700
+  // PKS DH variants (amber family)
+  "PKS_DH2":           { fill: "#a16207", abbr: "DH2", label: "Dehydratase (DH2)" },     // amber-700
+  "PKS_DHt":           { fill: "#78350f", abbr: "DHt", label: "Dehydratase (DHt)" },     // amber-800
+  // PKS/NRPS tailoring
+  "ECH":               { fill: "#c2410c", abbr: "ECH", label: "Enoyl-CoA hydratase" },   // orange-700
+  "MT":                { fill: "#0e7490", abbr: "MT",  label: "Methyltransferase" },      // cyan-700
+  "Polyketide_cyc":    { fill: "#7e22ce", abbr: "Cyc", label: "Polyketide cyclase" },    // purple-700
+  "Beta_elim_lyase":   { fill: "#6d28d9", abbr: "BEL", label: "Beta-elim. lyase" },      // violet-700
+  "LPG_synthase_C":    { fill: "#5b21b6", abbr: "LPG", label: "LPG synthase C" },        // violet-800
+  "GNAT":              { fill: "#9f1239", abbr: "GNAT",label: "N-acetyltransferase" },   // rose-800
+  // NRPS terminal
+  "TD":                { fill: "#1e293b", abbr: "TD",  label: "Terminal reductase" },     // slate-800
+  // Carrier variants
+  "ACP_beta":          { fill: "#737373", abbr: "ACPβ",label: "ACP (β-branching)" },     // neutral-500
+  "ACPS":              { fill: "#262626", abbr: "ACPS",label: "ACP synthase" },           // neutral-800
+  // Adenylation-like
+  "CAL_domain":        { fill: "#9a3412", abbr: "CAL", label: "CoA-ligase (CAL)" },      // orange-800
+  "A-OX":              { fill: "#7c2d12", abbr: "A-OX",label: "Adenylation-oxidase" },   // orange-900
+  // Aminotransferases (blue family)
+  "Aminotran_1_2":     { fill: "#1d4ed8", abbr: "AmT", label: "Aminotransferase I/II" }, // blue-700
+  "Aminotran_3":       { fill: "#1e40af", abbr: "AmT", label: "Aminotransferase III" },  // blue-800
+  "Aminotran_4":       { fill: "#1e3a8a", abbr: "AmT", label: "Aminotransferase IV" },   // blue-900
+  "Aminotran_5":       { fill: "#172554", abbr: "AmT", label: "Aminotransferase V" },    // blue-950
+  // Oxidoreductases
+  "TauD":              { fill: "#b45309", abbr: "TauD",label: "TauD oxygenase" },        // amber-600
+  "NAD_binding_4":     { fill: "#0c4a6e", abbr: "NAD", label: "NAD-binding" },           // sky-900
+  // Unknown / structural
+  "X":                 { fill: "#6b7280", abbr: "X",   label: "Putative domain (X)" },   // gray-500
+  "TIGR01720":         { fill: "#52525b", abbr: "Tgr", label: "TIGR01720" },             // zinc-600
+  "TIGR02353":         { fill: "#3f3f46", abbr: "Tgr", label: "TIGR02353" },             // zinc-700
 };
 const DV_UNKNOWN = { fill: "#94a3b8", abbr: "?", label: "Unknown domain" };
 function dv(type: string | null) {
@@ -799,6 +830,27 @@ function MoleculeModal({
   );
 }
 
+// ── Popup positioning helper (pure – no component state) ─────────────────────
+
+function computePopupPos(rect: DOMRect, popW = 288): { x: number; y: number } {
+  const estH = 280; // estimated max popup height
+
+  let left = rect.left;
+  let top  = rect.bottom + 6;
+
+  // Clamp horizontally
+  if (left + popW > window.innerWidth - 8) left = window.innerWidth - popW - 8;
+  if (left < 8) left = 8;
+
+  // Flip above row if popup would go off the bottom
+  if (top + estH > window.innerHeight - 8) {
+    top = rect.top - estH - 6;
+    if (top < 8) top = 8;
+  }
+
+  return { x: left, y: top };
+}
+
 // ── Steps table ───────────────────────────────────────────────────────────────
 
 export default function StepsTable({
@@ -815,33 +867,35 @@ export default function StepsTable({
     pos: { x: number; y: number };
   } | null>(null);
 
+  // Refs to the badge element and popup width — used by the scroll tracker below
+  const popupBadgeRef = useRef<HTMLElement | null>(null);
+  const popupWRef = useRef<number>(288);
+
+  // Re-anchor the popup to the badge whenever the page or any ancestor scrolls.
+  // Listeners are added once on mount; the handler is a no-op when no popup is open.
+  useEffect(() => {
+    const update = () => {
+      if (!popupBadgeRef.current) return;
+      const rect = popupBadgeRef.current.getBoundingClientRect();
+      setPopup((prev) =>
+        prev ? { ...prev, pos: computePopupPos(rect, popupWRef.current) } : null
+      );
+    };
+    // capture:true catches scroll events on any scrollable ancestor (incl. the table)
+    window.addEventListener("scroll", update, true);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update, true);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   // Close popup on click-outside (handled by the fixed overlay in DomainPopup)
   // Also close when molecule modal opens
   function openModal(i: number) {
     setPopup(null);
+    popupBadgeRef.current = null;
     setSelectedIndex(i);
-  }
-
-  // Compute popup position relative to the clicked element, clamped to viewport
-  function computePopupPos(rect: DOMRect, popW = 288): { x: number; y: number } {
-    const estH = 280;  // estimated max popup height
-
-    let left = rect.left;
-    let top  = rect.bottom + 6;
-
-    // Clamp horizontally
-    if (left + popW > window.innerWidth - 8) {
-      left = window.innerWidth - popW - 8;
-    }
-    if (left < 8) left = 8;
-
-    // Flip above row if popup would go off the bottom
-    if (top + estH > window.innerHeight - 8) {
-      top = rect.top - estH - 6;
-      if (top < 8) top = 8;
-    }
-
-    return { x: left, y: top };
   }
 
   return (
@@ -861,7 +915,10 @@ export default function StepsTable({
           steps={steps}
           genes={genes!}
           pos={popup.pos}
-          onClose={() => setPopup(null)}
+          onClose={() => {
+            setPopup(null);
+            popupBadgeRef.current = null;
+          }}
         />
       )}
 
@@ -1003,15 +1060,20 @@ export default function StepsTable({
                         <span
                           onClick={isBadgeClickable ? (e) => {
                             e.stopPropagation();
-                            const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                            const el = e.currentTarget as HTMLElement;
+                            const rect = el.getBoundingClientRect();
                             if (isPopupOpen) {
                               setPopup(null);
+                              popupBadgeRef.current = null;
                             } else {
                               // Use wider estimate for split modules so clamping is accurate
                               const matchCount = genes ? stepEnzymeNames.filter(
                                 (name) => genes.find((g) => g.gene === name || g.locus_tag === name)
                               ).length : 0;
-                              setPopup({ step, pos: computePopupPos(rect, matchCount > 1 ? 348 : 288) });
+                              const popW = matchCount > 1 ? 348 : 288;
+                              popupBadgeRef.current = el;
+                              popupWRef.current = popW;
+                              setPopup({ step, pos: computePopupPos(rect, popW) });
                             }
                           } : undefined}
                           title={isBadgeClickable ? "Click to view domain architecture" : undefined}
