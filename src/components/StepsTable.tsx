@@ -478,10 +478,7 @@ function MoleculeModal({
   }
 
   const ml = moduleLabel(step.module);
-  const substrate =
-    step.substrate.molecules && step.substrate.molecules.length > 0
-      ? step.substrate.molecules.join(" + ")
-      : step.substrate.raw;
+  const substrate = step.substrate.raw;
 
   return (
     <div
@@ -1110,10 +1107,7 @@ export default function StepsTable({
                     {/* Substrate */}
                     <td style={{ padding: "10px 14px", maxWidth: "220px" }}>
                       <div style={{ color: "#333" }}>
-                        {step.substrate.molecules &&
-                        step.substrate.molecules.length > 0
-                          ? step.substrate.molecules.join(" + ")
-                          : step.substrate.raw}
+                        {step.substrate.raw}
                       </div>
                       {step.substrate.precursor_refs &&
                         step.substrate.precursor_refs.length > 0 && (
