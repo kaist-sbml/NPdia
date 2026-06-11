@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -154,7 +154,12 @@ function parseIteration(src: string): IterationRound[] {
 export function parseNonlinearity(raw: string | null): ParsedNonlinearity[] {
   if (!raw) return [];
 
-  const s = raw.trim();
+  let s = raw.trim();
+  // Normalize BEFORE extractValue: curly quotes from Excel → straight ASCII quotes,
+  // and malformed iteration entries missing their outer '(' are repaired so that
+  // extractValue's bracket-depth scanner doesn't terminate prematurely on unmatched ')'.
+  s = s.replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"');
+  s = s.replace(/,(\s*)\(None\),/g, ',$1((None),');
 
   // ── Plain-text cases (not a Python dict) ──────────────────────────────────
   if (!s.startsWith("{")) {
