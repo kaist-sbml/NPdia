@@ -372,6 +372,9 @@ export default async function EntryDetailPage({
         {/* Pathway Graph */}
         <h3 className="section-heading" style={{ marginBottom: "14px" }}>
           Pathway Graph
+          <span style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}>
+            steps arranged in biosynthetic order
+          </span>
         </h3>
         <div style={{ marginBottom: "36px" }}>
           <PathwayDAG steps={entry.steps} genes={loci?.genes} />
