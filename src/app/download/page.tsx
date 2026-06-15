@@ -1,27 +1,30 @@
 const files = [
   {
-    name: "T1PKS_NRPS_pathways.csv",
+    name: "T1PKS_NRPS_pathways_v1.csv",
     description:
       "Unified flat-file export of all T1PKS and NRPS biosynthesis pathway steps, including MIBiG entry, compound name, class, enzyme, module, substrate, product (SMILES), Product_ID, R group definition, quality, and DOI.",
     size: "~1.2 MB",
     format: "CSV (.csv)",
-    href: "/downloads/T1PKS_NRPS_pathways.csv",
+    version: "v1",
+    href: "/downloads/T1PKS_NRPS_pathways_v1.csv",
   },
   {
-    name: "biosynthesis_pathways.json",
+    name: "biosynthesis_pathways_v1.json",
     description:
       "Full biosynthesis pathway database in JSON format, structured by MIBiG entry with nested compound, enzyme, module, and step-level annotations.",
     size: "~3.5 MB",
     format: "JSON (.json)",
-    href: "/downloads/biosynthesis_pathways.json",
+    version: "v1",
+    href: "/downloads/biosynthesis_pathways_v1.json",
   },
   {
-    name: "GenBank_Files.zip",
+    name: "GenBank_Files_v1.zip",
     description:
       "GenBank files (.gbk) for 3 BGC entries re-annotated by running AntiSMASH against the host genome sequence, correcting errors in the original MIBiG annotations.",
     size: "~0.2 MB",
     format: "ZIP (.zip)",
-    href: "/downloads/GenBank_Files.zip",
+    version: "v1",
+    href: "/downloads/GenBank_Files_v1.zip",
   },
 ];
 
@@ -108,6 +111,19 @@ export default function DownloadPage() {
                 }}
               >
                 {file.size}
+              </span>
+              <span
+                style={{
+                  fontSize: "12px",
+                  color: "#4a6fa5",
+                  backgroundColor: "#eef2fa",
+                  padding: "3px 10px",
+                  borderRadius: "999px",
+                  border: "1px solid #c5d3ea",
+                  fontWeight: 600,
+                }}
+              >
+                {file.version}
               </span>
             </div>
           </div>
