@@ -15,6 +15,14 @@ const files = [
     format: "JSON (.json)",
     href: "/downloads/biosynthesis_pathways.json",
   },
+  {
+    name: "GenBank_Files.zip",
+    description:
+      "GenBank files (.gbk) for 3 BGC entries re-annotated by running AntiSMASH against the host genome sequence, correcting errors in the original MIBiG annotations.",
+    size: "~0.2 MB",
+    format: "ZIP (.zip)",
+    href: "/downloads/GenBank_Files.zip",
+  },
 ];
 
 export default function DownloadPage() {
