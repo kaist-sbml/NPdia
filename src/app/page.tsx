@@ -72,7 +72,7 @@ export default function AboutPage() {
     { value: s.total.toLocaleString(),     label: "BGC Entries" },
     { value: s.pks.toLocaleString(),       label: "T1PKS Clusters" },
     { value: s.nrps.toLocaleString(),      label: "NRPS Clusters" },
-    { value: s.hybrid.toLocaleString(),    label: "Hybrid Clusters" },
+    { value: s.hybrid.toLocaleString(),    label: "PKS-NRPS hybrid Clusters" },
   ];
 
   const depthStats = [

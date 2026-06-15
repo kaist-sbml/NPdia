@@ -7,6 +7,14 @@ const files = [
     format: "Excel (.xlsx)",
     href: "/downloads/T1PKS_NRPS_biosynthesis_pathways.xlsx",
   },
+  {
+    name: "T1PKS_NRPS_pathways.csv",
+    description:
+      "Unified flat-file export of all T1PKS and NRPS biosynthesis pathway steps, including MIBiG entry, compound name, class, enzyme, module, substrate, product (SMILES), Product_ID, R group definition, quality, and DOI.",
+    size: "~1.2 MB",
+    format: "CSV (.csv)",
+    href: "/downloads/T1PKS_NRPS_pathways.csv",
+  },
 ];
 
 export default function DownloadPage() {
