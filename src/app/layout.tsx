@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "NPdia",
   description: "Curated T1PKS and NRPS biosynthesis pathway database",
   icons: {
-    icon: "/image/favicon.svg",
+    icon: "/image/logo.svg",
   },
 };
 
@@ -31,7 +31,7 @@ export default function RootLayout({
             <img
               src="/image/snu_ui_download.png"
               alt="Seoul National University"
-              style={{ height: 52, width: "auto", objectFit: "contain" }}
+              style={{ height: 72, width: "auto", objectFit: "contain" }}
             />
             <div className="footer-divider" />
             {/* DTU is a tall vertical mark; 72px shows the full DTU text + waves */}
