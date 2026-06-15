@@ -7,6 +7,14 @@ const files = [
     format: "CSV (.csv)",
     href: "/downloads/T1PKS_NRPS_pathways.csv",
   },
+  {
+    name: "biosynthesis_pathways.json",
+    description:
+      "Full biosynthesis pathway database in JSON format, structured by MIBiG entry with nested compound, enzyme, module, and step-level annotations.",
+    size: "~3.5 MB",
+    format: "JSON (.json)",
+    href: "/downloads/biosynthesis_pathways.json",
+  },
 ];
 
 export default function DownloadPage() {
