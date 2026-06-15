@@ -16,13 +16,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link href="/" className="header-title" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/image/logo.svg"
-            alt=""
-            style={{ height: 34, width: 34, flexShrink: 0 }}
-          />
+        <Link href="/" className="header-title">
           NPdia
         </Link>
 
