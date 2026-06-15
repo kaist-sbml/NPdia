@@ -27,6 +27,21 @@ export default function RootLayout({
               style={{ height: 42, width: "auto", objectFit: "contain" }}
             />
             <div className="footer-divider" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/image/snu_ui_download.png"
+              alt="Seoul National University"
+              style={{ height: 42, width: "auto", objectFit: "contain" }}
+            />
+            <div className="footer-divider" />
+            {/* DTU logo is a tall vertical mark; 56px keeps it legible */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/image/DTU_Logo_Corporate_Red_RGB.png"
+              alt="Technical University of Denmark"
+              style={{ height: 56, width: "auto", objectFit: "contain" }}
+            />
+            <div className="footer-divider" />
             {/* SBML has significant built-in whitespace; 84px renders visually
                 similar in height to the KAIST wordmark at 42px */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
