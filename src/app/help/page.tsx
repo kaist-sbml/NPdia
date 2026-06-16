@@ -41,17 +41,17 @@ const S = {
   } as React.CSSProperties,
 
   p: {
-    fontSize: "14.5px",
+    fontSize: "17px",
     color: "#444",
-    lineHeight: 1.75,
+    lineHeight: 1.8,
     marginTop: 0,
     marginBottom: "12px",
   } as React.CSSProperties,
 
   li: {
-    fontSize: "14.5px",
+    fontSize: "17px",
     color: "#444",
-    lineHeight: 1.75,
+    lineHeight: 1.8,
     marginBottom: "4px",
   } as React.CSSProperties,
 
