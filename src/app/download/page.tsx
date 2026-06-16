@@ -31,16 +31,7 @@ const files = [
 export default function DownloadPage() {
   return (
     <div style={{ maxWidth: "100%" }}>
-      <h2
-        style={{
-          fontSize: "36px",
-          fontWeight: 700,
-          color: "#1a1a2e",
-          marginBottom: "8px",
-        }}
-      >
-        Download
-      </h2>
+      <h2 className="page-heading">Download</h2>
       <p style={{ fontSize: "16px", color: "#666", marginBottom: "36px" }}>
         Download the full curated database as structured data files.
       </p>

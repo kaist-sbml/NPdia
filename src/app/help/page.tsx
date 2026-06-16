@@ -5,16 +5,9 @@ export const metadata = {
 
 const S = {
   page: {
-    maxWidth: 820,
+    width: "100%",
   } as React.CSSProperties,
 
-  h1: {
-    fontSize: "32px",
-    fontWeight: 700,
-    color: "#1a1a2e",
-    marginBottom: "6px",
-    marginTop: 0,
-  } as React.CSSProperties,
 
   subtitle: {
     fontSize: "15px",
@@ -119,7 +112,7 @@ export default function HelpPage() {
     <div style={S.page}>
 
       {/* ── Title ─────────────────────────────────────────────────────── */}
-      <h1 style={S.h1}>NPdia Help &amp; Documentation</h1>
+      <h1 className="page-heading">NPdia Help &amp; Documentation</h1>
       <p style={S.subtitle}>Reference guide for understanding and using the database</p>
 
       {/* ── Overview ──────────────────────────────────────────────────── */}
