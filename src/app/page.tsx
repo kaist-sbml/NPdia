@@ -86,36 +86,37 @@ export default function AboutPage() {
     <div style={{ maxWidth: "100%" }}>
       {/* Hero */}
       <div style={{ marginBottom: "48px" }}>
-        <h2 className="page-heading">About</h2>
+        <h2 className="page-heading"><strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia)</h2>
+
+        {/* Scheme image */}
+        <div style={{ margin: "0px 0 32px", textAlign: "center" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/image/Scheme.png"
+            alt="NPdia biosynthesis pathway scheme"
+            style={{ maxWidth: "70%", height: "auto", borderRadius: "8px" }}
+          />
+        </div>
+        <h3 className="section-heading">About</h3>
         <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-          <strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia) is a manually curated resource for biosynthetic pathway reconstruction of actinomycete-derived modular Type I PKS and NRPS biosynthetic gene clusters (BGCs).
-          This website provides a curated database of natural product
-          biosynthesis pathways, with a focus on{" "}
-          <strong>Type I Polyketide Synthase (T1PKS)</strong> and{" "}
-          <strong>Non-Ribosomal Peptide Synthetase (NRPS)</strong> gene
-          clusters.
+          <strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia) is a manually curated database of Type I PKS (T1PKS) and NRPS biosynthetic pathways from actinomycetes, providing step-by-step SMILES representations of every biosynthetic intermediate from starter unit loading to final scaffold release.
+        </p>
+        <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
+          Actinomycetota contribute 51% of all bacterial BGCs, and T1PKS and NRPS represent 42% of actinomycetota BGCs — yet the biochemical intermediates they produce have never been systematically represented. NPdia fills this gap by linking each nucleic acid-encoded enzymatic domain to its chemical outcome, making genotype–phenotype relationships explicit at domain resolution.
+        </p>
+        <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
+          All entries are manually curated from primary literature and validated using an AI-assisted pipeline integrated with BGC GenBank files. The full dataset is freely downloadable for use in pathway engineering, machine learning, and drug discovery.
         </p>
       </div>
-
-      {/* Project Overview */}
-      <section style={{ marginBottom: "40px" }}>
-        <h3 className="section-heading">Project Overview</h3>
-        <p style={{ lineHeight: 1.8, color: "#555" }}>
-          The database aggregates biosynthetic pathway information from
-          published literature and the MIBiG repository. Each entry is manually
-          curated and linked to its original publication, providing reliable
-          references for researchers studying secondary metabolite biosynthesis.
-        </p>
-      </section>
 
       {/* Key Features */}
       <section style={{ marginBottom: "40px" }}>
         <h3 className="section-heading">Key Features</h3>
-        <ul style={{ paddingLeft: "20px", lineHeight: 2, color: "#555" }}>
-          <li>Browse curated T1PKS and NRPS biosynthesis pathway entries</li>
-          <li>View detailed compound, organism, and module information</li>
-          <li>Filter and search repository entries</li>
-          <li>Downloadable the full dataset for machine learning</li>
+        <ul style={{ paddingLeft: "20px", lineHeight: 2, color: "#555", fontSize: "17px" }}>
+          <li>Step-by-step SMILES for every biosynthetic intermediate</li>
+          <li>Gene-to-reaction mapping with domain-level annotation (including inactive, missing, transAT, and iterative states)</li>
+          <li>Search and filter by class, organism, or compound</li>
+          <li>Full dataset download for machine learning and pathway engineering</li>
         </ul>
       </section>
 

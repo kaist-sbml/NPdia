@@ -138,7 +138,7 @@ body {
 /* ─── Page typography ────────────────────────────────────────────────────── */
 .page-heading {
   /* Fluid: 28px → 42px */
-  font-size: clamp(28px, 3.2vw, 42px);
+  font-size: clamp(20px, 3.2vw, 28px);
   font-weight: 700;
   color: #1a1a2e;
   margin: 0 0 8px 0;
