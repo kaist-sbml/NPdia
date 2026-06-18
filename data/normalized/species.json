@@ -1012,22 +1012,6 @@
       "Streptomyces"
     ]
   },
-  "BGC0000088": {
-    "organism": "Aspergillus terreus",
-    "taxonomy": [
-      "Eukaryota",
-      "Fungi",
-      "Dikarya",
-      "Ascomycota",
-      "Pezizomycotina",
-      "Eurotiomycetes",
-      "Eurotiomycetidae",
-      "Eurotiales",
-      "Aspergillaceae",
-      "Aspergillus",
-      "Aspergillus subgen. Circumdati"
-    ]
-  },
   "BGC0000090": {
     "organism": "Actinosynnema pretiosum subsp. pretiosum",
     "taxonomy": [
