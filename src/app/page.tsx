@@ -72,7 +72,7 @@ export default function AboutPage() {
     { value: s.total.toLocaleString(),     label: "BGC Entries" },
     { value: s.pks.toLocaleString(),       label: "T1PKS Clusters" },
     { value: s.nrps.toLocaleString(),      label: "NRPS Clusters" },
-    { value: s.hybrid.toLocaleString(),    label: "PKS-NRPS hybrid Clusters" },
+    { value: s.hybrid.toLocaleString(),    label: "PKS-NRPS Hybrid clusters" },
   ];
 
   const depthStats = [
@@ -86,27 +86,32 @@ export default function AboutPage() {
     <div style={{ maxWidth: "100%" }}>
       {/* Hero */}
       <div style={{ marginBottom: "48px" }}>
-        <h2 className="page-heading"><strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia)</h2>
-
-        {/* Scheme image */}
-        <div style={{ margin: "0px 0 32px", textAlign: "center" }}>
+        {/* Title with logo */}
+        <h2 className="page-heading" style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "24px" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/image/Scheme.png"
-            alt="NPdia biosynthesis pathway scheme"
-            style={{ maxWidth: "70%", height: "auto", borderRadius: "8px" }}
-          />
+          <img src="/image/logo.svg" alt="NPdia logo" style={{ height: "2em", width: "auto", flexShrink: 0 }} />
+          <span><strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia)</span>
+        </h2>
+
+        {/* Responsive: image left / text right */}
+        <div className="about-layout">
+          <div className="about-layout-image">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/image/Scheme.png" alt="NPdia biosynthesis pathway scheme" />
+          </div>
+          <div className="about-layout-text">
+            <h3 className="section-heading">About</h3>
+            <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
+              <strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia) is a manually curated database of Type I PKS (T1PKS) and NRPS biosynthetic pathways from actinomycetes, providing step-by-step SMILES representations of every biosynthetic intermediate from starter unit loading to final scaffold release.
+            </p>
+            <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
+              Actinomycetota contribute 51% of all bacterial BGCs, and T1PKS and NRPS represent 42% of actinomycetota BGCs — yet the biochemical intermediates they produce have never been systematically represented. NPdia fills this gap by linking each nucleic acid-encoded enzymatic domain to its chemical outcome, making genotype–phenotype relationships explicit at domain resolution.
+            </p>
+            <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
+              All entries are manually curated from primary literature and validated using an AI-assisted pipeline integrated with BGC GenBank files. The full dataset is freely downloadable for use in pathway engineering, machine learning, and drug discovery.
+            </p>
+          </div>
         </div>
-        <h3 className="section-heading">About</h3>
-        <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-          <strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia) is a manually curated database of Type I PKS (T1PKS) and NRPS biosynthetic pathways from actinomycetes, providing step-by-step SMILES representations of every biosynthetic intermediate from starter unit loading to final scaffold release.
-        </p>
-        <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-          Actinomycetota contribute 51% of all bacterial BGCs, and T1PKS and NRPS represent 42% of actinomycetota BGCs — yet the biochemical intermediates they produce have never been systematically represented. NPdia fills this gap by linking each nucleic acid-encoded enzymatic domain to its chemical outcome, making genotype–phenotype relationships explicit at domain resolution.
-        </p>
-        <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-          All entries are manually curated from primary literature and validated using an AI-assisted pipeline integrated with BGC GenBank files. The full dataset is freely downloadable for use in pathway engineering, machine learning, and drug discovery.
-        </p>
       </div>
 
       {/* Key Features */}

@@ -154,6 +154,43 @@ body {
   margin: 0 0 16px 0;
 }
 
+/* ─── About: scheme + text responsive layout ────────────────────────────── */
+.about-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.about-layout-image {
+  flex: 0 0 58%;
+  max-width: 58%;
+}
+
+.about-layout-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.about-layout-text {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1000px) {
+  .about-layout {
+    flex-direction: column;
+  }
+  .about-layout-image {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
 /* ─── About: stats grid ─────────────────────────────────────────────────── */
 .stats-grid {
   display: grid;
