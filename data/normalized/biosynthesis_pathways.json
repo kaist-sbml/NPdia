@@ -24,7 +24,7 @@
   "pathways": {
     "BGC0000001": {
       "mibig_id": "BGC0000001",
-      "compound_name": "abyssomicin C;atrop-abyssomicin C",
+      "compound_name": "Abyssomicin C;Atrop-abyssomicin C",
       "biosynthetic_class": "PKS (Type I)",
       "doi": "10.1002/cbic.201100172",
       "quality": null,
@@ -57148,7 +57148,7 @@
     },
     "BGC0001764": {
       "mibig_id": "BGC0001764",
-      "compound_name": "s56-p1",
+      "compound_name": "S56-p1",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/acschembio.6b00818",
       "quality": null,
@@ -86369,7 +86369,7 @@
     },
     "BGC0001709": {
       "mibig_id": "BGC0001709",
-      "compound_name": "nystatin",
+      "compound_name": "Nystatin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1016/S1074-5521(00)00120-4",
       "quality": null,
@@ -86775,7 +86775,7 @@
     },
     "BGC0000102": {
       "mibig_id": "BGC0000102",
-      "compound_name": "mycinamicin II",
+      "compound_name": "Mycinamicin II",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1111/j.1574-6968.2003.tb11509.x",
       "quality": null,
@@ -87174,7 +87174,7 @@
     },
     "BGC0000103": {
       "mibig_id": "BGC0000103",
-      "compound_name": "mycolactone B",
+      "compound_name": "Mycolactone B",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1073/pnas.0305877101",
       "quality": null,
@@ -87546,7 +87546,7 @@
     },
     "BGC0000105": {
       "mibig_id": "BGC0000105",
-      "compound_name": "nanchangmycin",
+      "compound_name": "Nanchangmycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1016/s1074-5521(03)00092-9",
       "quality": null,
@@ -88016,7 +88016,7 @@
     },
     "BGC0000110": {
       "mibig_id": "BGC0000110",
-      "compound_name": "spectinabilin;orinocin;SNF4435C;SNF4435D",
+      "compound_name": "Spectinabilin;Orinocin;SNF4435C;SNF4435D",
       "biosynthetic_class": "PKS (Type I)",
       "doi": "10.1002/cbic.200700309;",
       "quality": null,
@@ -88277,7 +88277,7 @@
     },
     "BGC0000114": {
       "mibig_id": "BGC0000114",
-      "compound_name": "nigericin",
+      "compound_name": "Nigericin",
       "biosynthetic_class": "PKS (Type I)",
       "doi": "10.1016/j.chembiol.2007.05.011;10.1016/j.nbt.2025.02.002",
       "quality": null,
@@ -88614,7 +88614,7 @@
     },
     "BGC0000115": {
       "mibig_id": "BGC0000115",
-      "compound_name": "nystatin A1",
+      "compound_name": "Nystatin A1",
       "biosynthetic_class": "PKS (Type I);saccharide (hybrid/tailoring)",
       "doi": "10.1016/S1074-5521(00)00120-4",
       "quality": null,
@@ -89005,7 +89005,7 @@
     },
     "BGC0000116": {
       "mibig_id": "BGC0000116",
-      "compound_name": "nystatin-like Pseudonocardia polyene A1",
+      "compound_name": "Nystatin-like Pseudonocardia polyene A1",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1007/s10295-009-0629-5;10.1371/journal.pone.0123270",
       "quality": null,
@@ -89438,7 +89438,7 @@
     },
     "BGC0000117": {
       "mibig_id": "BGC0000117",
-      "compound_name": "oligomycin",
+      "compound_name": "Oligomycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1021/acs.jafc.3c06307",
       "quality": "117-19의 R이 정해진 특별케이스",
@@ -89989,7 +89989,7 @@
     },
     "BGC0000118": {
       "mibig_id": "BGC0000118",
-      "compound_name": "pactamycin",
+      "compound_name": "Pactamycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1038/ja.2007.63",
       "quality": null,
@@ -90268,7 +90268,7 @@
     },
     "BGC0000123": {
       "mibig_id": "BGC0000123",
-      "compound_name": "phoslactomycin B",
+      "compound_name": "Phoslactomycin B",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1074/jbc.M305082200",
       "quality": null,
@@ -90441,7 +90441,7 @@
     },
     "BGC0000300": {
       "mibig_id": "BGC0000300",
-      "compound_name": "amychelin",
+      "compound_name": "Amychelin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/ja203577e",
       "quality": null,
@@ -90612,7 +90612,7 @@
     },
     "BGC0000202": {
       "mibig_id": "BGC0000202",
-      "compound_name": "azicemicin B",
+      "compound_name": "Azicemicin B",
       "biosynthetic_class": "PKS (unknown)",
       "doi": "10.1021/ja907307h.",
       "quality": null,
@@ -91179,7 +91179,7 @@
     },
     "BGC0000204": {
       "mibig_id": "BGC0000204",
-      "compound_name": "benastatin A;benastatin B;BE-43767;TAN1532B",
+      "compound_name": "Benastatin A;Benastatin B;BE-43767;TAN1532B",
       "biosynthetic_class": "PKS (Type II)",
       "doi": "10.1016/j.bioorg.2024.107572.",
       "quality": null,
@@ -92084,7 +92084,7 @@
     },
     "BGC0000296": {
       "mibig_id": "BGC0000296",
-      "compound_name": "actinomycin D",
+      "compound_name": "Actinomycin D",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.3390/md17040240",
       "quality": null,
@@ -92300,7 +92300,7 @@
     },
     "BGC0000303": {
       "mibig_id": "BGC0000303",
-      "compound_name": "anthramycin",
+      "compound_name": "Anthramycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2007.05.009",
       "quality": null,
@@ -92505,7 +92505,7 @@
     },
     "BGC0000306": {
       "mibig_id": "BGC0000306",
-      "compound_name": "arylomycin",
+      "compound_name": "Arylomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/ja2040877",
       "quality": null,
@@ -92659,7 +92659,7 @@
     },
     "BGC0000311": {
       "mibig_id": "BGC0000311",
-      "compound_name": "balhimycin",
+      "compound_name": "Balhimycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/ja.2013.117",
       "quality": null,
@@ -93364,7 +93364,7 @@
     },
     "BGC0000316": {
       "mibig_id": "BGC0000316",
-      "compound_name": "capreomycin 1A;capreomycin 1B;capreomycin 2A;capreomycin 2B",
+      "compound_name": "Capreomycin 1A;Capreomycin 1B;Capreomycin 2A;Capreomycin 2B",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/acs.orglett.5c03112",
       "quality": null,
@@ -93533,7 +93533,7 @@
     },
     "BGC0000319": {
       "mibig_id": "BGC0000319",
-      "compound_name": "cephamycin C",
+      "compound_name": "Cephamycin C",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1023/A:1001804925843",
       "quality": null,
@@ -93681,7 +93681,7 @@
     },
     "BGC0000322": {
       "mibig_id": "BGC0000322",
-      "compound_name": "chloroeremomycin",
+      "compound_name": "Chloroeremomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2008.03.019",
       "quality": null,
@@ -93869,7 +93869,7 @@
     },
     "BGC0000324": {
       "mibig_id": "BGC0000324",
-      "compound_name": "coelibactin",
+      "compound_name": "Coelibactin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/acschembio.3c00063.",
       "quality": "Low",
@@ -93989,7 +93989,7 @@
     },
     "BGC0000325": {
       "mibig_id": "BGC0000325",
-      "compound_name": "coelichelin",
+      "compound_name": "Coelichelin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/nchembio731",
       "quality": null,
@@ -94078,7 +94078,7 @@
     },
     "BGC0000327": {
       "mibig_id": "BGC0000327",
-      "compound_name": "netropsin",
+      "compound_name": "Netropsin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2009.03.010",
       "quality": null,
@@ -94225,7 +94225,7 @@
     },
     "BGC0000336": {
       "mibig_id": "BGC0000336",
-      "compound_name": "daptomycin",
+      "compound_name": "Daptomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1073/pnas.0608589103",
       "quality": null,
@@ -94485,7 +94485,7 @@
     },
     "BGC0000339": {
       "mibig_id": "BGC0000339",
-      "compound_name": "echinomycin",
+      "compound_name": "Echinomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.cbpa.2013.06.022",
       "quality": null,
@@ -94743,7 +94743,7 @@
     },
     "BGC0000340": {
       "mibig_id": "BGC0000340",
-      "compound_name": "echoside A;echoside B;echoside C;echoside D;echoside E",
+      "compound_name": "Echoside A;Echoside B;Echoside C;Echoside D;Echoside E",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.gene.2014.05.053",
       "quality": null,
@@ -94904,7 +94904,7 @@
     },
     "BGC0000341": {
       "mibig_id": "BGC0000341",
-      "compound_name": "enduracidin A;enduracidin B",
+      "compound_name": "Enduracidin A;Enduracidin B",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1099/mic.0.000095",
       "quality": null,
@@ -95262,7 +95262,7 @@
     },
     "BGC0000345": {
       "mibig_id": "BGC0000345",
-      "compound_name": "eponemycin",
+      "compound_name": "Eponemycin",
       "biosynthetic_class": "NRPS (Type I);PKS (Type 1)",
       "doi": "10.1021/cb400699p",
       "quality": null,
@@ -95399,7 +95399,7 @@
     },
     "BGC0000346": {
       "mibig_id": "BGC0000346",
-      "compound_name": "epoxomicin",
+      "compound_name": "Epoxomicin",
       "biosynthetic_class": "NRPS (Type I);PKS (Type 1)",
       "doi": "10.1021/cb400699p",
       "quality": null,
@@ -95538,7 +95538,7 @@
     },
     "BGC0000349": {
       "mibig_id": "BGC0000349",
-      "compound_name": "erythrochelin",
+      "compound_name": "Erythrochelin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2010.01.011",
       "quality": null,
@@ -95675,7 +95675,7 @@
     },
     "BGC0000353": {
       "mibig_id": "BGC0000353",
-      "compound_name": "tacrolimus",
+      "compound_name": "Tacrolimus",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1007/s10295-015-1677-7",
       "quality": null,
@@ -96339,7 +96339,7 @@
     },
     "BGC0000365": {
       "mibig_id": "BGC0000365",
-      "compound_name": "glycopeptidolipid",
+      "compound_name": "Glycopeptidolipid",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1074/jbc.M112.384966",
       "quality": null,
@@ -96512,7 +96512,7 @@
     },
     "BGC0000366": {
       "mibig_id": "BGC0000366",
-      "compound_name": "gobichelin A;gobichelin B",
+      "compound_name": "Gobichelin A;Gobichelin B",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1039/c2md20232h",
       "quality": null,
@@ -96666,7 +96666,7 @@
     },
     "BGC0000371": {
       "mibig_id": "BGC0000371",
-      "compound_name": "heterobactin A;heterobactin S2",
+      "compound_name": "Heterobactin A;Heterobactin S2",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/np4006579",
       "quality": null,
@@ -96800,7 +96800,7 @@
     },
     "BGC0000373": {
       "mibig_id": "BGC0000373",
-      "compound_name": "holomycin",
+      "compound_name": "Holomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1073/pnas.1014140107",
       "quality": null,
@@ -96944,7 +96944,7 @@
     },
     "BGC0000374": {
       "mibig_id": "BGC0000374",
-      "compound_name": "hormaomycin;hormaomycin A1;hormaomycin A2;hormaomycin A3;hormaomycin A4;hormaomycin A5;hormaomycin A6",
+      "compound_name": "Hormaomycin;Hormaomycin A1;Hormaomycin A2;Hormaomycin A3;Hormaomycin A4;Hormaomycin A5;Hormaomycin A6",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2010.12.018;10.1016/j.chembiol.2013.04.018",
       "quality": null,
@@ -98031,7 +98031,7 @@
     },
     "BGC0000379": {
       "mibig_id": "BGC0000379",
-      "compound_name": "glycinocin A",
+      "compound_name": "Glycinocin A",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.gene.2011.05.005",
       "quality": null,
@@ -98255,7 +98255,7 @@
     },
     "BGC0000382": {
       "mibig_id": "BGC0000382",
-      "compound_name": "lipstatin",
+      "compound_name": "Lipstatin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1128/AEM.01765-14",
       "quality": null,
@@ -98431,7 +98431,7 @@
     },
     "BGC0000388": {
       "mibig_id": "BGC0000388",
-      "compound_name": "mannopeptimycin",
+      "compound_name": "Mannopeptimycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1128/AAC.01545-05",
       "quality": null,
@@ -98555,7 +98555,7 @@
     },
     "BGC0000391": {
       "mibig_id": "BGC0000391",
-      "compound_name": "methylpendolmycin;pendolmycin",
+      "compound_name": "Methylpendolmycin;Pendolmycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1002/cbic.201100700",
       "quality": null,
@@ -98702,7 +98702,7 @@
     },
     "BGC0000392": {
       "mibig_id": "BGC0000392",
-      "compound_name": "mirubactin",
+      "compound_name": "Mirubactin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/np300046k",
       "quality": null,
@@ -98850,7 +98850,7 @@
     },
     "BGC0000394": {
       "mibig_id": "BGC0000394",
-      "compound_name": "naphthyridinomycin",
+      "compound_name": "Naphthyridinomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/ol401549y",
       "quality": null,
@@ -99112,7 +99112,7 @@
     },
     "BGC0000395": {
       "mibig_id": "BGC0000395",
-      "compound_name": "norcardicin A",
+      "compound_name": "Norcardicin A",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/s41467-019-11740-6",
       "quality": null,
@@ -99249,7 +99249,7 @@
     },
     "BGC0000409": {
       "mibig_id": "BGC0000409",
-      "compound_name": "porothramycin A",
+      "compound_name": "Porothramycin A",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1007/s12223-014-0339-x",
       "quality": null,
@@ -99514,7 +99514,7 @@
     },
     "BGC0000414": {
       "mibig_id": "BGC0000414",
-      "compound_name": "quinocarcin",
+      "compound_name": "Quinocarcin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2013.10.011",
       "quality": null,
@@ -99737,7 +99737,7 @@
     },
     "BGC0000415": {
       "mibig_id": "BGC0000415",
-      "compound_name": "quinomycin",
+      "compound_name": "Quinomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1371/journal.pone.0056772",
       "quality": null,
@@ -99949,7 +99949,7 @@
     },
     "BGC0000417": {
       "mibig_id": "BGC0000417",
-      "compound_name": "rhodochelin",
+      "compound_name": "Rhodochelin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/ja1109453",
       "quality": null,
@@ -100779,7 +100779,7 @@
     },
     "BGC0000422": {
       "mibig_id": "BGC0000422",
-      "compound_name": "saframycin A;saframycin B",
+      "compound_name": "Saframycin A;Saframycin B",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1128/JB.00826-07",
       "quality": null,
@@ -101002,7 +101002,7 @@
     },
     "BGC0000423": {
       "mibig_id": "BGC0000423",
-      "compound_name": "scabiechelin",
+      "compound_name": "Scabiechelin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1039/c3ob40536b",
       "quality": null,
@@ -101151,7 +101151,7 @@
     },
     "BGC0000428": {
       "mibig_id": "BGC0000428",
-      "compound_name": "sibiromycin",
+      "compound_name": "Sibiromycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1128/AEM.03326-08",
       "quality": null,
@@ -101554,7 +101554,7 @@
     },
     "BGC0000429": {
       "mibig_id": "BGC0000429",
-      "compound_name": "skyllamycin A;skyllamycin B",
+      "compound_name": "Skyllamycin A;Skyllamycin B",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/ja108971",
       "quality": null,
@@ -101899,7 +101899,7 @@
     },
     "BGC0000431": {
       "mibig_id": "BGC0000431",
-      "compound_name": "stenothricin",
+      "compound_name": "Stenothricin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/ja.2013.99",
       "quality": null,
@@ -102121,7 +102121,7 @@
     },
     "BGC0000432": {
       "mibig_id": "BGC0000432",
-      "compound_name": "streptothricin F;streptothricin E;streptothricin D;streptothricin C",
+      "compound_name": "Streptothricin F;Streptothricin E;Streptothricin D;Streptothricin C",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/nCHeMBIO.1040;10.1038/s41587-019-0241-9",
       "quality": null,
@@ -104111,7 +104111,7 @@
     },
     "BGC0000453": {
       "mibig_id": "BGC0000453",
-      "compound_name": "valinomycin",
+      "compound_name": "Valinomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1002/cbic.200500425",
       "quality": null,
@@ -104203,7 +104203,7 @@
     },
     "BGC0000455": {
       "mibig_id": "BGC0000455",
-      "compound_name": "vancomycin",
+      "compound_name": "Vancomycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/ja.2013.117",
       "quality": null,
@@ -104390,7 +104390,7 @@
     },
     "BGC0000459": {
       "mibig_id": "BGC0000459",
-      "compound_name": "griseoviridin;fijimycin A",
+      "compound_name": "Griseoviridin;Fijimycin A",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1002/cbic.201200584",
       "quality": null,
@@ -104865,7 +104865,7 @@
     },
     "BGC0000466": {
       "mibig_id": "BGC0000466",
-      "compound_name": "yataktemycin",
+      "compound_name": "Yataktemycin",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1021/ja211098r",
       "quality": null,
@@ -105060,7 +105060,7 @@
     },
     "BGC0002009": {
       "mibig_id": "BGC0002009",
-      "compound_name": "kanglemycin A;kanglemycin V1;kanglemycin V2",
+      "compound_name": "Kanglemycin A;Kanglemycin V1;Kanglemycin V2",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1038/s41467-018-06587-2",
       "quality": null,
@@ -105405,7 +105405,7 @@
     },
     "BGC0002010": {
       "mibig_id": "BGC0002010",
-      "compound_name": "streptophenazine B;streptophenazine C;streptophenazine F;streptophenazine G;streptophenazine H",
+      "compound_name": "Streptophenazine B;Streptophenazine C;Streptophenazine F;Streptophenazine G;Streptophenazine H",
       "biosynthetic_class": "NRPS (Type I)",
       "doi": "10.1016/j.chembiol.2019.02.004",
       "quality": null,
@@ -105655,7 +105655,7 @@
     },
     "BGC0002011": {
       "mibig_id": "BGC0002011",
-      "compound_name": "ansacarbamitocin A",
+      "compound_name": "Ansacarbamitocin A",
       "biosynthetic_class": "PKS (unknown)",
       "doi": "10.1021/acs.orglett.9b01891",
       "quality": null,
@@ -105919,7 +105919,7 @@
     },
     "BGC0002014": {
       "mibig_id": "BGC0002014",
-      "compound_name": "pepticinnamin E",
+      "compound_name": "Pepticinnamin E",
       "biosynthetic_class": "NRPS(Type1), PKS (unknown)",
       "doi": "10.1002/cbic.201900025",
       "quality": null,
@@ -106058,7 +106058,7 @@
     },
     "BGC0002017": {
       "mibig_id": "BGC0002017",
-      "compound_name": "potensibactin",
+      "compound_name": "Potensibactin",
       "biosynthetic_class": "NRPS(Type1)",
       "doi": "10.1038/nchembio.2188",
       "quality": null,
@@ -106184,7 +106184,7 @@
     },
     "BGC0002022": {
       "mibig_id": "BGC0002022",
-      "compound_name": "armeniaspirol A;armeniaspirol B;armeniaspirol C",
+      "compound_name": "Armeniaspirol A;Armeniaspirol B;Armeniaspirol C",
       "biosynthetic_class": "PKS(unknown)",
       "doi": "10.1002/cbic.201800791",
       "quality": null,
@@ -106423,7 +106423,7 @@
     },
     "BGC0002024": {
       "mibig_id": "BGC0002024",
-      "compound_name": "nargenicin A1",
+      "compound_name": "Nargenicin A1",
       "biosynthetic_class": "PKS(Type 1)",
       "doi": "10.1021/acschembio.9b01034",
       "quality": null,
@@ -106783,7 +106783,7 @@
     },
     "BGC0002032": {
       "mibig_id": "BGC0002032",
-      "compound_name": "pentamycin",
+      "compound_name": "Pentamycin",
       "biosynthetic_class": "PKS(Unknown)",
       "doi": "10.1021/acschembio.9b00270;10.1101/2023.06.15.545052;10.1007/s10295-013-1327-x",
       "quality": null,
@@ -107088,7 +107088,7 @@
     },
     "BGC0002033": {
       "mibig_id": "BGC0002033",
-      "compound_name": "spiramycin",
+      "compound_name": "Spiramycin",
       "biosynthetic_class": "PKS(Unknown)",
       "doi": "10.1099/mic.0.2007/009746-0",
       "quality": null,
@@ -107504,7 +107504,7 @@
     },
     "BGC0002038": {
       "mibig_id": "BGC0002038",
-      "compound_name": "nigericin",
+      "compound_name": "Nigericin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1007/s10295-019-02256-5",
       "quality": null,
@@ -107781,7 +107781,7 @@
     },
     "BGC0002042": {
       "mibig_id": "BGC0002042",
-      "compound_name": "anthelvencin A;anthelvencin B;anthelvencin C",
+      "compound_name": "Anthelvencin A;Anthelvencin B;Anthelvencin C",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1021/acschembio.9b00960",
       "quality": null,
@@ -107929,7 +107929,7 @@
     },
     "BGC0002051": {
       "mibig_id": "BGC0002051",
-      "compound_name": "antipain",
+      "compound_name": "Antipain",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1021/jacs.6b06848;10.1007/s13659-025-00560-5",
       "quality": null,
@@ -108034,7 +108034,7 @@
     },
     "BGC0002054": {
       "mibig_id": "BGC0002054",
-      "compound_name": "amipurimycin",
+      "compound_name": "Amipurimycin",
       "biosynthetic_class": "PKS (Unknown);NRPS (Type 1);saccharide (None)",
       "doi": "10.1021/acs.orglett.9b00840",
       "quality": null,
@@ -108260,7 +108260,7 @@
     },
     "BGC0002072": {
       "mibig_id": "BGC0002072",
-      "compound_name": "linearmycin A;linearmycin B;linearmycin C",
+      "compound_name": "Linearmycin A;Linearmycin B;Linearmycin C",
       "biosynthetic_class": "PKS (Type 1)",
       "doi": "10.1016/j.chembiol.2017.08.008",
       "quality": null,
@@ -108886,7 +108886,7 @@
     },
     "BGC0002086": {
       "mibig_id": "BGC0002086",
-      "compound_name": "rosamicin",
+      "compound_name": "Rosamicin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1002/cbic.201500177",
       "quality": null,
@@ -109075,7 +109075,7 @@
     },
     "BGC0002089": {
       "mibig_id": "BGC0002089",
-      "compound_name": "thaxtomin A;thaxtomin B;thaxtomin C;thaxtomin D",
+      "compound_name": "Thaxtomin A;Thaxtomin B;Thaxtomin C;Thaxtomin D",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1111/mpp.128 43",
       "quality": null,
@@ -109212,7 +109212,7 @@
     },
     "BGC0002090": {
       "mibig_id": "BGC0002090",
-      "compound_name": "undecylprodigiosin;metacycloprodigiosin",
+      "compound_name": "Undecylprodigiosin;Metacycloprodigiosin",
       "biosynthetic_class": "PKS (Type 1);NRPS (Type 1)",
       "doi": "10.1038/nrmicro1531;10.1016/j.tetlet.2014.12.075",
       "quality": null,
@@ -109446,7 +109446,7 @@
     },
     "BGC0002095": {
       "mibig_id": "BGC0002095",
-      "compound_name": "leupeptin Pr;leupeptin Ac",
+      "compound_name": "Leupeptin Pr;Leupeptin Ac",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1002/ange.202005506;10.1101/2020.10.26.356543",
       "quality": "Low",
@@ -109585,7 +109585,7 @@
     },
     "BGC0002096": {
       "mibig_id": "BGC0002096",
-      "compound_name": "tetrachlorizine",
+      "compound_name": "Tetrachlorizine",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1021/jacs.0c12415",
       "quality": null,
@@ -110037,7 +110037,7 @@
     },
     "BGC0002100": {
       "mibig_id": "BGC0002100",
-      "compound_name": "colibrimycin",
+      "compound_name": "Colibrimycin",
       "biosynthetic_class": "NRPS (Type 1);other (other)",
       "doi": "10.1128/AEM.01839-21.",
       "quality": null,
@@ -110129,7 +110129,7 @@
     },
     "BGC0002101": {
       "mibig_id": "BGC0002101",
-      "compound_name": "heronamide A;heronamide B;heronamide C",
+      "compound_name": "Heronamide A;Heronamide B;Heronamide C",
       "biosynthetic_class": "PKS (Type 1)",
       "doi": "10.1002/cbic.201500281",
       "quality": null,
@@ -110462,7 +110462,7 @@
     },
     "BGC0002102": {
       "mibig_id": "BGC0002102",
-      "compound_name": "pladienolide B",
+      "compound_name": "Pladienolide B",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1039/d0sc01928c",
       "quality": null,
@@ -110671,7 +110671,7 @@
     },
     "BGC0002106": {
       "mibig_id": "BGC0002106",
-      "compound_name": "rimocidin",
+      "compound_name": "Rimocidin",
       "biosynthetic_class": "PKS (Modular type 1)",
       "doi": "10.1016/j.chembiol.2004.02.017",
       "quality": null,
@@ -110962,7 +110962,7 @@
     },
     "BGC0002108": {
       "mibig_id": "BGC0002108",
-      "compound_name": "cinnapeptin",
+      "compound_name": "Cinnapeptin",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1002/anie.202009611",
       "quality": null,
@@ -111175,7 +111175,7 @@
     },
     "BGC0002109": {
       "mibig_id": "BGC0002109",
-      "compound_name": "kitacinnamycin A;kitacinnamycin B;kitacinnamycin C;kitacinnamycin D;kitacinnamycin E;kitacinnamycin F",
+      "compound_name": "Kitacinnamycin A;Kitacinnamycin B;Kitacinnamycin C;Kitacinnamycin D;Kitacinnamycin E;Kitacinnamycin F",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1039/c9sc00815b",
       "quality": null,
@@ -112095,7 +112095,7 @@
     },
     "BGC0002138": {
       "mibig_id": "BGC0002138",
-      "compound_name": "fuelimycin A;fuelimycin B;fuelimycin C",
+      "compound_name": "Fuelimycin A;Fuelimycin B;Fuelimycin C",
       "biosynthetic_class": "PKS (iterative type 1)",
       "doi": "10.1016/j.joule.2022.05.011",
       "quality": null,
@@ -112250,7 +112250,7 @@
     },
     "BGC0002142": {
       "mibig_id": "BGC0002142",
-      "compound_name": "gargantulide B;gargantulide C",
+      "compound_name": "Gargantulide B;Gargantulide C",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1039/d1qo01480c",
       "quality": null,
@@ -112976,7 +112976,7 @@
     },
     "BGC0002147": {
       "mibig_id": "BGC0002147",
-      "compound_name": "behemamine A;behemamine B;behemamine C",
+      "compound_name": "Behemamine A;Behemamine B;Behemamine C",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1021/acs.orglett.0c01224",
       "quality": null,
@@ -113154,7 +113154,7 @@
     },
     "BGC0002288": {
       "mibig_id": "BGC0002288",
-      "compound_name": "ashimide A;ashimide B",
+      "compound_name": "Ashimide A;Ashimide B",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1039/c8sc05670f",
       "quality": null,
@@ -113424,7 +113424,7 @@
     },
     "BGC0002291": {
       "mibig_id": "BGC0002291",
-      "compound_name": "efomycin K;efomycin L",
+      "compound_name": "Efomycin K;Efomycin L",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.3389/fmicb.2019.01739",
       "quality": null,
@@ -113615,7 +113615,7 @@
     },
     "BGC0002293": {
       "mibig_id": "BGC0002293",
-      "compound_name": "ohmyungsamycin A;ohmyungsamycin B",
+      "compound_name": "Ohmyungsamycin A;Ohmyungsamycin B",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.3390/biom9110672",
       "quality": null,
@@ -113930,7 +113930,7 @@
     },
     "BGC0002295": {
       "mibig_id": "BGC0002295",
-      "compound_name": "minimycin;indigodine",
+      "compound_name": "Minimycin;Indigodine",
       "biosynthetic_class": "NRPS (Type 1);saccharide (None)",
       "doi": "10.1016/j.isci.2019.11.037",
       "quality": null,
@@ -114060,7 +114060,7 @@
     },
     "BGC0002300": {
       "mibig_id": "BGC0002300",
-      "compound_name": "albomycin delta2;albomycin delta1;albomycin epsilon",
+      "compound_name": "Albomycin delta2;Albomycin delta1;Albomycin epsilon",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1016/j.jbc.2023.104573",
       "quality": "Low",
@@ -114333,7 +114333,7 @@
     },
     "BGC0002308": {
       "mibig_id": "BGC0002308",
-      "compound_name": "camporidine A;camporidine B",
+      "compound_name": "Camporidine A;Camporidine B",
       "biosynthetic_class": "other (other);PKS (Unknown)",
       "doi": "10.1021/acs.jnatprod.8b01000",
       "quality": null,
@@ -114607,7 +114607,7 @@
     },
     "BGC0002314": {
       "mibig_id": "BGC0002314",
-      "compound_name": "corbomycin",
+      "compound_name": "Corbomycin",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1038/s41586-020-1990-9",
       "quality": null,
@@ -114799,7 +114799,7 @@
     },
     "BGC0002333": {
       "mibig_id": "BGC0002333",
-      "compound_name": "lucensomycin",
+      "compound_name": "Lucensomycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1038/s41598-021-82934-6",
       "quality": null,
@@ -115150,7 +115150,7 @@
     },
     "BGC0002340": {
       "mibig_id": "BGC0002340",
-      "compound_name": "pyrroloformamide A;pyrroloformamide B;pyrroloformamide C;pyrroloformamide D",
+      "compound_name": "Pyrroloformamide A;Pyrroloformamide B;Pyrroloformamide C;Pyrroloformamide D",
       "biosynthetic_class": "NRPS (Type 1);other (other)",
       "doi": "10.1021/acs.jnatprod.9b00321",
       "quality": null,
@@ -115487,7 +115487,7 @@
     },
     "BGC0002349": {
       "mibig_id": "BGC0002349",
-      "compound_name": "epemicin A;epemicin B",
+      "compound_name": "Epemicin A;Epemicin B",
       "biosynthetic_class": "PKS (Type 1)",
       "doi": "10.1021/acschembio.1c00318",
       "quality": null,
@@ -115894,7 +115894,7 @@
     },
     "BGC0002350": {
       "mibig_id": "BGC0002350",
-      "compound_name": "bleomycin A2;bleomycin B2",
+      "compound_name": "Bleomycin A2;Bleomycin B2",
       "biosynthetic_class": "NRPS (Type 1);PKS (Unknown);saccharide (None)",
       "doi": "10.1021/np010550q",
       "quality": null,
@@ -116214,7 +116214,7 @@
     },
     "BGC0002355": {
       "mibig_id": "BGC0002355",
-      "compound_name": "tetrafibricin",
+      "compound_name": "Tetrafibricin",
       "biosynthetic_class": "PKS (Unknown);other (other)",
       "doi": "10.1002/anie.201611371",
       "quality": null,
@@ -116559,7 +116559,7 @@
     },
     "BGC0002356": {
       "mibig_id": "BGC0002356",
-      "compound_name": "mediomycin A",
+      "compound_name": "Mediomycin A",
       "biosynthetic_class": "PKS (Unknown);other (other)",
       "doi": "10.1002/anie.201611371",
       "quality": null,
@@ -117057,7 +117057,7 @@
     },
     "BGC0002357": {
       "mibig_id": "BGC0002357",
-      "compound_name": "neomediomycin B",
+      "compound_name": "Neomediomycin B",
       "biosynthetic_class": "PKS (Unknown);other (other)",
       "doi": "10.1002/anie.201611371",
       "quality": null,
@@ -117606,7 +117606,7 @@
     },
     "BGC0002358": {
       "mibig_id": "BGC0002358",
-      "compound_name": "cyclofaulknamycin",
+      "compound_name": "Cyclofaulknamycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.3390/microorganisms9081609",
       "quality": null,
@@ -117730,7 +117730,7 @@
     },
     "BGC0002359": {
       "mibig_id": "BGC0002359",
-      "compound_name": "dudomycin A",
+      "compound_name": "Dudomycin A",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.3390/microorganisms8111800",
       "quality": null,
@@ -117836,7 +117836,7 @@
     },
     "BGC0002360": {
       "mibig_id": "BGC0002360",
-      "compound_name": "depsibosamycin B;depsibosamycin C;depsibosamycin D",
+      "compound_name": "Depsibosamycin B;Depsibosamycin C;Depsibosamycin D",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1039/d0sc03469j",
       "quality": null,
@@ -118099,7 +118099,7 @@
     },
     "BGC0002364": {
       "mibig_id": "BGC0002364",
-      "compound_name": "trichostatin RK",
+      "compound_name": "Trichostatin RK",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1039/d0ob00617c",
       "quality": null,
@@ -118417,7 +118417,7 @@
     },
     "BGC0002367": {
       "mibig_id": "BGC0002367",
-      "compound_name": "rotihibin A",
+      "compound_name": "Rotihibin A",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1128/Spectrum.00571-21",
       "quality": null,
@@ -118571,7 +118571,7 @@
     },
     "BGC0002370": {
       "mibig_id": "BGC0002370",
-      "compound_name": "zelkovamycin B;zelkovamycin C;zelkovamycin D;zelkovamycin E",
+      "compound_name": "Zelkovamycin B;Zelkovamycin C;Zelkovamycin D;Zelkovamycin E",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1371/journal.pone.0260413 ;10.1021/acs.orglett.0c03565",
       "quality": null,
@@ -118910,7 +118910,7 @@
     },
     "BGC0002373": {
       "mibig_id": "BGC0002373",
-      "compound_name": "bonnevillamide D;bonnevillamide E",
+      "compound_name": "Bonnevillamide D;Bonnevillamide E",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1021/acs.joc.1c00360",
       "quality": null,
@@ -119228,7 +119228,7 @@
     },
     "BGC0002374": {
       "mibig_id": "BGC0002374",
-      "compound_name": "pulvomycin B;pulvomycin C;pulvomycin D",
+      "compound_name": "Pulvomycin B;Pulvomycin C;Pulvomycin D",
       "biosynthetic_class": "PKS (unknown)",
       "doi": "10.1021/acs.orglett.0c01249",
       "quality": null,
@@ -119614,7 +119614,7 @@
     },
     "BGC0002376": {
       "mibig_id": "BGC0002376",
-      "compound_name": "bombyxamycin A;bombyxamycin B",
+      "compound_name": "Bombyxamycin A;Bombyxamycin B",
       "biosynthetic_class": "PKS (unknown)",
       "doi": "10.1021/acs.orglett.9b00384",
       "quality": null,
@@ -120290,7 +120290,7 @@
     },
     "BGC0002378": {
       "mibig_id": "BGC0002378",
-      "compound_name": "coprisamide C;coprisamide D",
+      "compound_name": "Coprisamide C;Coprisamide D",
       "biosynthetic_class": "NRPS (Type 1)",
       "doi": "10.1021/acs.jnatprod.0c00864",
       "quality": null,
@@ -120519,7 +120519,7 @@
     },
     "BGC0002385": {
       "mibig_id": "BGC0002385",
-      "compound_name": "dumulmycin",
+      "compound_name": "Dumulmycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1021/acs.orglett.1c02589",
       "quality": null,
