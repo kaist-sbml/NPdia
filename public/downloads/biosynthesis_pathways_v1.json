@@ -47134,7 +47134,7 @@
       "mibig_id": "BGC0001504",
       "compound_name": "Amycomicin",
       "biosynthetic_class": "PKS (Unknown)",
-      "doi": null,
+      "doi": "10.1021/jacs.4c06411",
       "quality": null,
       "steps": [
         {
@@ -47299,7 +47299,7 @@
       "mibig_id": "BGC0001519",
       "compound_name": "Aurantimycin A",
       "biosynthetic_class": "NRPS (Type I);PKS (Unknown)",
-      "doi": null,
+      "doi": "10.1186/s12934-016-0559-7",
       "quality": null,
       "steps": [
         {
@@ -49166,7 +49166,7 @@
       "mibig_id": "BGC0001569",
       "compound_name": "Dechlorocuracomycin",
       "biosynthetic_class": "NRPS (Type I)",
-      "doi": null,
+      "doi": "10.1002/ajoc.201700433",
       "quality": null,
       "steps": [
         {
@@ -51835,7 +51835,7 @@
       "mibig_id": "BGC0001628",
       "compound_name": "JBIR-78;JBIR-95",
       "biosynthetic_class": "NRPS (Type I)",
-      "doi": null,
+      "doi": "10.1021/acschembio.7b00314",
       "quality": null,
       "steps": [
         {
@@ -54617,7 +54617,7 @@
       "mibig_id": "BGC0001700",
       "compound_name": "Niphimycin C;Niphimycin D;Niphimycin E;17-O-methylniphimycin;Niphimycin Iα;19-O-malonylniphimycin",
       "biosynthetic_class": "PKS (Unknown)",
-      "doi": null,
+      "doi": "10.1021/acs.jnatprod.7b00859",
       "quality": null,
       "steps": [
         {
@@ -89441,7 +89441,7 @@
       "compound_name": "Oligomycin",
       "biosynthetic_class": "PKS (Unknown)",
       "doi": "10.1021/acs.jafc.3c06307",
-      "quality": "117-19의 R이 정해진 특별케이스",
+      "quality": null,
       "steps": [
         {
           "order": "1",

@@ -18,7 +18,7 @@ import openpyxl
 from datetime import datetime
 from collections import OrderedDict
 
-INPUT_FILE = "data/raw/T1PKS, NRPS biosynthesis pathway collection qc.xlsx"
+INPUT_FILE = "data/raw/T1PKS, NRPS biosynthesis pathway collection Real final.xlsx"
 OUTPUT_FILE = "data/normalized/biosynthesis_pathways.json"
 
 HEADERS = [
