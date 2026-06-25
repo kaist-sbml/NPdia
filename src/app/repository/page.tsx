@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import RepositoryTable, { PathwaySummary } from "@/components/RepositoryTable";
@@ -14,6 +15,7 @@ function deriveCategory(
 }
 
 export default function RepositoryPage() {
+  redirect("/");
   const filePath = path.join(
     process.cwd(),
     "data",

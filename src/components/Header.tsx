@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "About", href: "/" },
-  { label: "Repository", href: "/repository" },
+  { label: "Repository", href: "/repository", disabled: true },
   { label: "Download", href: "/download" },
   { label: "Help", href: "/help" },
 ];
@@ -21,9 +21,26 @@ export default function Header() {
         </Link>
 
         <nav className="header-nav">
-          {navLinks.map(({ label, href }) => {
+          {navLinks.map(({ label, href, disabled }) => {
             const isActive =
               href === "/" ? pathname === "/" : pathname.startsWith(href);
+            if (disabled) {
+              return (
+                <span
+                  key={href}
+                  className="header-nav-link"
+                  style={{
+                    fontWeight: 400,
+                    color: "#555577",
+                    backgroundColor: "transparent",
+                    cursor: "not-allowed",
+                    userSelect: "none",
+                  }}
+                >
+                  {label}
+                </span>
+              );
+            }
             return (
               <Link
                 key={href}
