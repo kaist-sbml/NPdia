@@ -90,7 +90,7 @@ export default function AboutPage() {
         <h2 className="page-heading" style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "24px" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/image/logo.svg" alt="NPdia logo" style={{ height: "2em", width: "auto", flexShrink: 0 }} />
-          <span><strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia)</span>
+          <span>Domain-resolved, step-by-step chemical structures for Type I PKS and NRPS biosynthetic pathways</span>
         </h2>
 
         {/* Responsive: image left / text right */}
@@ -102,13 +102,13 @@ export default function AboutPage() {
           <div className="about-layout-text">
             <h3 className="section-heading">About</h3>
             <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-              <strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia) is a manually curated database of Type I PKS (T1PKS) and NRPS biosynthetic pathways from actinomycetes, providing step-by-step SMILES representations of every biosynthetic intermediate from starter unit loading to final scaffold release.
+              <strong>N</strong>RPS/<strong>P</strong>KS biosynthesis pathway encyclope<strong>dia</strong> (NPdia) is a manually curated database of Type I PKS (T1PKS) and NRPS biosynthetic pathways from Actinomycetota, providing step-by-step SMILES representations (a plain-text notation for chemical structures) of every biosynthetic intermediate from starter unit loading to final scaffold release.
             </p>
             <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-              Actinomycetota contribute 51% of all bacterial BGCs, and T1PKS and NRPS represent 42% of actinomycetota BGCs — yet the biochemical intermediates they produce have never been systematically represented. NPdia fills this gap by linking each nucleic acid-encoded enzymatic domain to its chemical outcome, making genotype–phenotype relationships explicit at domain resolution.
+              Actinomycetota contribute 51% of all bacterial BGCs, and T1PKS and NRPS represent 42% of Actinomycetota BGCs — yet the biochemical intermediates they produce have never been systematically represented. NPdia fills this gap by linking each enzymatic domain to its chemical outcome, making genotype–phenotype relationships explicit at domain resolution.
             </p>
             <p style={{ fontSize: "17px", lineHeight: 1.8, color: "#444" }}>
-              All entries are manually curated from primary literature and validated using an AI-assisted pipeline integrated with BGC GenBank files. The full dataset is freely downloadable for use in pathway engineering, machine learning, and drug discovery.
+              All entries are curated from primary literature and validated using an AI-assisted pipeline integrated with BGC GenBank files. The full dataset — step-by-step SMILES, tabular reaction data, and source GenBank files — is freely downloadable for use in pathway engineering, machine learning, and drug discovery.
             </p>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function AboutPage() {
           <li>Step-by-step SMILES for every biosynthetic intermediate</li>
           <li>Gene-to-reaction mapping with domain-level annotation (including inactive, missing, transAT, and iterative states)</li>
           <li>Search and filter by class, organism, or compound</li>
-          <li>Full dataset download for machine learning and pathway engineering</li>
+          <li>Full dataset download for downstream analysis and reuse (e.g., machine-learning training, retrobiosynthesis prediction)</li>
         </ul>
       </section>
 

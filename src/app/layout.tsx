@@ -51,14 +51,14 @@ export default function RootLayout({
             />
           </div>
           <div className="footer-copyright">
-            Copyright &copy; 2026 NPdia Project. All rights reserved.
+            NPdia is licensed under a{" "}
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
+              Creative Commons Attribution 4.0 International License (CC BY 4.0)
+            </a>
+            . 
           </div>
           <div className="footer-collaborators">
-            Developed by{" "}
-            <a href="https://sbml.kaist.ac.kr/" target="_blank" rel="noreferrer">
-              KAIST SBML
-            </a>
-            {" "}in collaboration with SNU and DTU.
+            © 2026 Systems Biology and Medicine Laboratory, KAIST.
           </div>
         </footer>
       </body>

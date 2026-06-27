@@ -12,7 +12,7 @@ export default function Header() {
         backgroundColor: "#ffffff",
       }}
     >
-      <h1 style={{ fontSize: "20px", margin: 0 }}>NPdia</h1>
+      <h1 style={{ fontSize: "20px", margin: 0 }}>NRPS/PKS biosynthesis pathway encyclopedia (NPdia)</h1>
 
       <nav style={{ display: "flex", gap: "20px" }}>
         <Link href="/" style={{ textDecoration: "none", color: "#333" }}>

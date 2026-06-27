@@ -302,7 +302,7 @@ export default function HelpPage() {
       <h2 style={S.h2}>Downloading Data</h2>
       <p style={S.p}>
         The full NPdia dataset is available for download from the{" "}
-        <a href="/download" style={{ color: "#6464dc" }}>Download</a> page in Excel format (.xlsx).
+        <a href="/download" style={{ color: "#6464dc" }}>Download</a> page in CSV format (.csv) or JSON format (.json).
       </p>
       <p style={S.p}>
         The downloaded file contains all pathway entries with the following columns: MIBiG ID,
