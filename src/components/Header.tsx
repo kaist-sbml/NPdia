@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
+const navLinks: { label: string; href: string; disabled?: boolean }[] = [
   { label: "About", href: "/" },
   { label: "Repository", href: "/repository", disabled: true },
   { label: "Download", href: "/download" },
@@ -17,7 +17,7 @@ export default function Header() {
     <header className="site-header">
       <div className="header-inner">
         <Link href="/" className="header-title">
-          NPdia
+          NRPS/PKS biosynthesis pathway encyclopedia (NPdia)
         </Link>
 
         <nav className="header-nav">
