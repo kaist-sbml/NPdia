@@ -334,13 +334,13 @@ export default function HelpPage() {
       <hr style={S.hr} />
 
       {/* ── Contact ───────────────────────────────────────────────────── */}
-      <h2 style={S.h2}>Contact</h2>
+      {/* <h2 style={S.h2}>Contact</h2>
       <p style={S.p}>
         For questions, error reports, or suggestions for new entries, please contact:
       </p>
       <div style={S.note}>
         <em style={{ color: "#aaa" }}>[Contact email or GitHub Issues link — to be filled in]</em>
-      </div>
+      </div> */}
 
     </div>
   );
