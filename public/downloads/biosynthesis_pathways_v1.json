@@ -2,8 +2,8 @@
   "metadata": {
     "title": "T1PKS/NRPS Biosynthesis Pathway Collection",
     "description": "Structured database of Type I PKS and NRPS biosynthetic pathways from MIBiG entries, curated from Actinomycetes-derived BGCs",
-    "total_bgcs": 451,
-    "total_steps": 7352,
+    "total_bgcs": 450,
+    "total_steps": 7347,
     "source": "MIBiG (Minimum Information about a Biosynthetic Gene cluster)",
     "schema_version": "1.0",
     "fields": {
