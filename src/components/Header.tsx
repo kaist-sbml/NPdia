@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navLinks: { label: string; href: string; disabled?: boolean }[] = [
   { label: "About", href: "/" },
-  { label: "Repository", href: "/repository", disabled: true },
+  { label: "Repository", href: "/repository" },
   { label: "Download", href: "/download" },
   { label: "Help", href: "/help" },
 ];
