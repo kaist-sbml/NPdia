@@ -10201,17 +10201,6 @@
       "Streptomyces rochei group"
     ]
   },
-  "BGC0000954": {
-    "organism": "Chondromyces crocatus",
-    "taxonomy": [
-      "Bacteria",
-      "Myxococcota",
-      "Polyangia",
-      "Polyangiales",
-      "Polyangiaceae",
-      "Chondromyces"
-    ]
-  },
   "BGC0000955": {
     "organism": "Myxococcus xanthus",
     "taxonomy": [
@@ -28222,18 +28211,6 @@
       "Streptosporangiales",
       "Streptosporangiaceae",
       "Planobispora"
-    ]
-  },
-  "BGC0002689": {
-    "organism": "Stenotrophomonas maltophilia K279a",
-    "taxonomy": [
-      "Bacteria",
-      "Pseudomonadota",
-      "Gammaproteobacteria",
-      "Xanthomonadales",
-      "Xanthomonadaceae",
-      "Stenotrophomonas",
-      "Stenotrophomonas maltophilia group"
     ]
   },
   "BGC0002690": {
