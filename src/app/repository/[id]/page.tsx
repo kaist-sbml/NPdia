@@ -353,7 +353,7 @@ export default async function EntryDetailPage({
             <h3 className="section-heading" style={{ marginBottom: "14px" }}>
               Gene Cluster Map
               <span style={{ marginLeft: "10px", fontSize: "13px", fontWeight: 400, color: "#888" }}>
-                {loci.genes.length} genes · {loci.total_length.toLocaleString()} bp
+                {loci!.genes.length} genes · {loci!.total_length.toLocaleString()} bp
               </span>
             </h3>
             <div
@@ -366,7 +366,7 @@ export default async function EntryDetailPage({
                 boxShadow: "0 1px 6px rgba(0,0,0,0.06)",
               }}
             >
-              <GeneLociMap totalLength={loci.total_length} genes={loci.genes} />
+              <GeneLociMap totalLength={loci!.total_length} genes={loci!.genes} />
             </div>
           </>
         )}
