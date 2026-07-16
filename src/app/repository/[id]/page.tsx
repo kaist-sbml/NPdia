@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
@@ -153,6 +154,7 @@ export default async function EntryDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  redirect("/");
   const { id } = await params;
   const pathways = readPathways();
   const entry = pathways[id];

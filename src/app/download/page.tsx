@@ -120,26 +120,24 @@ export default function DownloadPage() {
           </div>
 
           {/* Download button */}
-          <a
-            href={file.href}
-            download
+          <span
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "8px",
               padding: "10px 22px",
-              backgroundColor: "#1a1a2e",
+              backgroundColor: "#cccccc",
               color: "#ffffff",
               borderRadius: "8px",
-              textDecoration: "none",
               fontSize: "14px",
               fontWeight: 600,
               whiteSpace: "nowrap",
               alignSelf: "center",
+              cursor: "not-allowed",
             }}
           >
             ↓ Download
-          </a>
+          </span>
         </div>
       ))}
 
