@@ -320,7 +320,7 @@ export default async function EntryDetailPage({
               <dd style={{ margin: 0 }}>
                 {mibigUrl ? (
                   <a
-                    href={mibigUrl}
+                    href={mibigUrl as string}
                     target="_blank"
                     rel="noreferrer"
                     style={{ color: "#6464dc", textDecoration: "none", fontSize: "13px" }}
