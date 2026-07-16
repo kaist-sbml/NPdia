@@ -294,7 +294,7 @@ export default async function EntryDetailPage({
               <dd style={{ margin: 0 }}>
                 {entry.doi ? (
                   <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                    {entry.doi.split(";").map((d) => d.trim()).filter(Boolean).map((d) => (
+                    {(entry.doi as string).split(";").map((d) => d.trim()).filter(Boolean).map((d) => (
                       <a
                         key={d}
                         href={`https://doi.org/${d}`}
