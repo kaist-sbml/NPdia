@@ -140,6 +140,25 @@ function readCompounds(id: string): MibigCompound[] {
     }));
 }
 
+function deriveCompoundFromPathway(entry: Pathway): MibigCompound | null {
+  if (!entry.steps.length) return null;
+  // Prefer the TE (thioesterase) step; otherwise take the highest numeric order
+  const teStep = entry.steps.find((s) => s.order === "TE");
+  const lastStep = teStep ?? [...entry.steps].sort((a, b) => {
+    const na = parseFloat(a.order) || 0;
+    const nb = parseFloat(b.order) || 0;
+    return na - nb;
+  }).at(-1);
+  const smiles = lastStep?.product_smiles?.trim();
+  if (!smiles || smiles.includes("[R]")) return null;
+  return {
+    name: entry.compound_name,
+    smiles,
+    formula: null,
+    mass: null,
+  };
+}
+
 // ── Static params (pre-render all 163 entries) ────────────────────────────────
 
 export function generateStaticParams() {
@@ -168,7 +187,12 @@ export default async function EntryDetailPage({
   const species = speciesData[id] ?? { organism: null, taxonomy: [] };
 
   const loci = readGeneLoci(id);
-  const compounds = readCompounds(id);
+  const mibigCompounds = readCompounds(id);
+  let compounds: MibigCompound[] = mibigCompounds;
+  if (compounds.length === 0) {
+    const d = deriveCompoundFromPathway(entry);
+    if (d) compounds = [{ name: d!.name, smiles: d!.smiles, formula: d!.formula, mass: d!.mass, derived: true }];
+  }
 
   const category = deriveCategory(entry.biosynthetic_class);
   const catStyle = categoryStyle[category];

@@ -29,6 +29,7 @@ export type MibigCompound = {
   smiles: string;
   mass: number | null;
   formula: string | null;
+  derived?: boolean;  // true = SMILES taken from final pathway step, not MIBiG
 };
 
 /** Render a molecular formula with HTML subscript numbers (e.g. C₁₉H₂₂O₆). */
@@ -301,6 +302,30 @@ export default function CompoundPanel({ compounds }: { compounds: MibigCompound[
           }}
         >
           {cur.name}
+        </div>
+      )}
+
+      {/* ── "Derived from pathway" notice ───────────────────────────────── */}
+      {cur.derived && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 5,
+            padding: "5px 10px",
+            backgroundColor: "#f5f5fb",
+            border: "1px solid #dde",
+            borderRadius: 6,
+            fontSize: 11,
+            color: "#6b7280",
+            lineHeight: 1.4,
+          }}
+        >
+          <svg width={12} height={12} viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, color: "#9898c8" }}>
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M8 7v5M8 5v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          Final product SMILES from curated pathway data
         </div>
       )}
 
