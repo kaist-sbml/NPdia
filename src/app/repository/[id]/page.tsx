@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
@@ -140,23 +139,32 @@ function readCompounds(id: string): MibigCompound[] {
     }));
 }
 
-function deriveCompoundFromPathway(entry: Pathway): MibigCompound | null {
-  if (!entry.steps.length) return null;
-  // Prefer the TE (thioesterase) step; otherwise take the highest numeric order
-  const teStep = entry.steps.find((s) => s.order === "TE");
-  const lastStep = teStep ?? [...entry.steps].sort((a, b) => {
+function deriveCompoundsFromPathway(entry: Pathway): MibigCompound[] {
+  if (!entry.steps.length) return [];
+
+  const names = entry.compound_name.split(";").map((n) => n.trim()).filter(Boolean);
+  const n = names.length;
+
+  // Sort steps numerically (TE sorts as 0 so handle separately)
+  const sorted = [...entry.steps].sort((a, b) => {
     const na = parseFloat(a.order) || 0;
     const nb = parseFloat(b.order) || 0;
     return na - nb;
-  }).at(-1);
-  const smiles = lastStep?.product_smiles?.trim();
-  if (!smiles || smiles.includes("[R]")) return null;
-  return {
-    name: entry.compound_name,
-    smiles,
-    formula: null,
-    mass: null,
-  };
+  });
+
+  // Multiple TE steps → each variant has its own TE
+  const teSteps = entry.steps.filter((s) => s.order === "TE");
+  const candidates = teSteps.length >= n ? teSteps.slice(0, n) : sorted.slice(-n);
+
+  return candidates
+    .map((s, i) => ({
+      name: names[i] ?? names[0],
+      smiles: s.product_smiles?.trim() ?? "",
+      formula: null as string | null,
+      mass: null as number | null,
+      derived: true,
+    }))
+    .filter((c) => c.smiles && !c.smiles.includes("[R]"));
 }
 
 // ── Static params (pre-render all 163 entries) ────────────────────────────────
@@ -173,7 +181,6 @@ export default async function EntryDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  redirect("/");
   const { id } = await params;
   const pathways = readPathways();
   const entry = pathways[id];
@@ -188,11 +195,8 @@ export default async function EntryDetailPage({
 
   const loci = readGeneLoci(id);
   const mibigCompounds = readCompounds(id);
-  let compounds: MibigCompound[] = mibigCompounds;
-  if (compounds.length === 0) {
-    const d = deriveCompoundFromPathway(entry);
-    if (d) compounds = [{ name: d!.name, smiles: d!.smiles, formula: d!.formula, mass: d!.mass, derived: true }];
-  }
+  const compounds: MibigCompound[] =
+    mibigCompounds.length > 0 ? mibigCompounds : deriveCompoundsFromPathway(entry);
 
   const category = deriveCategory(entry.biosynthetic_class);
   const catStyle = categoryStyle[category];
