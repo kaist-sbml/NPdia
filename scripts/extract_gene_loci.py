@@ -284,11 +284,14 @@ def parse_gbk(gbk_path):
         lt    = g.get("locus_tag")
         if not gname and not lt:
             continue
+        # Forward strand: ascending genomic position = N→C protein order.
+        # Reverse strand: descending genomic position = N→C protein order.
+        rev = g["strand"] == -1
         gene_modules = sorted(
             [m for m in asmodule_list
              if (gname and gname in m["locus_tags"])
              or (lt    and lt    in m["locus_tags"])],
-            key=lambda m: m["start"],
+            key=lambda m: -m["start"] if rev else m["start"],
         )
         if not gene_modules:
             continue
