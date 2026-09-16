@@ -3,7 +3,7 @@
     "title": "T1PKS/NRPS Biosynthesis Pathway Collection",
     "description": "Structured database of Type I PKS and NRPS biosynthetic pathways from MIBiG entries, curated from Actinomycetes-derived BGCs",
     "total_bgcs": 448,
-    "total_steps": 7323,
+    "total_steps": 7325,
     "source": "MIBiG (Minimum Information about a Biosynthetic Gene cluster)",
     "schema_version": "1.0",
     "fields": {
@@ -1795,13 +1795,15 @@
           "order": "8",
           "enzyme": "aurC",
           "module": "4",
-          "nonlinearity": "{'ModuleSkip': 'Skip'}",
+          "nonlinearity": "{'Missing': ['AT', 'KR']}",
           "substrate": {
-            "raw": "24-7",
+            "raw": "24-7;Methylmalonyl-CoA",
             "precursor_refs": [
               "24-7"
             ],
-            "molecules": null
+            "molecules": [
+              "Methylmalonyl-CoA"
+            ]
           },
           "product_smiles": "CC(/C=C(CCC(O)C(C(O)C(C(O)=O)C)C)\\C)=C\\C1=CC=C([N+]([O-])=O)C=C1",
           "product_id": "24-8"
@@ -11205,7 +11207,7 @@
         },
         {
           "order": "36",
-          "enzyme": "idnP5",
+          "enzyme": "idnP5;idnL5",
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
@@ -14522,7 +14524,7 @@
         },
         {
           "order": "14",
-          "enzyme": "meiA4",
+          "enzyme": "meiA4, ?",
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
@@ -32338,8 +32340,10 @@
           "module": "3",
           "nonlinearity": null,
           "substrate": {
-            "raw": "3,5-dihydroxyphenylglycine",
-            "precursor_refs": null,
+            "raw": "1178-2;3,5-dihydroxyphenylglycine",
+            "precursor_refs": [
+              "1178-2"
+            ],
             "molecules": [
               "3,5-dihydroxyphenylglycine"
             ]
@@ -32353,8 +32357,10 @@
           "module": "4",
           "nonlinearity": null,
           "substrate": {
-            "raw": "4-hydroxyphenylglycine",
-            "precursor_refs": null,
+            "raw": "1178-3;4-hydroxyphenylglycine",
+            "precursor_refs": [
+              "1178-3"
+            ],
             "molecules": [
               "4-hydroxyphenylglycine"
             ]
@@ -32368,8 +32374,10 @@
           "module": "5",
           "nonlinearity": null,
           "substrate": {
-            "raw": "4-hydroxyphenylglycine",
-            "precursor_refs": null,
+            "raw": "1178-4;4-hydroxyphenylglycine",
+            "precursor_refs": [
+              "1178-4"
+            ],
             "molecules": [
               "4-hydroxyphenylglycine"
             ]
@@ -32383,8 +32391,10 @@
           "module": "6",
           "nonlinearity": null,
           "substrate": {
-            "raw": "β-hydroxytyrosine",
-            "precursor_refs": null,
+            "raw": "1178-5;β-hydroxytyrosine",
+            "precursor_refs": [
+              "1178-5"
+            ],
             "molecules": [
               "β-hydroxytyrosine"
             ]
@@ -32398,8 +32408,10 @@
           "module": "7",
           "nonlinearity": null,
           "substrate": {
-            "raw": "3,5-dihydroxyphenylglycine",
-            "precursor_refs": null,
+            "raw": "1178-6;3,5-dihydroxyphenylglycine",
+            "precursor_refs": [
+              "1178-6"
+            ],
             "molecules": [
               "3,5-dihydroxyphenylglycine"
             ]
@@ -32413,8 +32425,10 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": null,
-            "precursor_refs": null,
+            "raw": "1178-7",
+            "precursor_refs": [
+              "1178-7"
+            ],
             "molecules": null
           },
           "product_smiles": "OC1=C(OC2=C(Cl)C=C3C=C2)C=C([C@H]4NC([C@@H](NC([C@H](NC(C(C5=CC(O6)=C(O)C(Cl)=C5)=O)=O)C3)=O)C7=CC(O)=CC6=C7)=O)C=C1OC8=CC=C([C@H]([C@@H](C(N[C@H](C9=CC(O)=CC(O)=C9C%10=CC([C@H]%11NC4=O)=CC(Cl)=C%10O)C(O)=O)=O)NC%11=O)O)C=C8Cl",
@@ -35696,7 +35710,7 @@
         {
           "order": "2",
           "enzyme": "sln14",
-          "module": null,
+          "module": "1",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-1;Methylmalonyl-CoA",
@@ -35713,7 +35727,7 @@
         {
           "order": "3",
           "enzyme": "sln14",
-          "module": null,
+          "module": "2",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-2;Threonine",
@@ -35730,7 +35744,7 @@
         {
           "order": "4",
           "enzyme": "sln8",
-          "module": null,
+          "module": "3",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-3;(D-Valine/D-Isoleucine)",
@@ -35747,7 +35761,7 @@
         {
           "order": "5",
           "enzyme": "sln7",
-          "module": null,
+          "module": "4",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-4;para-hydroxy-L-phenylglycine",
@@ -35764,7 +35778,7 @@
         {
           "order": "6",
           "enzyme": "sln7",
-          "module": null,
+          "module": "5",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-5;L-phenylalanine",
@@ -35781,7 +35795,7 @@
         {
           "order": "7",
           "enzyme": "sln7",
-          "module": null,
+          "module": "6",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-6;Threonine",
@@ -35798,7 +35812,7 @@
         {
           "order": "8",
           "enzyme": "sln6",
-          "module": null,
+          "module": "7",
           "nonlinearity": null,
           "substrate": {
             "raw": "1230-7;L-serine",
@@ -38263,7 +38277,7 @@
         },
         {
           "order": "11",
-          "enzyme": "atcF",
+          "enzyme": "atcF, ?",
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
@@ -50860,13 +50874,11 @@
           "module": null,
           "nonlinearity": "{'Missing': ['AT']}",
           "substrate": {
-            "raw": "1763-12;Malonyl-CoA",
+            "raw": "1763-20",
             "precursor_refs": [
-              "1763-12"
+              "1763-20"
             ],
-            "molecules": [
-              "Malonyl-CoA"
-            ]
+            "molecules": null
           },
           "product_smiles": "O=C(/C=C/C)O",
           "product_id": "1763-13"
@@ -50966,7 +50978,7 @@
         },
         {
           "order": "20",
-          "enzyme": "rufT, (rufM, rufS)",
+          "enzyme": "rufT",
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
@@ -50976,7 +50988,7 @@
             ],
             "molecules": null
           },
-          "product_smiles": "CC(C)C[C@H](N(C)C([C@H](C)NC([C@H](CC1=CC=C(O)C(C)=C1)NC([C@H](CC(C)C)N(C([C@H](CC2=CN(C(C)(C)C=C)C3=C2C=CC=C3)N4)=O)C)=O)=O)=O)C(N[C@@H](CC(C)C)C(NC(C/C=C/C)C4=O)=O)=O",
+          "product_smiles": "CC(C)C[C@H](N(C)C([C@H](C)NC([C@H](CC1=CC=C(O)C([N+]([O-])=O)=C1)NC([C@H](CC(C)C)N(C([C@H](CC2=CN(C(C)(C)C=C)C3=C2C=CC=C3)N4)=O)C)=O)=O)=O)C(N[C@@H](CC(C)C)C(NC(C/C=C/C)C4=O)=O)=O",
           "product_id": "1763"
         }
       ]
@@ -60811,26 +60823,11 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": "1846-4",
+            "raw": "1846-4;1846-4;1846-4",
             "precursor_refs": [
+              "1846-4",
+              "1846-4",
               "1846-4"
-            ],
-            "molecules": null
-          },
-          "product_smiles": "O[C@@H](C(N[C@@H](C(O[C@H](C(N[C@H](C(O)=O)C(C)C)=O)C)=O)C(C)C)=O)C(C)C",
-          "product_id": "1846-5"
-        },
-        {
-          "order": "6",
-          "enzyme": "?",
-          "module": null,
-          "nonlinearity": null,
-          "substrate": {
-            "raw": "1846-5;1846-5;1846-5",
-            "precursor_refs": [
-              "1846-5",
-              "1846-5",
-              "1846-5"
             ],
             "molecules": null
           },
@@ -60838,15 +60835,15 @@
           "product_id": "1846(1)"
         },
         {
-          "order": "7",
-          "enzyme": "?",
-          "module": null,
+          "order": "6",
+          "enzyme": "STAN_6721",
+          "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": "1846-5;1846-5",
+            "raw": "1846-4;1846-4",
             "precursor_refs": [
-              "1846-5",
-              "1846-5"
+              "1846-4",
+              "1846-4"
             ],
             "molecules": null
           },
@@ -81383,11 +81380,26 @@
             ],
             "molecules": null
           },
-          "product_smiles": "OC(CC(O1)C1/C=C/C(OC(C)C/C=C/C=C/C=C/C=C/C(O)C2)=O)CC3(O)OC2C(C(O)=O)C(O)C3",
+          "product_smiles": "OC(C/C=C/C=C/1)CC(CC(O)C(C)C(O)CC(O)/C=C/C=C/C=C/C=C/CC(C)OC1=O)=O",
           "product_id": "125-14"
         },
         {
           "order": "15",
+          "enzyme": "?",
+          "module": null,
+          "nonlinearity": null,
+          "substrate": {
+            "raw": "125-14",
+            "precursor_refs": [
+              "125-14"
+            ],
+            "molecules": null
+          },
+          "product_smiles": "OC(CC(O1)C1/C=C/C(OC(C)C/C=C/C=C/C=C/C=C/C(O)C2)=O)CC3(O)OC2C(C(O)=O)C(O)C3",
+          "product_id": "125-15"
+        },
+        {
+          "order": "16",
           "enzyme": "Start",
           "module": null,
           "nonlinearity": null,
@@ -81399,18 +81411,18 @@
             ]
           },
           "product_smiles": "OC1C(O)C(N)C(O)C(C)O1",
-          "product_id": "125-15"
+          "product_id": "125-16"
         },
         {
-          "order": "16",
+          "order": "17",
           "enzyme": "pimK",
           "module": null,
           "nonlinearity": null,
           "substrate": {
-            "raw": "125-14;125-15",
+            "raw": "125-15;125-16",
             "precursor_refs": [
-              "125-14",
-              "125-15"
+              "125-15",
+              "125-16"
             ],
             "molecules": null
           },
@@ -81657,11 +81669,26 @@
             ],
             "molecules": null
           },
-          "product_smiles": "OC(CC(O1)C1/C=C/C(OC(C)C/C=C/C=C/C=C/C=C/C(O)C2)=O)CC3(O)OC2C(C(O)=O)C(O)C3",
+          "product_smiles": "OC1C(C)C(O)CC(CC(CCC/C=C/C(OC(C)C/C=C/C=C/C=C/C=C/C(O)C1)=O)O)=O",
           "product_id": "1690-14"
         },
         {
           "order": "15",
+          "enzyme": "?",
+          "module": null,
+          "nonlinearity": null,
+          "substrate": {
+            "raw": "1690-14",
+            "precursor_refs": [
+              "1690-14"
+            ],
+            "molecules": null
+          },
+          "product_smiles": "OC(CC(O1)C1/C=C/C(OC(C)C/C=C/C=C/C=C/C=C/C(O)C2)=O)CC3(O)OC2C(C(O)=O)C(O)C3",
+          "product_id": "1690-15"
+        },
+        {
+          "order": "16",
           "enzyme": "Start",
           "module": null,
           "nonlinearity": null,
@@ -81673,7 +81700,7 @@
             ]
           },
           "product_smiles": "OC1C(O)C(N)C(O)C(C)O1",
-          "product_id": "1690-15"
+          "product_id": "1690-16"
         },
         {
           "order": "16",
@@ -86403,7 +86430,7 @@
               "Methylmalonyl-CoA"
             ]
           },
-          "product_smiles": "OC([C@H](C)CCC)=O",
+          "product_smiles": "OC([C@H](C)C(O)CC)=O",
           "product_id": "102-2"
         },
         {
@@ -86420,7 +86447,7 @@
               "Malonyl-CoA"
             ]
           },
-          "product_smiles": "OC(/C=C/[C@H](C)CCC)=O",
+          "product_smiles": "OC(/C=C/[C@H](C)C(O)CC)=O",
           "product_id": "102-3"
         },
         {
@@ -86437,7 +86464,7 @@
               "Malonyl-CoA"
             ]
           },
-          "product_smiles": "OC(/C=C/C=C/[C@H](C)CCC)=O",
+          "product_smiles": "OC(/C=C/C=C/[C@H](C)C(O)CC)=O",
           "product_id": "102-4"
         },
         {
@@ -86454,7 +86481,7 @@
               "Methylmalonyl-CoA"
             ]
           },
-          "product_smiles": "OC(C(C)C(/C=C/C=C/[C@H](C)CCC)=O)=O",
+          "product_smiles": "OC([C@@H](C)C(/C=C/C=C/[C@H](C)C(O)CC)=O)=O",
           "product_id": "102-5"
         },
         {
@@ -86471,7 +86498,7 @@
               "Methylmalonyl-CoA"
             ]
           },
-          "product_smiles": "OC(C(C)C[C@@H](C)C(/C=C/C=C/[C@H](C)CCC)=O)=O",
+          "product_smiles": "OC([C@@H](C)C[C@@H](C)C(/C=C/C=C/[C@H](C)C(O)CC)=O)=O",
           "product_id": "102-6"
         },
         {
@@ -86488,7 +86515,7 @@
               "Methylmalonyl-CoA"
             ]
           },
-          "product_smiles": "OC(C(C)[C@@H](O)[C@@H](C)C[C@@H](C)C(/C=C/C=C/[C@H](C)CCC)=O)=O",
+          "product_smiles": "OC([C@H](C)[C@@H](O)[C@@H](C)C[C@@H](C)C(/C=C/C=C/[C@H](C)C(O)CC)=O)=O",
           "product_id": "102-7"
         },
         {
@@ -86505,7 +86532,7 @@
               "Malonyl-CoA"
             ]
           },
-          "product_smiles": "OC(/C=C/[C@H](C)[C@@H](O)[C@@H](C)C[C@@H](C)C(/C=C/C=C/[C@H](C)CCC)=O)=O",
+          "product_smiles": "OC(/C=C/[C@H](C)[C@@H](O)[C@@H](C)C[C@@H](C)C(/C=C/C=C/[C@H](C)C(O)CC)=O)=O",
           "product_id": "102-8"
         },
         {
@@ -91667,8 +91694,10 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": null,
-            "precursor_refs": null,
+            "raw": "291-14",
+            "precursor_refs": [
+              "291-14"
+            ],
             "molecules": null
           },
           "product_smiles": "O=C(CCCCCCCCC)N[C@@H](CC1=CNC2=C1C=CC=C2)C(N[C@H](CCC(O)=O)C(N[C@@H]([C@H](O)C(N)=O)C(N[C@@H]3C(N(C)CC(N[C@H](C(N[C@@H](CC(O)=O)C(N[C@H](CCCCN)C(N[C@@H]([C@@H](C(O)=O)OC)C(NCC(N[C@H](CC(N)=O)C(NC(C(N[C@@H]([C@H](C)CC)C(O[C@@H]3C)=O)=O)[C@@H](C)CC(O)=O)=O)=O)=O)=O)=O)=O)C)=O)=O)=O)=O)=O",
@@ -95687,7 +95716,7 @@
             ],
             "molecules": null
           },
-          "product_smiles": "O=C1[C@@H](NC(CNC(CNC([C@@H](CCCNC(N)=N)NC(C2=CC=CC(O)=C2O)=O)=O)=O)=O)COC([C@@H](NC(CNC(CNC([C@@H](CCCNC(N)=N)NC(C3=CC=CC(O)=C3O)=O)=O)=O)=O)CCCN1O)=O",
+          "product_smiles": "O=C(O)C(NC(CNC(CNC(C(NC(C1=CC=CC(O)=C1O)=O)CCCNC(N)=N)=O)=O)=O)CCCN(O)C(C(CO)NC(CNC(CNC(C(CCCNC(N)=N)NC(C2=CC=CC(O)=C2O)=O)=O)=O)=O)=O",
           "product_id": "359-7"
         },
         {
@@ -95702,7 +95731,7 @@
             ],
             "molecules": null
           },
-          "product_smiles": "O=C1[C@@H](NC(CNC(CNC([C@@H](CCCNC(N)=N)NC(C2=CC=CC(O)=C2O)=O)=O)=O)=O)COC([C@@H](NC(CNC(CNC([C@@H](CCCNC(N)=N)NC(C3=CC=CC(O)=C3O)=O)=O)=O)=O)CCCN1O)=O",
+          "product_smiles": "O=C1C(NC(CNC(CNC(C(CCCNC(N)=N)NC(C2=CC=CC(O)=C2O)=O)=O)=O)=O)COC(C(NC(CNC(CNC(C(CCCNC(N)=N)NC(C3=CC=CC(O)=C3O)=O)=O)=O)=O)CCCN1O)=O",
           "product_id": "359(1)"
         },
         {
@@ -95920,9 +95949,9 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": "360-7",
+            "raw": "360-11",
             "precursor_refs": [
-              "360-7"
+              "360-11"
             ],
             "molecules": null
           },
@@ -96366,9 +96395,9 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": "371-4",
+            "raw": "371-6",
             "precursor_refs": [
-              "371-4"
+              "371-6"
             ],
             "molecules": null
           },
@@ -116634,13 +116663,28 @@
         },
         {
           "order": "29",
-          "enzyme": "BAW35627.1, med9",
+          "enzyme": "med9",
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
             "raw": "2356-28",
             "precursor_refs": [
               "2356-28"
+            ],
+            "molecules": null
+          },
+          "product_smiles": "NCCC[C@@H](O)C[C@@H](O)C/C=C/[C@@H](O)C[C@H](O)C/C=C/[C@H](O)C[C@@H](O)C[C@@H](O)C/C=C/[C@@H](O)C[C@@H](O)CC([C@H](C)[C@@H](OS(=O)(O)=O)C/C=C/C=C/C=C/C=C/C=C/C=C/[C@@H](O)[C@H](C)[C@@H](O)[C@@H](C)/C=C/CC/C=C/C=C/C=C(C)/C(O)=O)=O",
+          "product_id": "2356-29"
+        },
+        {
+          "order": "30",
+          "enzyme": "BAW35627.1",
+          "module": null,
+          "nonlinearity": null,
+          "substrate": {
+            "raw": "2356-29",
+            "precursor_refs": [
+              "2356-29"
             ],
             "molecules": null
           },
@@ -117416,10 +117460,10 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": "2359-4;2359-3",
+            "raw": "2359-4;2359-5",
             "precursor_refs": [
               "2359-4",
-              "2359-3"
+              "2359-5"
             ],
             "molecules": null
           },
@@ -119481,9 +119525,9 @@
           "module": null,
           "nonlinearity": null,
           "substrate": {
-            "raw": "2376-14",
+            "raw": "2376-16",
             "precursor_refs": [
-              "2376-14"
+              "2376-16"
             ],
             "molecules": null
           },
@@ -119496,9 +119540,9 @@
           "module": "TE",
           "nonlinearity": null,
           "substrate": {
-            "raw": "2376-15",
+            "raw": "2376-17",
             "precursor_refs": [
-              "2376-15"
+              "2376-17"
             ],
             "molecules": null
           },

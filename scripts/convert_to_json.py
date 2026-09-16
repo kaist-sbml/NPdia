@@ -18,7 +18,7 @@ import openpyxl
 from datetime import datetime
 from collections import OrderedDict
 
-INPUT_FILE = "data/raw/T1PKS, NRPS biosynthesis pathway collection Real final.xlsx"
+INPUT_FILE = "data/raw/T1PKS, NRPS biosynthesis pathway collection_260907.xlsx"
 OUTPUT_FILE = "data/normalized/biosynthesis_pathways.json"
 
 HEADERS = [
@@ -28,6 +28,37 @@ HEADERS = [
 ]
 
 DATA_SHEETS = ["지희", "병섭", "현우"]
+
+# BGC entries excluded from the published database.
+EXCLUDED_BGCS = {"BGC0000088", "BGC0000954", "BGC0002689"}
+
+# Hangul syllables, jamo, and compatibility jamo — curation notes that must not ship.
+KOREAN_RE = re.compile(r'[가-힣ᄀ-ᇿ㄰-㆏]')
+
+
+def strip_if_korean(val):
+    """Blank out a field that contains Korean curation notes."""
+    if val and KOREAN_RE.search(str(val)):
+        return None
+    return val
+
+
+def capitalize_compound_name(name):
+    """
+    Uppercase the first letter of each ';'-separated compound name.
+
+    Only ASCII lowercase letters are touched: Greek prefixes such as
+    'α-' / 'β-' report True for str.islower() and must be left intact.
+    """
+    if not name:
+        return name
+    out = []
+    for part in str(name).split(';'):
+        s = part.strip()
+        if s and 'a' <= s[0] <= 'z':
+            s = s[0].upper() + s[1:]
+        out.append(s)
+    return ';'.join(out)
 
 
 def normalize_bgc_id(raw):
@@ -148,7 +179,6 @@ def process_sheet(ws, sheet_name):
                 "biosynthetic_class": cls,
                 "doi": doi,
                 "quality": quality if quality and quality.lower() not in ['nan'] else None,
-                "source_sheet": sheet_name,
                 "steps": []
             }
         elif mibig is None and current_bgc is not None:
@@ -220,7 +250,25 @@ def build_database():
             print(f"Sheet '{sheet_name}': {len(bgcs)} BGC pathways extracted")
     
     wb.close()
-    
+
+    # Drop excluded entries before computing metadata so the counts stay in sync
+    dropped = [b["mibig_id"] for b in all_bgcs if b["mibig_id"] in EXCLUDED_BGCS]
+    all_bgcs = [b for b in all_bgcs if b["mibig_id"] not in EXCLUDED_BGCS]
+    if dropped:
+        print(f"Excluded {len(dropped)} BGC(s): {', '.join(sorted(dropped))}")
+
+    # Publication clean-up: drop Korean curation notes, capitalize compound names
+    stripped = 0
+    for b in all_bgcs:
+        for field in ("quality", "doi", "compound_name", "biosynthetic_class"):
+            cleaned = strip_if_korean(b.get(field))
+            if cleaned != b.get(field):
+                stripped += 1
+            b[field] = cleaned
+        b["compound_name"] = capitalize_compound_name(b["compound_name"])
+    if stripped:
+        print(f"Blanked {stripped} field(s) containing Korean text")
+
     # Build the final database structure
     database = {
         "metadata": {
